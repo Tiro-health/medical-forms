@@ -1,0 +1,9 @@
+@layer components {
+    .section-panel-desc h1,h2,h3 {
+        @apply text-lg font-medium leading-6 text-gray-900;
+    }
+
+    .section-panel-desc p{
+        @apply mt-1 text-sm leading-5 text-gray-600;
+    }
+}
