@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from "@storybook/react";
 import { DiagnosisForm} from "./Diagnosis";
 import UUID from "uuidjs"
-import { Encounter, Patient } from "FHIRInput/models";
+import { Encounter, Patient } from "../FHIRInput/models";
 import { IFormProps } from "./types";
 type StoryArgs = IFormProps
 export default {

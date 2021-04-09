@@ -1,10 +1,10 @@
 {
   "name": "@tiro-health/medical-forms",
-  "version": "0.1.4",
+  "version": "0.1.0",
   "description": "Medical Forms for Structured Data Capture.",
   "main": "./build/index.js",
   "module": "./build/index.es.js",
-  "repository": "git://github.com/Tiro-health/tiro-app.git",
+  "repository": "git://github.com/Tiro-health/medical-forms.git",
   "files": [
     "./build"
   ],
@@ -47,6 +47,7 @@
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
+    "chromatic": "^5.7.1",
     "postcss": "^8.2.9",
     "postcss-cli": "^8.3.1",
     "react": "^16.8",
@@ -62,7 +63,8 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "deploy-storybook": "storybook-to-ghpage"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
