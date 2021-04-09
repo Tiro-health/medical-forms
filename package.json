@@ -64,7 +64,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "rollup -c",
-    "deploy-storybook": "storybook-to-ghpage"
+    "chromatic": "npx chromatic --project-token 20293ed0b05f"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
