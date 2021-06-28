@@ -1,0 +1,1 @@
+export type {ICoding} from "./types"

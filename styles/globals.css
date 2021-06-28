@@ -1,3 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .list-interpunct > li:before {
+    content: "・";
+    float: left;
+    margin: 0 0 0 -0.9em;
+    width: 0.9em;
+  }
+
+  @media (min-width: 992px) {
+    .list-interpunct > li:before {
+      margin: 0 0 0 -1.5em;
+      width: 1.5em;
+    }
+  }
+  input.hide-arrows[type=number]::-webkit-inner-spin-button, 
+  input.hide-arrows[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+}

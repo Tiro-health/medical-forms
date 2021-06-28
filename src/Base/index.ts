@@ -1,3 +1,4 @@
+import "tailwindcss/tailwind.css"
 export * from "./Button"
 export * from "./CheckBox"
 export * from "./FieldSet"
