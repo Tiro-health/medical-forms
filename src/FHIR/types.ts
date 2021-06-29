@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { R4 } from "@ahryman40k/ts-fhir-types"
-import { QuestionnaireCanonical } from "Questionnaires/QuestionnaireResponse";
 
 export interface IQuantity {
     value: number | undefined;
@@ -17,6 +16,10 @@ export type IAnswerValueString = { valueString: string | undefined }
 export type IAnswerValue = IAnswerValueCoding | IAnswerValueQuantity | IAnswerValueDate | IAnswerValueInteger | IAnswerValueDecimal | IAnswerValueString
 export type IAnswer = IAnswerValue[]
 
+export interface IQuestionnaire extends R4.IQuestionnaire{
+
+}
+
 export interface IQuestionnaireResponseItem extends R4.IQuestionnaireResponse_Item {
     linkId: string
     definition?: string
@@ -25,6 +28,7 @@ export interface IQuestionnaireResponseItem extends R4.IQuestionnaireResponse_It
 }
 
 export interface IQuestionnaireResponse extends R4.IQuestionnaireResponse {
+    resourceType: "QuestionnaireResponse"
     questionnaire: string
     item: IQuestionnaireResponseItem[]
 }

@@ -3,19 +3,15 @@ import { useContext } from "react"
 import { SetStateAction } from "react"
 import { reduceSetStateAction } from "util/dispatch"
 import { IAnswer, IAnswerValue, IQuestionnaireResponse, IQuestionnaireResponseItem,IReference} from "FHIR/types"
+import { TiroQuestionnaireCanonical } from "./Questionnaire"
 
 export interface ISingleValuedQRItem<A extends IAnswerValue> extends IQuestionnaireResponseItem{
     answer:[A]
 } 
 
-export type QuestionnaireCanonical =
-    | "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1"
-    | "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1"
-    | "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1";
-
-
-export interface TiroQuestionnaireResponse {
-    questionnaire : QuestionnaireCanonical
+export interface TiroQuestionnaireResponse extends IQuestionnaireResponse {
+    resourceType: "QuestionnaireResponse"
+    questionnaire : TiroQuestionnaireCanonical
 }
 
 type StateContext<T> = [T, Dispatch<SetStateAction<T>>]
@@ -101,4 +97,9 @@ export interface IQuestionnaireProps<QR extends IQuestionnaireResponse> {
     author?: string | IReference,
     initQuestionnaireResponse?: QR 
     onSubmit?: (qr: QR) => any
+}
+
+export interface SingleValuedAnswerChildrenProps<T extends IAnswerValue> {
+    answer: [T]
+    setAnswer: Dispatch<SetStateAction<[T]>>
 }

@@ -1,0 +1,68 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="components/Questionnaires/General" />
+
+# Questionnaires
+
+This pages gives a general walkthrough on how to use the Questionnaire components.
+
+All the necessary components and functions can be imported with the following line:
+
+```jsx
+import {
+  DynamicQuestionnaire,
+  getQuestionnaire,
+  getQuestionnaireIDs,
+} from "@tiro-health/medical-forms";
+```
+
+## Generate a questionnaire dynamically given it's identifier
+
+You can render a questionnaire dynamically given it's identifier using the `<DynamicQuestionnaire />` component.
+
+An example of how this component is typically used:
+
+```jsx
+<DynamicQuestionnaire
+  author="clinicianId123" /* a unique identifier for the author of the response */
+  onSubmit={() => {
+    /* your submit handler */
+  }}
+  questionnaire="http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1"
+  subject="patientId1234" /* a unique identifier for the subject of the questionnaire */
+/>
+```
+
+More info it's interface: [DynamicQuestionnaires](?path=/docs/components-questionnaires-dynamicquestionnaire--default)
+
+## Retrieve the available questionnaire identifiers
+
+Each questionnaire has a unique identifier, you can retrieve a list of these identifiers with the following function:
+
+```js
+getQuestionnaireIDs();
+
+/* expected response
+[
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1",
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1"
+]
+*/
+```
+
+## Retrieve details about the questionnaire.
+
+Each questionnaire has a human-readable _title_ and _description_ that can be retrieved using the following function:
+
+```js
+const id = "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1";
+getQuestionnaire(id);
+
+/* expected response
+{
+    resourceType: "Questionnaire",
+    title: "ICHOM LPC Baseline Tumor Factors",
+    description: "Questionnaire following the ICHOM standard set for localised prostate cancer. This questionnaire captures the baseline histological and clinical staging information about the tumor."
+}
+```

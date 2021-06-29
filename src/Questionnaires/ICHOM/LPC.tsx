@@ -1,15 +1,12 @@
 import React, { Dispatch, FormEvent, FormEventHandler, SetStateAction, useState } from "react"
-import { IQuestionnaireProps, ISingleValuedQRItem, QuestionnaireResponse, QuestionnaireResponseItem } from "../QuestionnaireResponse"
+import { IQuestionnaireProps, ISingleValuedQRItem, QuestionnaireResponse, QuestionnaireResponseItem, SingleValuedAnswerChildrenProps, TiroQuestionnaireResponse } from "../QuestionnaireResponse"
 import { Quantity } from "FHIR/Quantity"
-import { IAnswerValue, IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IQuestionnaireResponse } from "FHIR/types"
+import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IQuestionnaireResponse } from "FHIR/types"
 import { reduceSetStateAction } from "util/dispatch"
 import { ChoiceInput } from "Controlled/ChoiceInput"
 
-interface SingleValuedAnswerChildrenProps<T extends IAnswerValue> {
-    answer: [T]
-    setAnswer: Dispatch<SetStateAction<[T]>>
-}
-export interface IBaselineTumorFactorsQR extends IQuestionnaireResponse {
+
+export interface IBaselineTumorFactorsQR extends TiroQuestionnaireResponse {
     item: [
         ISingleValuedQRItem<IAnswerValueDate>,
         ISingleValuedQRItem<IAnswerValueQuantity>,
@@ -38,7 +35,7 @@ export const initBaselineTumorFactors = (): IBaselineTumorFactorsQR => ({
         { linkId: "GLEASONBIOP2", answer: [{ valueCoding: undefined }] },
     ]
 })
-export const initPathologicalInformation = (): IQuestionnaireResponse => ({
+export const initPathologicalInformation = (): TiroQuestionnaireResponse => ({
     resourceType: "QuestionnaireResponse",
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1",
     item: [
@@ -50,7 +47,7 @@ export const initPathologicalInformation = (): IQuestionnaireResponse => ({
         { linkId: "GLEASONPATH2", answer: [{ valueCoding: undefined }] },
     ]
 })
-export const initTreatmentVariables = (): IQuestionnaireResponse => ({
+export const initTreatmentVariables = (): TiroQuestionnaireResponse => ({
     resourceType: "QuestionnaireResponse",
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1",
     item: [
@@ -402,8 +399,8 @@ export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, ini
     )
 }
 
-export const PathologyInformation = ({ author, subject, onSubmit, initQuestionnaireResponse }: IQuestionnaireProps<IQuestionnaireResponse>) => {
-    const [qr, setQR] = useState(initQuestionnaireResponse ?? initPathologicalInformation)
+export const PathologyInformation = ({ author, subject, onSubmit, initQuestionnaireResponse }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
+    const [qr, setQR] = useState<TiroQuestionnaireResponse>(initQuestionnaireResponse ?? initPathologicalInformation)
     const pNOptions: ICoding[] = [
         { system: "http://tiro.health/fhir/ichom", code: "TNMPN/pN0", display: "pN0" },
         { system: "http://tiro.health/fhir/ichom", code: "TNMPN/pN1", display: "pN1" },
@@ -686,9 +683,9 @@ const QuestionDate = ({ label, variableID }: { label: string, variableID: string
 
 )
 
-export const TreatmentVariables = ({ author, subject, onSubmit, hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<IQuestionnaireResponse>) => {
+export const TreatmentVariables = ({ author, subject, onSubmit, hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
 
-    const [qr, setQR] = useState<IQuestionnaireResponse>(initQuestionnaireResponse ?? initTreatmentVariables)
+    const [qr, setQR] = useState<TiroQuestionnaireResponse>(initQuestionnaireResponse ?? initTreatmentVariables)
     const primaryTherapyOptions: ICoding[] = [
         { display: "Watchful waiting", code: "PRIMARYTX/1", system: "" },
         { display: "Active surveillance", code: "PRIMARYTX/2", system: "" },
