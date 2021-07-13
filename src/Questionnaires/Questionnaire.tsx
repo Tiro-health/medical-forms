@@ -1,12 +1,16 @@
 import React from "react"
 import { IQuestionnaire } from "FHIR/types";
-import { BaselineTumorFactors, IBaselineTumorFactorsQR, PathologyInformation, TreatmentVariables } from "./ICHOM/LPC";
+import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQR, PathologyInformation, PatientReportedHealthStatus, PatientReportedHealthStatusQuestionnaireResponse, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables } from "./ICHOM/LPC";
 import { IQuestionnaireProps, TiroQuestionnaireResponse } from "./QuestionnaireResponse";
 
 export const questionnaires = [
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1",
-    "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1"] as const
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1",
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1",
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1",
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1"
+] as const
 
 export type TiroQuestionnaireCanonical = typeof questionnaires[number]
 
@@ -35,7 +39,25 @@ export const getQuestionnaire = (id: TiroQuestionnaireCanonical): IQuestionnaire
             return {
                 resourceType: "Questionnaire",
                 title: "ICHOM LPC Treatment Variables",
-                description: "Questionnaire followin teh ICHOM standard set for localised prostate cancer. This questionnaire captures the treatment decision after clincial staging."
+                description: "Questionnaire following the ICHOM standard set for localised prostate cancer. This questionnaire captures the treatment decision after clincial staging."
+            }
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1":
+            return {
+                resourceType: "Questionnaire",
+                title: "ICHOM LPC Patient-Reported Health Status",
+                description: "Questionnaire following hte ICHOM standard set for localised prostate cancer. This questionnaires captures the patient reported outcomes at different moments before and during the treatment."
+            }
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1":
+            return {
+                resourceType: "Questionnaire",
+                title: "ICHOM LPC Acute Complications Of Treatment",
+                description: "Questionnaire following hte ICHOM standard set for localised prostate cancer. This questionnaires captures acute complications during the treatment."
+            }
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1":
+            return {
+                resourceType: "Questionnaire",
+                title: "ICHOM LPC Survival and Disease Control",
+                description: "Questionnaire following hte ICHOM standard set for localised prostate cancer. This questionnaires captures survival infromation and disease progression."
             }
         default:
             throw Error(`Invalid questionnaire id: ${id}`)
@@ -49,5 +71,11 @@ export const DynamicQuestionnaire = ({ questionnaire, ...props }: IQuestionnaire
             return <PathologyInformation {...props} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1":
             return <TreatmentVariables {...props} />
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1":
+            return <AcuteComplicationsOfTreatment {...props as IQuestionnaireProps<IAcuteComplicationsOfTreatmentQuestionnaireResponse>}/>
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1":
+            return <SurvivalDiseaseControl {...props as IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>}/>
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1":
+            return <PatientReportedHealthStatus {...props as IQuestionnaireProps<PatientReportedHealthStatusQuestionnaireResponse>}/>
     }
 }

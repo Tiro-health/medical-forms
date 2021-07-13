@@ -1,7 +1,7 @@
 import React from "react"
 import { Meta, Story } from "@storybook/react"
-import { IQuestionnaireProps, TiroQuestionnaireResponse } from "../QuestionnaireResponse"
-import { BaselineTumorFactors, IBaselineTumorFactorsQR } from "./LPC"
+import { IQuestionnaireProps, TiroQuestionnaireResponse } from "../../QuestionnaireResponse"
+import { BaselineTumorFactors, IBaselineTumorFactorsQR } from "."
 
 export default {
     title: "components/Questionnaires/ICHOMLocalisedProstateCancer/BaselineFactors",

@@ -1,3 +1,4 @@
+import React from "react"
 import { useState } from "react";
 import { useCombobox, useMultipleSelection } from "downshift";
 import { CheckIcon, SelectorIcon } from "./icons";

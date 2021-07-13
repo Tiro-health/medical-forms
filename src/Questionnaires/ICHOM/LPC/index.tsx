@@ -1,10 +1,14 @@
 import React, { Dispatch, FormEvent, FormEventHandler, SetStateAction, useState } from "react"
-import { IQuestionnaireProps, ISingleValuedQRItem, QuestionnaireResponse, QuestionnaireResponseItem, SingleValuedAnswerChildrenProps, TiroQuestionnaireResponse } from "../QuestionnaireResponse"
+import { initQuestionnaireResponse, IQuestionnaireProps, ISingleValuedQRItem, QuestionnaireResponse, QuestionnaireResponseItem, SingleValuedAnswerChildrenProps, TiroQuestionnaireResponse } from "../../QuestionnaireResponse"
 import { Quantity } from "FHIR/Quantity"
-import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IQuestionnaireResponse } from "FHIR/types"
+import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IQuestionnaireResponse } from "FHIR/types"
 import { reduceSetStateAction } from "util/dispatch"
 import { ChoiceInput } from "Controlled/ChoiceInput"
+import classNames from "classnames"
 
+export {SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse} from "./SurvivalDiseaseControl"
+export {AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse} from "./AcuteComplicationsOfTreatment"
+export {PatientReportedHealthStatus, IPatientReportedHealthStatusQuestionnaireResponse as PatientReportedHealthStatusQuestionnaireResponse} from "./PatientReportedHealthStatus"
 
 export interface IBaselineTumorFactorsQR extends TiroQuestionnaireResponse {
     item: [
@@ -21,7 +25,7 @@ export interface IBaselineTumorFactorsQR extends TiroQuestionnaireResponse {
 }
 
 export const initBaselineTumorFactors = (): IBaselineTumorFactorsQR => ({
-    resourceType: "QuestionnaireResponse",
+    ...initQuestionnaireResponse(),
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
     item: [
         { linkId: "DIAGDATE", answer: [{ valueDate: "23/03/1999" }] },
@@ -36,7 +40,7 @@ export const initBaselineTumorFactors = (): IBaselineTumorFactorsQR => ({
     ]
 })
 export const initPathologicalInformation = (): TiroQuestionnaireResponse => ({
-    resourceType: "QuestionnaireResponse",
+    ...initQuestionnaireResponse(),
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1",
     item: [
         { linkId: "TNMPT", answer: [{ valueCoding: undefined }] },
@@ -48,7 +52,7 @@ export const initPathologicalInformation = (): TiroQuestionnaireResponse => ({
     ]
 })
 export const initTreatmentVariables = (): TiroQuestionnaireResponse => ({
-    resourceType: "QuestionnaireResponse",
+    ...initQuestionnaireResponse(),
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1",
     item: [
         { linkId: "PRIMARYTX", answer: [{ valueCoding: undefined }] },
@@ -103,6 +107,7 @@ export const initTreatmentVariables = (): TiroQuestionnaireResponse => ({
     ]
 })
 
+
 const Footer = ({ clear }: React.PropsWithChildren<{ clear: () => any }>) => (
     <div className="pt-5">
         <div className="flex justify-end">
@@ -123,7 +128,7 @@ const Footer = ({ clear }: React.PropsWithChildren<{ clear: () => any }>) => (
     </div>
 )
 
-export const Form = ({ children, title, hideTitle, handleSubmit, handleClear }: React.PropsWithChildren<{ title: string, hideTitle?: boolean, handleSubmit: FormEventHandler, handleClear: () => any }>) => (
+export const FormContainer = ({ children, title, hideTitle, handleSubmit, handleClear }: React.PropsWithChildren<{ title: string, hideTitle?: boolean, handleSubmit: FormEventHandler<HTMLFormElement>, handleClear: () => any }>) => (
     <form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit}>
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <div>
@@ -136,8 +141,8 @@ export const Form = ({ children, title, hideTitle, handleSubmit, handleClear }: 
                     </div>
                 )}
                 <div className="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-                    {React.Children.map(children, (c) => (
-                        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    {React.Children.map(children, (c, index) => (
+                        <div className={classNames("sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start",{"sm:border-t sm:border-gray-200 sm:pt-5": !hideTitle || index > 0})}>
                             {c}
                         </div>
                     ))}
@@ -148,7 +153,7 @@ export const Form = ({ children, title, hideTitle, handleSubmit, handleClear }: 
     </form>
 )
 
-export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<IBaselineTumorFactorsQR>) => {
+export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, title="Baseline Tumor Factors", initQuestionnaireResponse }: IQuestionnaireProps<IBaselineTumorFactorsQR>) => {
     const cTOptions: ICoding[] = [
         { system: "http://tiro.health/fhir/ichom", code: "TNMCT/cT0", display: "cT0" },
         { system: "http://tiro.health/fhir/ichom", code: "TNMCT/cT1", display: "cT1" },
@@ -178,7 +183,7 @@ export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, ini
     }
     return (
         <QuestionnaireResponse questionnaireResponse={qr} onQuestionnaireResponseChange={setQR} >
-            <Form title="Baseline Tumor Factors" handleSubmit={handleSubmit} handleClear={() => setQR(initBaselineTumorFactors)}>
+            <FormContainer title={title} hideTitle={hideTitle} handleSubmit={handleSubmit} handleClear={() => setQR(initBaselineTumorFactors)}>
                 <QuestionnaireResponseItem linkId="DIAGDATE">
                     {({ answer, setAnswer }: { answer: [IAnswerValueDate], setAnswer: Dispatch<SetStateAction<[IAnswerValueDate]>> }) => (
                         <>
@@ -394,12 +399,12 @@ export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, ini
                         </fieldset>
                     </div>
                 </>
-            </Form>
+            </FormContainer>
         </QuestionnaireResponse >
     )
 }
 
-export const PathologyInformation = ({ author, subject, onSubmit, initQuestionnaireResponse }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
+export const PathologyInformation = ({ author, subject, onSubmit, initQuestionnaireResponse, title="Pathological information", hideTitle }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
     const [qr, setQR] = useState<TiroQuestionnaireResponse>(initQuestionnaireResponse ?? initPathologicalInformation)
     const pNOptions: ICoding[] = [
         { system: "http://tiro.health/fhir/ichom", code: "TNMPN/pN0", display: "pN0" },
@@ -426,8 +431,8 @@ export const PathologyInformation = ({ author, subject, onSubmit, initQuestionna
     }
     return (
         <QuestionnaireResponse questionnaireResponse={qr} onQuestionnaireResponseChange={setQR} >
-            <Form title="Pathological information" handleSubmit={handleSubmit} handleClear={() => setQR(initPathologicalInformation())}>
-            <>
+            <FormContainer title={title} hideTitle={hideTitle} handleSubmit={handleSubmit} handleClear={() => setQR(initPathologicalInformation())}>
+                <>
                     <legend className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Clinical stage</legend>
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="mt-1 w-full relative flex border border-gray-300  bg-white rounded-md">
@@ -473,7 +478,7 @@ export const PathologyInformation = ({ author, subject, onSubmit, initQuestionna
                             </QuestionnaireResponseItem>
                         </div>
                     </div>
-                </> 
+                </>
                 <QuestionnaireResponseItem linkId="MARGIN">
                     {({ answer, setAnswer }: SingleValuedAnswerChildrenProps<IAnswerValueInteger>) => (
                         <>
@@ -600,7 +605,7 @@ export const PathologyInformation = ({ author, subject, onSubmit, initQuestionna
                         </fieldset>
                     </div>
                 </>
-            </Form >
+            </FormContainer >
         </QuestionnaireResponse >
     )
 }
@@ -683,7 +688,7 @@ const QuestionDate = ({ label, variableID }: { label: string, variableID: string
 
 )
 
-export const TreatmentVariables = ({ author, subject, onSubmit, hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
+export const TreatmentVariables = ({ author, subject, onSubmit, title="Threatment variables", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
 
     const [qr, setQR] = useState<TiroQuestionnaireResponse>(initQuestionnaireResponse ?? initTreatmentVariables)
     const primaryTherapyOptions: ICoding[] = [
@@ -702,7 +707,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, hideTitle, initQ
     }
     return (
         <QuestionnaireResponse questionnaireResponse={qr} onQuestionnaireResponseChange={setQR}>
-            <Form title="Threatment variables" handleSubmit={handleSubmit} handleClear={() => setQR(initTreatmentVariables())}>
+            <FormContainer title={title} hideTitle={hideTitle} handleSubmit={handleSubmit} handleClear={() => setQR(initTreatmentVariables())}>
                 <QuestionnaireResponseItem linkId="PRIMARYTX">
                     {({ answer, setAnswer }: SingleValuedAnswerChildrenProps<IAnswerValueCoding>) => (
                         <>
@@ -883,7 +888,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, hideTitle, initQ
                             >
                                 Indicate the type of focal therapy used for this patient</label>
                             <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
-                                 <textarea
+                                <textarea
                                     className="focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md placeholder-gray-300"
                                     value={answer[0].valueString}
                                     onChange={(event) => setAnswer([{ valueString: event.target.value }])}
@@ -914,7 +919,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, hideTitle, initQ
                 <QuestionStartStopOngoing startVariableID="PROTHERTXSTARTDATE" stopVariableId="PROTHERTXSTOPDATE" ongoingVariableId="PROTHERTXONGOING" label="Period of primary other therapy" />
 
 
-            </Form >
+            </FormContainer >
         </QuestionnaireResponse >
     )
 }

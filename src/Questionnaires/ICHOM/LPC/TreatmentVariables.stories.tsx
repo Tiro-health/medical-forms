@@ -1,7 +1,7 @@
 import React from "react"
 import { Meta, Story } from "@storybook/react"
-import { IQuestionnaireProps, TiroQuestionnaireResponse} from "../QuestionnaireResponse"
-import {TreatmentVariables} from "./LPC"
+import { IQuestionnaireProps, TiroQuestionnaireResponse} from "../../QuestionnaireResponse"
+import {TreatmentVariables} from "."
 
 export default {
     title:"components/Questionnaires/ICHOMLocalisedProstateCancer/TreatmentVariables",

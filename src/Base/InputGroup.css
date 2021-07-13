@@ -1,6 +1,0 @@
-
-@layer components {
-    div.input-group select{
-        @apply focus:ring-blue-200 focus:border focus:border-blue-300 border-gray-300 block pl-2 pr-7 bg-white text-gray-500 sm:text-sm first:rounded-l-md last:rounded-r-md border-r-0 last:border-r;
-    }
-}

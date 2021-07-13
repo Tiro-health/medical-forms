@@ -2,17 +2,24 @@ import React, { Dispatch, useCallback } from "react"
 import { useContext } from "react"
 import { SetStateAction } from "react"
 import { reduceSetStateAction } from "util/dispatch"
-import { IAnswer, IAnswerValue, IQuestionnaireResponse, IQuestionnaireResponseItem,IReference} from "FHIR/types"
-import { TiroQuestionnaireCanonical } from "./Questionnaire"
+import { IAnswer, IAnswerValue, IQuestionnaireResponse, IQuestionnaireResponseItem, IReference } from "FHIR/types"
+import { questionnaires, TiroQuestionnaireCanonical } from "./Questionnaire"
+import uuid from "uuidjs"
 
-export interface ISingleValuedQRItem<A extends IAnswerValue> extends IQuestionnaireResponseItem{
-    answer:[A]
-} 
+export interface ISingleValuedQRItem<A extends IAnswerValue> extends IQuestionnaireResponseItem {
+    answer: [A]
+}
 
 export interface TiroQuestionnaireResponse extends IQuestionnaireResponse {
     resourceType: "QuestionnaireResponse"
-    questionnaire : TiroQuestionnaireCanonical
+    questionnaire: TiroQuestionnaireCanonical
 }
+
+export const initQuestionnaireResponse = (): Pick<TiroQuestionnaireResponse, "identifier" | "resourceType"> => (
+    {
+        identifier: { value: uuid.genV4().urn },
+        resourceType: "QuestionnaireResponse",
+    })
 
 type StateContext<T> = [T, Dispatch<SetStateAction<T>>]
 
@@ -72,7 +79,7 @@ export const QuestionnaireResponseItem = ({ children, linkId, text }: IQuestionn
 
     // return a children renderer with props: answer, appendAnswer, setAnswer, clearAnswers, 
     if (typeof children === "function") {
-        return children({ answer: qrItem.answer, setAnswer} as IQuestionnaireResponseReturnType)
+        return children({ answer: qrItem.answer, setAnswer } as IQuestionnaireResponseReturnType)
     }
     return (
         <QRItemContext.Provider value={[{ ...qrItem, linkId, text }, onQRItemChange as any]}>
@@ -95,7 +102,7 @@ export interface IQuestionnaireProps<QR extends IQuestionnaireResponse> {
     hideTitle?: boolean
     subject?: string | IReference
     author?: string | IReference,
-    initQuestionnaireResponse?: QR 
+    initQuestionnaireResponse?: QR
     onSubmit?: (qr: QR) => any
 }
 

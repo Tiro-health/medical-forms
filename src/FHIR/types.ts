@@ -12,8 +12,9 @@ export type IAnswerValueCoding = { valueCoding: ICoding | undefined }
 export type IAnswerValueInteger = { valueInteger: number| undefined }
 export type IAnswerValueDecimal = { valueDecimal: number| undefined }
 export type IAnswerValueString = { valueString: string | undefined }
+export type IAnswerValueBoolean = {valueBoolean: boolean | undefined}
 
-export type IAnswerValue = IAnswerValueCoding | IAnswerValueQuantity | IAnswerValueDate | IAnswerValueInteger | IAnswerValueDecimal | IAnswerValueString
+export type IAnswerValue = IAnswerValueCoding | IAnswerValueQuantity | IAnswerValueDate | IAnswerValueInteger | IAnswerValueDecimal | IAnswerValueString | IAnswerValueBoolean
 export type IAnswer = IAnswerValue[]
 
 export interface IQuestionnaire extends R4.IQuestionnaire{

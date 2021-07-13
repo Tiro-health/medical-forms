@@ -21,5 +21,14 @@
   input.hide-arrows[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
-}
+  }
+  input.checkbox[type=checkbox]{
+    @apply focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded;
+  }
+  input.radio[type=radio]{
+    @apply focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300;
+  }
+  input.field {
+    @apply focus:ring-blue-500 focus:border-blue-500 flex-grow pl-7 sm:text-sm border-gray-300 rounded-md shadow-sm block w-full;
+  }
 }
