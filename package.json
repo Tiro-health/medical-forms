@@ -1,6 +1,6 @@
 {
   "name": "@tiro-health/medical-forms",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Medical Forms for Structured Data Capture.",
   "main": "./commonjs",
   "module": "./es6",
