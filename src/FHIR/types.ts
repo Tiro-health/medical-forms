@@ -61,4 +61,5 @@ export interface ICoding extends Omit<IConcept, "designation"> {
 } 
 
 export interface IReference extends R4.IReference{
+  identifier: {value: string}
 }

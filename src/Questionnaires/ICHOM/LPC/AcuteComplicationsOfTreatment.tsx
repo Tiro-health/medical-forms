@@ -1,7 +1,7 @@
 import { Label } from "Base/Label"
-import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueInteger, IAnswerValueString } from "FHIR/types"
+import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueInteger, IAnswerValueString, IReference } from "FHIR/types"
 import { Field, Formik } from "formik"
-import { IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
+import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import React from "react"
 import { FormContainer } from "."
 
@@ -17,7 +17,7 @@ export interface IAcuteComplicationsOfTreatmentQuestionnaireResponse extends Tir
 }
 
 export const initAcuteComplicationsOfTreatment = (): IAcuteComplicationsOfTreatmentQuestionnaireResponse => ({
-    resourceType: "QuestionnaireResponse",
+    ...initQuestionnaireResponse(),
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1",
     item: [
         { linkId: "COMPLSURG", answer: [{ valueInteger: 0 }] },
@@ -28,7 +28,9 @@ export const initAcuteComplicationsOfTreatment = (): IAcuteComplicationsOfTreatm
 })
 
 export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title = "Acute Complications of Treatment", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<IAcuteComplicationsOfTreatmentQuestionnaireResponse>) => {
-    const init = initQuestionnaireResponse ?? initAcuteComplicationsOfTreatment() as IAcuteComplicationsOfTreatmentQuestionnaireResponse
+    const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
+    const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
+    const init = {...initQuestionnaireResponse ?? initAcuteComplicationsOfTreatment() as IAcuteComplicationsOfTreatmentQuestionnaireResponse, author:authorReference, subject:subjectReference}
     return (
         <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)}>
             {({

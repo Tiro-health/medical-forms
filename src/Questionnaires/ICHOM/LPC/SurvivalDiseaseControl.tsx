@@ -1,5 +1,5 @@
 import React from "react"
-import { IAnswerValueBoolean, IAnswerValueDate, IAnswerValueQuantity } from "FHIR/types"
+import { IAnswerValueBoolean, IAnswerValueDate, IAnswerValueQuantity, IReference } from "FHIR/types"
 import { Field, Formik } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import { FormContainer } from "."
@@ -34,7 +34,9 @@ const initSurvivalDiseaseControl = (): ISurvivalDiseaseControlQuestionnaireRepon
     ]
 })
 export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survival and Disease Control", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>) => {
-    const init = initSurvivalDiseaseControl() ?? initQuestionnaireResponse as ISurvivalDiseaseControlQuestionnaireReponse 
+    const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
+    const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
+    const init =  {...initQuestionnaireResponse ?? initSurvivalDiseaseControl() as ISurvivalDiseaseControlQuestionnaireReponse, author: authorReference, subject:subjectReference}
     return (
         <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)}>
             {({

@@ -1,5 +1,5 @@
 import { Label } from "Base/Label"
-import { IAnswerValueInteger} from "FHIR/types"
+import { IAnswerValueInteger, IReference} from "FHIR/types"
 import { Field, Formik } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import React from "react"
@@ -115,8 +115,10 @@ const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { 
     )
 
 }
-export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmit, title = "Patient-Reported Health Status", hideTitle }: IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>) => {
-    const init = initQuestionnaireResponse ?? initPatientReportedHealthStatus()
+export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmit, title = "Patient-Reported Health Status", hideTitle, author, subject }: IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>) => {
+    const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
+    const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
+    const init = {...initQuestionnaireResponse ?? initPatientReportedHealthStatus(), author:authorReference, subject:subjectReference }
     return (
         <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} >
             {({ handleSubmit, handleReset }) => (
