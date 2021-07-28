@@ -5,7 +5,7 @@ import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValue
 import { initQuestionnaireResponse, IQuestionnaireProps, ISingleValuedQRItem, QuestionnaireResponse, QuestionnaireResponseItem, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import React, { Dispatch, FormEvent, SetStateAction, useState } from "react"
 import { reduceSetStateAction } from "util/dispatch"
-import { FormContainer } from "."
+import { FormContainer } from "./FormContainer"
 
 export interface IBaselineTumorFactorsQR extends TiroQuestionnaireResponse {
     item: [

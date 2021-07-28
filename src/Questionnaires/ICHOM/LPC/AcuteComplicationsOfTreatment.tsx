@@ -3,7 +3,7 @@ import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueInteger, IAnswerVa
 import { Field, Formik } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import React from "react"
-import { FormContainer } from "."
+import { FormContainer } from "./FormContainer"
 
 export interface IAcuteComplicationsOfTreatmentQuestionnaireResponse extends TiroQuestionnaireResponse {
     resourceType: "QuestionnaireResponse"

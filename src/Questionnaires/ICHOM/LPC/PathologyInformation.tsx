@@ -1,12 +1,10 @@
 import React, { Dispatch } from "react"
 import { initQuestionnaireResponse, IQuestionnaireProps, QuestionnaireResponse, QuestionnaireResponseItem, SingleValuedAnswerChildrenProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import { IAnswerValueCoding, IAnswerValueInteger, ICoding, IReference } from "FHIR/types"
-import { SetStateAction } from "react"
-import { useState } from "react"
-import { FormEvent } from "react"
-import { FormContainer } from "."
+import { SetStateAction, useState, FormEvent} from "react"
+import { FormContainer } from "./FormContainer"
 import { ChoiceInput } from "Controlled/ChoiceInput"
-import { IBaselineTumorFactorsQR, initBaselineTumorFactors } from "./BaselineTumorFactors"
+import { IBaselineTumorFactorsQR } from "./BaselineTumorFactors"
 
 export const initPathologicalInformation = (): TiroQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),

@@ -2,7 +2,7 @@ import React from "react"
 import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IReference } from "FHIR/types";
 import { Field, Formik } from "formik";
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse";
-import { FormContainer } from ".";
+import { FormContainer } from "./FormContainer";
 import { QuestionCoding, QuestionDate, QuestionInteger, QuestionMultipleChoiceRadio, QuestionQuantity, QuestionTextArea } from "Questionnaires/Question";
 
 export interface ITreatmentVariablesQuestionnaireResponse extends TiroQuestionnaireResponse {

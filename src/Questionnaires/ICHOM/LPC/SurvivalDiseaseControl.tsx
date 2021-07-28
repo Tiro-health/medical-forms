@@ -2,7 +2,7 @@ import React from "react"
 import { IAnswerValueBoolean, IAnswerValueDate, IAnswerValueQuantity, IReference } from "FHIR/types"
 import { Field, Formik } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
-import { FormContainer } from "."
+import { FormContainer } from "./FormContainer"
 
 export interface ISurvivalDiseaseControlQuestionnaireReponse extends TiroQuestionnaireResponse {
     resourceType: "QuestionnaireResponse",

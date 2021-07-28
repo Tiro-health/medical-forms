@@ -1,9 +1,8 @@
-import { Label } from "Base/Label"
+import React from "react"
 import { IAnswerValueInteger, IReference} from "FHIR/types"
 import { Field, Formik } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
-import React from "react"
-import { FormContainer } from "."
+import { FormContainer } from "./FormContainer"
 
 export interface IPatientReportedHealthStatusQuestionnaireResponse extends TiroQuestionnaireResponse {
     resourceType: "QuestionnaireResponse"

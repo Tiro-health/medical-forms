@@ -2,14 +2,14 @@
   "name": "@tiro-health/medical-forms",
   "version": "0.3.0",
   "description": "Medical Forms for Structured Data Capture.",
-  "main": "./commonjs",
-  "module": "./es6",
+  "main": "./dist/commonjs",
+  "module": "./dist/es6",
   "repository": "git://github.com/Tiro-health/medical-forms.git",
   "files": [
     "es6",
     "commonjs"
   ],
-  "types": "types/index.d.ts",
+  "types": "./dist/dts",
   "author": "Tiro.health",
   "license": "MIT",
   "private": false,
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@ahryman40k/ts-fhir-types": "^4.0.36",
     "@babel/core": "^7.13.14",
+    "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "@mdx-js/loader": "^1.6.22",

@@ -1,6 +1,6 @@
 import React from "react"
 import { IQuestionnaire } from "FHIR/types";
-import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQR, PathologyInformation, PatientReportedHealthStatus, PatientReportedHealthStatusQuestionnaireResponse, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables } from "./ICHOM/LPC";
+import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQR, PathologyInformation, PatientReportedHealthStatus, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables, IPatientReportedHealthStatusQuestionnaireResponse, ITreatmentVariablesQuestionnaireResponse } from "./ICHOM/LPC";
 import { IQuestionnaireProps, TiroQuestionnaireResponse } from "./QuestionnaireResponse";
 
 export const questionnaires = [
@@ -70,12 +70,12 @@ export const DynamicQuestionnaire = ({ questionnaire, ...props }: IQuestionnaire
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1":
             return <PathologyInformation {...props} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1":
-            return <TreatmentVariables {...props} />
+            return <TreatmentVariables {...props as IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1":
             return <AcuteComplicationsOfTreatment {...props as IQuestionnaireProps<IAcuteComplicationsOfTreatmentQuestionnaireResponse>}/>
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1":
             return <SurvivalDiseaseControl {...props as IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>}/>
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1":
-            return <PatientReportedHealthStatus {...props as IQuestionnaireProps<PatientReportedHealthStatusQuestionnaireResponse>}/>
+            return <PatientReportedHealthStatus {...props as IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>}/>
     }
 }
