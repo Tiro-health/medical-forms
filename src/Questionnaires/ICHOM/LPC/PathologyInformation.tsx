@@ -1,12 +1,29 @@
 import React, { Dispatch } from "react"
 import { initQuestionnaireResponse, IQuestionnaireProps, QuestionnaireResponse, QuestionnaireResponseItem, SingleValuedAnswerChildrenProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
-import { IAnswerValueCoding, IAnswerValueInteger, ICoding, IReference } from "FHIR/types"
+import { AnswerValueCodingModel, AnswerValueIntegerModel, createSingleValuedQuestionnaireResponseItemModel, IAnswerValueCoding, IAnswerValueInteger, ICoding, IQuestionnaireResponse, IReference, PractitionerReferenceModel, PatientReferenceModel } from "FHIR/types"
 import { SetStateAction, useState, FormEvent} from "react"
 import { FormContainer } from "./FormContainer"
 import { ChoiceInput } from "Controlled/ChoiceInput"
-import { IBaselineTumorFactorsQR } from "./BaselineTumorFactors"
+import { Infer,literal, object, tuple, optional } from "superstruct"
 
-export const initPathologicalInformation = (): TiroQuestionnaireResponse => ({
+export const PathologyInformationQuestionnaireResponseModel = object({
+    resourceType: literal("QuestionnaireResponse"),
+    subject: optional(PatientReferenceModel),
+    author: optional(PractitionerReferenceModel),
+    questionnaire: literal("http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1"),
+    item: tuple([
+        createSingleValuedQuestionnaireResponseItemModel("TNMPT", AnswerValueCodingModel),
+        createSingleValuedQuestionnaireResponseItemModel("TNMPN", AnswerValueCodingModel),
+        createSingleValuedQuestionnaireResponseItemModel("MARGIN", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("MARGINFOC", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("GLEASONPATH1",AnswerValueCodingModel),
+        createSingleValuedQuestionnaireResponseItemModel("GLEASONPATH2",AnswerValueCodingModel),
+    ])
+})
+
+type IPathologyInformationQuestionnaireResponse = Infer<typeof PathologyInformationQuestionnaireResponseModel>
+
+export const initPathologicalInformation = (): IPathologyInformationQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1",
     item: [
@@ -19,13 +36,13 @@ export const initPathologicalInformation = (): TiroQuestionnaireResponse => ({
     ]
 })
 
-export const PathologyInformation = ({ author, subject, onSubmit, initQuestionnaireResponse, title="Pathological information", hideTitle }: IQuestionnaireProps<TiroQuestionnaireResponse>) => {
+export const PathologyInformation = ({ author, subject, onSubmit, initQuestionnaireResponse, title="Pathological information", hideTitle }: IQuestionnaireProps<IPathologyInformationQuestionnaireResponse>) => {
     
     const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
     const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
-    const init = { ...initQuestionnaireResponse ?? initPathologicalInformation(), author:authorReference, subject:subjectReference } as IBaselineTumorFactorsQR
+    const init = { ...initQuestionnaireResponse ?? initPathologicalInformation(), author:authorReference, subject:subjectReference } as IPathologyInformationQuestionnaireResponse
 
-    const [qr, setQR] = useState<TiroQuestionnaireResponse>(init)
+    const [qr, setQR] = useState<IPathologyInformationQuestionnaireResponse>(init)
     const pNOptions: ICoding[] = [
         { system: "http://tiro.health/fhir/ichom", code: "TNMPN/pN0", display: "pN0" },
         { system: "http://tiro.health/fhir/ichom", code: "TNMPN/pN1", display: "pN1" },

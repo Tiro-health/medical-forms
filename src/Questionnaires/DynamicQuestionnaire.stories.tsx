@@ -86,7 +86,7 @@ Prefilled.args =
                 "linkId": "GLEASONBIOP1",
                 "answer": [
                     {
-                        "valueInteger": 3
+                        valueInteger: 3
                     }
                 ]
             },
@@ -94,7 +94,7 @@ Prefilled.args =
                 "linkId": "GLEASONBIOP2",
                 "answer": [
                     {
-                        "valueInteger": 4
+                        valueInteger: 4
                     }
                 ]
             }

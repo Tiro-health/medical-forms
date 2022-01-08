@@ -14,7 +14,7 @@ export const QuantityContext =
   );
 
 export interface IQuantityReturnType {
-  value: number | undefined,
+  value?: number | undefined,
   unit?: string,
   onValueChange: Dispatch<SetStateAction<number | undefined>>
   onUnitChange: Dispatch<SetStateAction<string | undefined>>

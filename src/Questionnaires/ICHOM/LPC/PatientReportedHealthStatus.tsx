@@ -1,46 +1,52 @@
 import React from "react"
-import { IAnswerValueInteger, IReference} from "FHIR/types"
+import { AnswerValueIntegerModel, createSingleValuedQuestionnaireResponseItemModel, PractitionerReferenceModel, PatientReferenceModel, IPatientReference, IPractitionerReference } from "FHIR/types"
 import { Field, Formik } from "formik"
-import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
+import { initQuestionnaireResponse, IQuestionnaireProps} from "Questionnaires/QuestionnaireResponse"
 import { FormContainer } from "./FormContainer"
+import { Infer, literal, object, optional, tuple } from "superstruct"
+import { createFormikValidatorFromStruct } from "util/createFormikValidatorFromStruct"
 
-export interface IPatientReportedHealthStatusQuestionnaireResponse extends TiroQuestionnaireResponse {
-    resourceType: "QuestionnaireResponse"
-    questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1"
-    item: [
-        { linkId: "EPIC26_Q01", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q02", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q03", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q04a", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q04b", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q04c", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q04d", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q04e", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q05", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q06a", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q06b", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q06c", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q07", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q08a", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q08b", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q09", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q10", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q11", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q12", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q13a", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q13b", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q13c", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q13d", answer: [IAnswerValueInteger] },
-        { linkId: "EPIC26_Q13e", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q01", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q02", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q03a", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q03b", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q03c", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q03d", answer: [IAnswerValueInteger] },
-        { linkId: "LIBID_Q03e", answer: [IAnswerValueInteger] },
-    ]
-}
+export const PatientReportedHealthStatusQuestionnaireResponseModel = object({
+    resourceType: literal("QuestionnaireResponse"),
+    subject: optional(PatientReferenceModel),
+    author: optional(PractitionerReferenceModel),
+    questionnaire: literal("http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1"),
+    item: tuple([
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q01", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q02", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q03", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04a", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04b", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04c", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04d", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04e", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q05", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q06a", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q06b", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q06c", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q07", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q08a", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q08b", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q09", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q10", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q11", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q12", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13a", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13b", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13c", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13d", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13e", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q01", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q02", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03a", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03b", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03c", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03d", AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03e", AnswerValueIntegerModel)
+    ])
+})
+
+export type IPatientReportedHealthStatusQuestionnaireResponse = Infer<typeof PatientReportedHealthStatusQuestionnaireResponseModel>
 
 export const initPatientReportedHealthStatus = (): IPatientReportedHealthStatusQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),
@@ -112,14 +118,14 @@ const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { 
             </div>
         </>
     )
-
 }
+
 export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmit, title = "Patient-Reported Health Status", hideTitle, author, subject }: IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>) => {
-    const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
-    const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
-    const init = {...initQuestionnaireResponse ?? initPatientReportedHealthStatus(), author:authorReference, subject:subjectReference }
+    const authorReference = typeof author === "string" ? { identifier: { value: author }, type: "Practitioner" } as IPractitionerReference: author
+    const subjectReference = typeof subject === "string" ? { identifier: { value: subject }, type: "Patient" } as IPatientReference : subject
+    const init = { ...initQuestionnaireResponse ?? initPatientReportedHealthStatus(), author: authorReference, subject: subjectReference }
     return (
-        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} >
+        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} validate={createFormikValidatorFromStruct(PatientReportedHealthStatusQuestionnaireResponseModel)}>
             {({ handleSubmit, handleReset }) => (
                 <FormContainer title={title} hideTitle={hideTitle} handleSubmit={handleSubmit} handleClear={handleReset}>
                     <MultipleChoiceQuestion
@@ -425,50 +431,50 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                     <div className="mt-4">
                         <h6>How big a problem during the last 4 weeks, if any, has the following been for you?</h6>
                     </div>
-                    <MultipleChoiceQuestion 
+                    <MultipleChoiceQuestion
                         question="Viagra or another pill"
                         answerOptions={{
-                            "Have not tried it":"0", 
+                            "Have not tried it": "0",
                             "Tried it but was not helpful": "1",
-                            "It helped but I am not using it now":"2",
+                            "It helped but I am not using it now": "2",
                             "It helped and I use it sometimes": "3",
                             "It helped and I use it always": "4"
                         }}
                         name="item[25].answer[0].valueInteger"
                     />
-                    <MultipleChoiceQuestion 
+                    <MultipleChoiceQuestion
                         question="Muse (intra-urethral alprostadil suppository)"
                         answerOptions={{
-                            "Have not tried it":"0", 
+                            "Have not tried it": "0",
                             "Tried it but was not helpful": "1",
-                            "It helped but I am not using it now":"2",
+                            "It helped but I am not using it now": "2",
                             "It helped and I use it sometimes": "3",
                             "It helped and I use it always": "4"
                         }}
                         name="item[26].answer[0].valueInteger"
                     />
-                    <MultipleChoiceQuestion 
+                    <MultipleChoiceQuestion
                         question="Vacuum erection device (such as erect-aid)"
                         answerOptions={{
-                            "Have not tried it":"0", 
+                            "Have not tried it": "0",
                             "Tried it but was not helpful": "1",
-                            "It helped but I am not using it now":"2",
+                            "It helped but I am not using it now": "2",
                             "It helped and I use it sometimes": "3",
                             "It helped and I use it always": "4"
                         }}
                         name="item[27].answer[0].valueInteger"
                     />
-                    <MultipleChoiceQuestion 
+                    <MultipleChoiceQuestion
                         question="Other medication/device"
                         answerOptions={{
-                            "Have not tried it":"0", 
+                            "Have not tried it": "0",
                             "Tried it but was not helpful": "1",
-                            "It helped but I am not using it now":"2",
+                            "It helped but I am not using it now": "2",
                             "It helped and I use it sometimes": "3",
                             "It helped and I use it always": "4"
                         }}
                         name="item[28].answer[0].valueInteger"
-                    /> 
+                    />
                 </FormContainer>
             )}
         </Formik>

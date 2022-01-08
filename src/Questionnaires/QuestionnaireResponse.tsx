@@ -2,7 +2,7 @@ import React, { Dispatch, useCallback } from "react"
 import { useContext } from "react"
 import { SetStateAction } from "react"
 import { reduceSetStateAction } from "util/dispatch"
-import { IAnswer, IAnswerValue, IQuestionnaireResponse, IQuestionnaireResponseItem, IReference } from "FHIR/types"
+import { IAnswer, IAnswerValue, IQuestionnaireResponse, IQuestionnaireResponseItem, IReference, IPatientReference, IPractitionerReference } from "FHIR/types"
 import { questionnaires, TiroQuestionnaireCanonical } from "./Questionnaire"
 import uuid from "uuidjs"
 
@@ -100,8 +100,8 @@ export const useQuestionnaireResponseItem = <T extends {}>() => {
 export interface IQuestionnaireProps<QR extends IQuestionnaireResponse> {
     title?: string
     hideTitle?: boolean
-    subject?: string | IReference
-    author?: string | IReference,
+    subject?: string |IPatientReference 
+    author?: string | IPractitionerReference,
     initQuestionnaireResponse?: QR
     onSubmit?: (qr: QR) => any
 }

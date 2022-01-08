@@ -1,23 +1,26 @@
 import React from "react"
-import { IAnswerValueBoolean, IAnswerValueDate, IAnswerValueQuantity, IReference } from "FHIR/types"
+import { AnswerValueBooleanModel, AnswerValueDateModel, AnswerValueQuantityModel, IReference } from "FHIR/types"
 import { Field, Formik } from "formik"
-import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
+import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
 import { FormContainer } from "./FormContainer"
+import { literal, object, tuple, Infer } from "superstruct"
+import { createFormikValidatorFromStruct } from "util/createFormikValidatorFromStruct"
 
-export interface ISurvivalDiseaseControlQuestionnaireReponse extends TiroQuestionnaireResponse {
-    resourceType: "QuestionnaireResponse",
-    questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1",
-    item: [
-        { linkId: "DEATH", answer: [IAnswerValueBoolean]},
-        { linkId: "DEATHDATE", answer: [IAnswerValueDate] },
-        { linkId: "DEATHLPC", answer: [IAnswerValueBoolean]},
-        { linkId: "METADEV", answer:  [IAnswerValueBoolean]},
-        { linkId: "METADATE", answer: [IAnswerValueDate] },
-        { linkId: "BIOCHEM", answer:  [IAnswerValueBoolean]},
-        { linkId: "BIOCHEMDATE", answer: [IAnswerValueDate] },
-        { linkId: "BIOCHEMPSA", answer: [IAnswerValueQuantity] }
-    ]
-}
+export const SurvivalDiseaseControlModel = object({
+    resourceType: literal("QuestionnaireResponse"),
+    questionnaire: literal("http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1"),
+    item: tuple([
+        object({ linkId: literal("DEATH"), answer: tuple([AnswerValueBooleanModel])}),
+        object({ linkId: literal("DEATHDATE"), answer: tuple([AnswerValueDateModel])}),
+        object({ linkId: literal("DEATHLPC"), answer: tuple([AnswerValueBooleanModel])}),
+        object({ linkId: literal("METADEV"), answer:  tuple([AnswerValueBooleanModel])}),
+        object({ linkId: literal("METADATE"), answer: tuple([AnswerValueDateModel])}),
+        object({ linkId: literal("BIOCHEM"), answer:  tuple([AnswerValueBooleanModel])}),
+        object({ linkId: literal("BIOCHEMDATE"), answer: tuple([AnswerValueDateModel])}),
+        object({ linkId: literal("BIOCHEMPSA"), answer: tuple([AnswerValueQuantityModel])})
+    ])
+})
+export type ISurvivalDiseaseControlQuestionnaireReponse = Infer<typeof SurvivalDiseaseControlModel>
 
 const initSurvivalDiseaseControl = (): ISurvivalDiseaseControlQuestionnaireReponse => ({
     ...initQuestionnaireResponse(),
@@ -38,7 +41,7 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
     const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
     const init =  {...initQuestionnaireResponse ?? initSurvivalDiseaseControl() as ISurvivalDiseaseControlQuestionnaireReponse, author: authorReference, subject:subjectReference}
     return (
-        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)}>
+        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} validate={createFormikValidatorFromStruct(SurvivalDiseaseControlModel)}>
             {({
                 values,
                 handleSubmit,
@@ -57,7 +60,6 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                             <Field
                                 type="checkbox"
                                 name="item[0].answer[0].valueBoolean"
-                                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
                             />
                         </div>
                     </>

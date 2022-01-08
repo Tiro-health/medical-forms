@@ -1,47 +1,54 @@
 import { ChoiceInput } from "Controlled/ChoiceInput"
 import { ICoding } from "FHIR"
 import { Quantity } from "FHIR/Quantity"
-import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IReference } from "FHIR/types"
-import { initQuestionnaireResponse, IQuestionnaireProps, ISingleValuedQRItem, QuestionnaireResponse, QuestionnaireResponseItem, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
+import { AnswerValueCodingModel, AnswerValueDateModel, AnswerValueIntegerModel, AnswerValueQuantityModel, createSingleValuedQuestionnaireResponseItemModel, IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IReference, PractitionerReferenceModel, PatientReferenceModel } from "FHIR/types"
+import { initQuestionnaireResponse, IQuestionnaireProps, QuestionnaireResponse, QuestionnaireResponseItem, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import React, { Dispatch, FormEvent, SetStateAction, useState } from "react"
+import { Infer, literal, object, optional, tuple } from "superstruct"
 import { reduceSetStateAction } from "util/dispatch"
 import { FormContainer } from "./FormContainer"
 
-export interface IBaselineTumorFactorsQR extends TiroQuestionnaireResponse {
-    item: [
-        ISingleValuedQRItem<IAnswerValueDate>,
-        ISingleValuedQRItem<IAnswerValueQuantity>,
-        ISingleValuedQRItem<IAnswerValueCoding>,
-        ISingleValuedQRItem<IAnswerValueCoding>,
-        ISingleValuedQRItem<IAnswerValueQuantity>,
-        ISingleValuedQRItem<IAnswerValueQuantity>,
-        ISingleValuedQRItem<IAnswerValueQuantity>,
-        ISingleValuedQRItem<IAnswerValueCoding>,
-        ISingleValuedQRItem<IAnswerValueCoding>
-    ]
-}
+export const BaselineTumorFactorsModel = object({
+    resourceType: literal("QuestionnaireResponse"),
+    subject: optional(PatientReferenceModel),
+    author: optional(PractitionerReferenceModel),
+    questionnaire: literal("http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1"),
+    item: tuple([
+        createSingleValuedQuestionnaireResponseItemModel("DIAGDATE", AnswerValueDateModel),
+        createSingleValuedQuestionnaireResponseItemModel("PSA",AnswerValueQuantityModel),
+        createSingleValuedQuestionnaireResponseItemModel("TNMCT",AnswerValueCodingModel),
+        createSingleValuedQuestionnaireResponseItemModel("TNMCN",AnswerValueCodingModel),
+        createSingleValuedQuestionnaireResponseItemModel("BIOPCORE",AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("BIOPPOS",AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("BIOPINVOL",AnswerValueQuantityModel),
+        createSingleValuedQuestionnaireResponseItemModel("GLEASONBIOP1",AnswerValueIntegerModel),
+        createSingleValuedQuestionnaireResponseItemModel("GLEASONBIOP2",AnswerValueIntegerModel),
 
-export const initBaselineTumorFactors = (): IBaselineTumorFactorsQR => ({
+    ])
+})
+export type IBaselineTumorFactorsQuestionnaireResponse = Infer<typeof BaselineTumorFactorsModel>
+
+export const initBaselineTumorFactors = (): IBaselineTumorFactorsQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
     item: [
-        { linkId: "DIAGDATE", answer: [{ valueDate: "23/03/1999" }] },
+        { linkId: "DIAGDATE", answer: [{ valueDate: undefined }] },
         { linkId: "PSA", answer: [{ valueQuantity: { unit: "ng/ml", value: undefined } }] },
         { linkId: "TNMCT", answer: [{ valueCoding: undefined, }] },
         { linkId: "TNMCN", answer: [{ valueCoding: undefined }] },
-        { linkId: "BIOPCORE", answer: [{ valueQuantity: { value: undefined } }] },
-        { linkId: "BIOPPOS", answer: [{ valueQuantity: { value: undefined } }] },
+        { linkId: "BIOPCORE", answer: [{ valueInteger: undefined}] },
+        { linkId: "BIOPPOS", answer: [{ valueInteger: undefined}] },
         { linkId: "BIOPINVOL", answer: [{ valueQuantity: { value: undefined, unit: "%" } }] },
-        { linkId: "GLEASONBIOP1", answer: [{ valueCoding: undefined }] },
-        { linkId: "GLEASONBIOP2", answer: [{ valueCoding: undefined }] },
+        { linkId: "GLEASONBIOP1", answer: [{ valueInteger: undefined }] },
+        { linkId: "GLEASONBIOP2", answer: [{ valueInteger: undefined }] },
     ]
 })
 
 
-export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, title="Baseline Tumor Factors", initQuestionnaireResponse }: IQuestionnaireProps<IBaselineTumorFactorsQR>) => {
-    const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
-    const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
-    const init = { ...initQuestionnaireResponse ?? initBaselineTumorFactors(), author:authorReference, subject:subjectReference } as IBaselineTumorFactorsQR 
+export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, title = "Baseline Tumor Factors", initQuestionnaireResponse }: IQuestionnaireProps<IBaselineTumorFactorsQuestionnaireResponse>) => {
+    const authorReference = typeof author === "string" ? { identifier: { value: author } } as IReference : author
+    const subjectReference = typeof subject === "string" ? { identifier: { value: subject } } as IReference : subject
+    const init = { ...initQuestionnaireResponse ?? initBaselineTumorFactors(), author: authorReference, subject: subjectReference } as IBaselineTumorFactorsQuestionnaireResponse
     const cTOptions: ICoding[] = [
         { system: "http://tiro.health/fhir/ichom", code: "TNMCT/cT0", display: "cT0" },
         { system: "http://tiro.health/fhir/ichom", code: "TNMCT/cT1", display: "cT1" },
@@ -64,7 +71,7 @@ export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, tit
         { system: "http://tiro.health/fhir/ichom", code: "TNMCN/cNX", display: "cNX" },
     ]
 
-    const [qr, setQR] = useState<IBaselineTumorFactorsQR>(init)
+    const [qr, setQR] = useState<IBaselineTumorFactorsQuestionnaireResponse>(init)
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
         onSubmit && onSubmit(qr)
