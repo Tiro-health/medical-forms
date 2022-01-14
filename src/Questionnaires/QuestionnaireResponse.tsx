@@ -100,6 +100,7 @@ export const useQuestionnaireResponseItem = <T extends {}>() => {
 export interface IQuestionnaireProps<QR extends IQuestionnaireResponse> {
     title?: string
     hideTitle?: boolean
+    disabled?:boolean
     subject?: string |IPatientReference 
     author?: string | IPractitionerReference,
     initQuestionnaireResponse?: QR

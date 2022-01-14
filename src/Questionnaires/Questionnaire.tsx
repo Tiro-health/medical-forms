@@ -3,9 +3,7 @@ import { IQuestionnaire } from "FHIR/types";
 import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQR, PathologyInformation, PatientReportedHealthStatus, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables, IPatientReportedHealthStatusQuestionnaireResponse, ITreatmentVariablesQuestionnaireResponse } from "./ICHOM/LPC";
 import { IQuestionnaireProps, TiroQuestionnaireResponse } from "./QuestionnaireResponse";
 import { assert, optional } from "superstruct";
-import { PathologyInformationQuestionnaireResponseModel } from "./ICHOM/LPC/PathologyInformation";
 import { PatientReportedHealthStatusQuestionnaireResponseModel } from "./ICHOM/LPC/PatientReportedHealthStatus";
-import { BaselineTumorFactorsModel } from "./ICHOM/LPC/BaselineTumorFactors";
 
 export const questionnaires = [
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
@@ -70,10 +68,8 @@ export const getQuestionnaire = (id: TiroQuestionnaireCanonical): IQuestionnaire
 export const DynamicQuestionnaire = ({ questionnaire, initQuestionnaireResponse, ...props }: IQuestionnaireProps<TiroQuestionnaireResponse> & { questionnaire: TiroQuestionnaireCanonical }) => {
     switch (questionnaire) {
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1":
-            assert(initQuestionnaireResponse, optional(BaselineTumorFactorsModel))
             return <BaselineTumorFactors {...props as IQuestionnaireProps<IBaselineTumorFactorsQR>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1":
-            assert(initQuestionnaireResponse, optional(PathologyInformationQuestionnaireResponseModel))
             return <PathologyInformation {...props} initQuestionnaireResponse={initQuestionnaireResponse}/>
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1":
             return <TreatmentVariables {...props as IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>} />

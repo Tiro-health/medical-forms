@@ -1,0 +1,1 @@
+export { PatientFactors, initPatientFactors, IPatientFactorsQuestionnaireResponse } from "./PatientFactors"

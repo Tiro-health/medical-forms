@@ -1,6 +1,6 @@
 export {SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse} from "./SurvivalDiseaseControl"
 export {AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse} from "./AcuteComplicationsOfTreatment"
 export {PatientReportedHealthStatus, IPatientReportedHealthStatusQuestionnaireResponse} from "./PatientReportedHealthStatus"
-export {BaselineTumorFactors, IBaselineTumorFactorsQR} from "./BaselineTumorFactors" 
+export {BaselineTumorFactors, IBaselineTumorFactorsQuestionnaireResponse} from "./BaselineTumorFactors" 
 export {TreatmentVariables, ITreatmentVariablesQuestionnaireResponse} from "./TreatmentVariables"
 export {PathologyInformation} from "./PathologyInformation"

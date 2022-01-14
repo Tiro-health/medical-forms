@@ -1,6 +1,6 @@
 import React from "react"
 import { Meta, Story } from "@storybook/react"
-import { IQuestionnaireProps, TiroQuestionnaireResponse} from "../../QuestionnaireResponse"
+import { IQuestionnaireProps, TiroQuestionnaireResponse} from "../../../QuestionnaireResponse"
 import {TreatmentVariables} from "./TreatmentVariables"
 
 export default {

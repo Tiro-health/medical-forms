@@ -1,0 +1,1 @@
+export {ITreatmentVariablesQuestionnaireResponse, initTreatmentVariables, TreatmentVariables} from "./TreatmentVariables"

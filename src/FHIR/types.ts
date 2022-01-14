@@ -1,16 +1,16 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { R4 } from "@ahryman40k/ts-fhir-types"
-import { boolean, Describe, Infer, integer, number, object, optional, string, union, array, literal, Struct, tuple } from "superstruct";
+import { boolean, Describe, Infer, integer, number, object, optional, string, union, array, literal, Struct, tuple, is, date } from "superstruct";
 import { IQuestionnaireResponse_Item } from "@ahryman40k/ts-fhir-types/lib/R4";
 
-const QuantityModel = object({ value: optional(number()), unit: optional(string()) })
+export const QuantityModel = object({ value: optional(number()), unit: optional(string()) })
 //export interface IQuantity {
 //value: number | undefined;
 //unit?: string;
 //}
 export type IQuantity = Infer<typeof QuantityModel>
 
-const CodingModel = object({ system: string(), code: string(), display: string() })
+export const CodingModel = object({ system: string(), code: string(), display: string() })
 
 export const AnswerValueQuantityModel = object({ valueQuantity: QuantityModel })
 export const AnswerValueDateModel = object({ valueDate: optional(string()) })
@@ -29,7 +29,7 @@ export type IAnswerValueBoolean = Infer<typeof AnswerValueBooleanModel> //{value
 
 export type IAnswerValue = IAnswerValueCoding | IAnswerValueQuantity | IAnswerValueDate | IAnswerValueInteger | IAnswerValueDecimal | IAnswerValueString | IAnswerValueBoolean
 export type IAnswer = IAnswerValue[]
-export const createSingleValuedQuestionnaireResponseItemModel = <T extends IAnswerValue>(linkId:string, model:Describe<T>)=>object({ linkId: literal(linkId), answer: tuple([model])})
+export const createSingleValuedQuestionnaireResponseItemModel = <T extends IAnswerValue>(linkId: string, model: Describe<T>) => object({ linkId: literal(linkId), answer: tuple([model]) })
 
 export interface IQuestionnaire extends R4.IQuestionnaire {
 
@@ -89,3 +89,4 @@ export const PractitionerReferenceModel = object({
 })
 
 export type IPractitionerReference = Infer<typeof PractitionerReferenceModel>
+

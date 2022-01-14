@@ -1,0 +1,1 @@
+export {PathologyInformation, initPathologicalInformation} from "./PathologyInformation"

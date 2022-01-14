@@ -2,9 +2,10 @@ import React from "react"
 import { AnswerValueBooleanModel, AnswerValueDateModel, AnswerValueQuantityModel, IReference } from "FHIR/types"
 import { Field, Formik } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
-import { FormContainer } from "./FormContainer"
+import { FormikContainer } from "./FormContainer"
 import { literal, object, tuple, Infer } from "superstruct"
 import { createFormikValidatorFromStruct } from "util/createFormikValidatorFromStruct"
+import { QuestionWrapper } from "./QuestionWrapper"
 
 export const SurvivalDiseaseControlModel = object({
     resourceType: literal("QuestionnaireResponse"),
@@ -36,7 +37,7 @@ const initSurvivalDiseaseControl = (): ISurvivalDiseaseControlQuestionnaireRepon
         { linkId: "BIOCHEMPSA", answer: [{ valueQuantity: {value: undefined, unit: "ng/ml"} }] }
     ]
 })
-export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survival and Disease Control", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>) => {
+export const SurvivalDiseaseControl = ({ author, subject, disabled, onSubmit, title="Survival and Disease Control", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>) => {
     const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
     const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
     const init =  {...initQuestionnaireResponse ?? initSurvivalDiseaseControl() as ISurvivalDiseaseControlQuestionnaireReponse, author: authorReference, subject:subjectReference}
@@ -44,12 +45,9 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
         <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} validate={createFormikValidatorFromStruct(SurvivalDiseaseControlModel)}>
             {({
                 values,
-                handleSubmit,
-                handleReset,
-                /* and other goodies */
             }) => (
-                <FormContainer title={title} hideTitle={hideTitle} handleSubmit={handleSubmit} handleClear={handleReset}>
-                    <>
+                <FormikContainer title={title} hideTitle={hideTitle} disabled={disabled}>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[0].answer[0].valueBoolean"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -59,11 +57,12 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field
                                 type="checkbox"
+                                className="checkbox"
                                 name="item[0].answer[0].valueBoolean"
                             />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[1].answer[0].valueDate"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -73,8 +72,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field type="date" name="item[1].answer[0].valueDate" className="field" />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[2].answer[0].valueBoolean"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -84,8 +83,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field type="checkbox" name="item[2].answer[0].valueBoolean" className="checkbox" />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[3].answer[0].valueBoolean"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -95,8 +94,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field type="checkbox" name="item[3].answer[0].valueBoolean" className="checkbox" />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[4].answer[0].valueDate"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -106,8 +105,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field type="date" name="item[4].answer[0].valueDate" className="field" />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[5].answer[0].valueBoolean"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -117,8 +116,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field type="checkbox" name="item[5].answer[0].valueBoolean" className="checkbox" />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[6].answer[0].valueDate"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -128,8 +127,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                         <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                             <Field type="date" name="item[6].answer[0].valueDate" className="field" />
                         </div>
-                    </>
-                    <>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
                         <label
                             htmlFor="item[7].answer[0].valueQuantity.value"
                             className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -151,8 +150,8 @@ export const SurvivalDiseaseControl = ({ author, subject, onSubmit, title="Survi
                                 </div>
                             </div>
                         </div>
-                    </>
-                </FormContainer>
+                    </QuestionWrapper>
+                </FormikContainer>
             )}
         </Formik >
     )

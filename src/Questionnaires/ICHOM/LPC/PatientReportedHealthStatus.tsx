@@ -1,10 +1,11 @@
 import React from "react"
 import { AnswerValueIntegerModel, createSingleValuedQuestionnaireResponseItemModel, PractitionerReferenceModel, PatientReferenceModel, IPatientReference, IPractitionerReference } from "FHIR/types"
 import { Field, Formik } from "formik"
-import { initQuestionnaireResponse, IQuestionnaireProps} from "Questionnaires/QuestionnaireResponse"
-import { FormContainer } from "./FormContainer"
+import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
+import { FormikContainer } from "./FormContainer"
 import { Infer, literal, object, optional, tuple } from "superstruct"
 import { createFormikValidatorFromStruct } from "util/createFormikValidatorFromStruct"
+import { QuestionWrapper } from "./QuestionWrapper"
 
 export const PatientReportedHealthStatusQuestionnaireResponseModel = object({
     resourceType: literal("QuestionnaireResponse"),
@@ -120,14 +121,14 @@ const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { 
     )
 }
 
-export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmit, title = "Patient-Reported Health Status", hideTitle, author, subject }: IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>) => {
-    const authorReference = typeof author === "string" ? { identifier: { value: author }, type: "Practitioner" } as IPractitionerReference: author
+export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmit, disabled, title = "Patient-Reported Health Status", hideTitle, author, subject }: IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>) => {
+    const authorReference = typeof author === "string" ? { identifier: { value: author }, type: "Practitioner" } as IPractitionerReference : author
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject }, type: "Patient" } as IPatientReference : subject
     const init = { ...initQuestionnaireResponse ?? initPatientReportedHealthStatus(), author: authorReference, subject: subjectReference }
     return (
         <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} validate={createFormikValidatorFromStruct(PatientReportedHealthStatusQuestionnaireResponseModel)}>
-            {({ handleSubmit, handleReset }) => (
-                <FormContainer title={title} hideTitle={hideTitle} handleSubmit={handleSubmit} handleClear={handleReset}>
+            <FormikContainer title={title} hideTitle={hideTitle} disabled={disabled}>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Over the past 4 weeks, how often have you leaked urine?"
                         answerOptions={{
@@ -139,6 +140,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[0].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Which of the following best describes your urinary control during the last 4 weeks"
                         answerOptions={{
@@ -149,6 +152,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[1].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="How many pads or adult diapers per day did you usually use to control during the last 4 weeks"
                         answerOptions={{
@@ -159,9 +164,13 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[2].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <div className="mt-4">
                         <h6>How big a problem, if any, has the following been for you during the last 4 weeks?</h6>
                     </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Dripping or leaking urine?"
                         answerOptions={{
@@ -173,6 +182,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[3].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Pain or burining on urination"
                         answerOptions={{
@@ -184,6 +195,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[4].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Bleeding with urination"
                         answerOptions={{
@@ -195,6 +208,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[5].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Weak urine stream or incomplete emptying"
                         answerOptions={{
@@ -206,6 +221,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[6].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Need to urinate frequently during the day "
                         answerOptions={{
@@ -217,6 +234,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[7].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Overall, how big a problem has your urinary function been for you during the last 4 weeks?"
                         answerOptions={{
@@ -228,9 +247,13 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[8].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <div className="mt-4">
                         <h6>How big a problem, if any, has the following been for you?</h6>
                     </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Urgency to have a bowel movement"
                         answerOptions={{
@@ -242,6 +265,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[9].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Increased frequency of bowel movements"
                         answerOptions={{
@@ -253,6 +278,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[10].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Losing control of your stools"
                         answerOptions={{
@@ -264,6 +291,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[11].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Bloody stools"
                         answerOptions={{
@@ -275,6 +304,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[12].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Overall, how big a problem have your bowel habits been for you during the last 4 weeks?"
                         answerOptions={{
@@ -286,9 +317,13 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[13].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <div className="mt-4">
                         <h6>How would you rate the follwing during th elast 4 weeks</h6>
                     </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Your ability to have an erection?"
                         answerOptions={{
@@ -298,6 +333,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[14].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Your ability to reach orgasm (climax)?"
                         answerOptions={{
@@ -309,6 +346,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[13].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="How would you describe the usual QUALITY of your erections during the last 4 weeks? "
                         answerOptions={{
@@ -319,6 +358,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[14].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="How would you describe the FREQUENCY of your erections during the last 4?"
                         answerOptions={{
@@ -330,6 +371,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[15].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Overall, how would you rate your ability to function sexually during the last 4 weeks?"
                         answerOptions={{
@@ -341,6 +384,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[16].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Overall, how big a problem has your sexual function or lack of sexual function been for you during the last 4 weeks? "
                         answerOptions={{
@@ -352,9 +397,13 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[17].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <div className="mt-4">
                         <h6>How big a problem during the last 4 weeks, if any, has the following been for you?</h6>
                     </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Hot flashes"
                         answerOptions={{
@@ -366,6 +415,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[18].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Breast tenderness/enlargement"
                         answerOptions={{
@@ -377,6 +428,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[19].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Feeling depressed"
                         answerOptions={{
@@ -388,6 +441,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[20].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Lack of energy"
                         answerOptions={{
@@ -399,6 +454,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[21].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Change in body weight"
                         answerOptions={{
@@ -410,6 +467,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[22].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="During the last 4 weeks, to what extent were you interested in sex?"
                         answerOptions={{
@@ -420,6 +479,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[23].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Have you used any medications or devices to aid or improve erections? "
                         answerOptions={{
@@ -428,9 +489,13 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[24].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <div className="mt-4">
                         <h6>How big a problem during the last 4 weeks, if any, has the following been for you?</h6>
                     </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Viagra or another pill"
                         answerOptions={{
@@ -442,6 +507,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[25].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Muse (intra-urethral alprostadil suppository)"
                         answerOptions={{
@@ -453,6 +520,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[26].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Vacuum erection device (such as erect-aid)"
                         answerOptions={{
@@ -464,6 +533,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[27].answer[0].valueInteger"
                     />
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Other medication/device"
                         answerOptions={{
@@ -475,8 +546,8 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         }}
                         name="item[28].answer[0].valueInteger"
                     />
-                </FormContainer>
-            )}
+                </QuestionWrapper>
+            </FormikContainer>
         </Formik>
     )
 }
