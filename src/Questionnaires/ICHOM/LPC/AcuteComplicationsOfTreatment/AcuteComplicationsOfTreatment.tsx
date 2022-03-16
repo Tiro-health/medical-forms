@@ -196,7 +196,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="2"
+                                                    value="3"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -204,7 +204,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="3"
+                                                    value="4"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -217,7 +217,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="4"
+                                                    value="5"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -225,7 +225,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="5"
+                                                    value="6"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -238,7 +238,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="6"
+                                                    value="7"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -246,7 +246,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="7"
+                                                    value="8"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -259,7 +259,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="8"
+                                                    value="9"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -267,7 +267,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="9"
+                                                    value="10"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -280,7 +280,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="10"
+                                                    value="11"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -288,7 +288,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="11"
+                                                    value="12"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -301,7 +301,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="12"
+                                                    value="13"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -309,7 +309,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="13"
+                                                    value="14"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -322,7 +322,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="14"
+                                                    value="15"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -330,7 +330,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="15"
+                                                    value="16"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -343,7 +343,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="16"
+                                                    value="17"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -351,7 +351,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="17"
+                                                    value="18"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -367,7 +367,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="18"
+                                                    value="19"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
@@ -375,7 +375,7 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                             <td className="text-center">
                                                 <Field
                                                     name="COMPLRADDOMGRA"
-                                                    value="19"
+                                                    value="20"
                                                     type="checkbox"
                                                     className="checkbox"
                                                 />
