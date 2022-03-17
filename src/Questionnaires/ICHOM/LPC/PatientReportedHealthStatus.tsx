@@ -130,342 +130,361 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
             <FormikContainer title={title} hideTitle={hideTitle} disabled={disabled}>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Over the past 4 weeks, how often have you leaked urine?"
+                        question="Hoe vaak verloor u, in de afgelopen 4 weken, urine zonder dat u dat wilde?"
                         answerOptions={{
-                            "More than once a day": "1",
-                            "About once a day": "2",
-                            "More than once a week": "3",
-                            "About once a week": "4",
-                            "Rarely or never": "5"
+                            "Meer dan één keer per dag": "1",
+                            "Ongeveer één keer per dag": "2",
+                            "Meer dan één keer per week": "3",
+                            "Ongeveer één keer per week": "4",
+                            "Zelden of nooit": "5"
                         }}
                         name="item[0].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Which of the following best describes your urinary control during the last 4 weeks"
+                        question="Hoe goed kon u, in de afgelopen 4 weken, de urine ophouden?"
                         answerOptions={{
-                            "No urinary control whatsoever": "1",
-                            "Frequent dribbling": "2",
-                            "Occassional dribbling": "3",
-                            "Total control": "4",
+                            "Kon de urine helemaal niet ophouden": "1",
+                            "Vaak ongewild verlies van druppels urine": "2",
+                            "Af en toe ongewild verlies van druppels urine": "3",
+                            "Geen ongewild urineverlies": "4",
                         }}
                         name="item[1].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="How many pads or adult diapers per day did you usually use to control during the last 4 weeks"
+                        question="In de afgelopen 4 weken, hoeveel verbanden of luiers gebruikte u per dag om ongewild urineverlies op
+                        te vangen?"
                         answerOptions={{
-                            "None": "0",
-                            "1 pad per day": "1",
-                            "2 pads per day": "2",
-                            "3 or more pads per day": "3",
+                            "Geen": "0",
+                            "1 verband per dag": "1",
+                            "2 verband per dag": "2",
+                            "3 of meer verbanden per dag": "3",
                         }}
                         name="item[2].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <div className="mt-4">
-                        <h6>How big a problem, if any, has the following been for you during the last 4 weeks?</h6>
+                        <h6>In hoeverre heeft u de volgende plasklachten, in de afgelopen 4 weken, als een probleem ervaren?</h6>
                     </div>
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Dripping or leaking urine?"
+                        question="Ongewild urineverlies"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[3].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Pain or burining on urination"
+                        question="Pijn of branderig gevoel bij het plassen"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[4].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Bleeding with urination"
+                        question="Bloed bij de urine"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[5].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Weak urine stream or incomplete emptying"
+                        question="Slappe straal of niet goed uitplassen"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[6].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Need to urinate frequently during the day "
+                        question="Vaak plassen overdag"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[7].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Overall, how big a problem has your urinary function been for you during the last 4 weeks?"
+                        question="Alles overziend, in hoeverre heeft u het plassen en eventueel ongewild urineverlies als een probleem
+                        ervaren, in de afgelopen 4 weken?"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "1",
+                            "Zeer klein probleem": "2",
+                            "Klein probleem": "3",
+                            "Nogal een probleem": "4",
+                            "Groot probleem": "5"
                         }}
                         name="item[8].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <div className="mt-4">
-                        <h6>How big a problem, if any, has the following been for you?</h6>
+                        <h6>In hoeverre heeft u de volgende ontlastingsklachten, in de afgelopen 4 weken, als een probleem
+ervaren?</h6>
                     </div>
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Urgency to have a bowel movement"
+                        question="Loze aandrang, zonder dat er iets kwam"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[9].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Increased frequency of bowel movements"
+                        question="Vaker ontlasting"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[10].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Losing control of your stools"
+                        question="Verlies van ontlasting"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[11].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Bloody stools"
+                        question="Bloed bij de ontlasting"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[12].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Overall, how big a problem have your bowel habits been for you during the last 4 weeks?"
+                        question="Pijn in de buik of het rectum"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[13].answer[0].valueInteger"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Alles overziend, in hoeverre heeft u de ontlasting (stoelgang) als een probleem ervaren, in de afgelopen
+                        4 weken?"
+                        answerOptions={{
+                            "Geen probleem": "1",
+                            "Zeer klein probleem": "2",
+                            "Klein probleem": "3",
+                            "Nogal een probleem": "4",
+                            "Groot probleem": "5"
+                        }}
+                        name="item[14].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <div className="mt-4">
-                        <h6>How would you rate the follwing during th elast 4 weeks</h6>
+                        <h6>In de afgelopen 4 weken, hoe zou u voor uzelf de volgende zaken beoordelen?</h6>
                     </div>
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Your ability to have an erection?"
+                        question="Uw vermogen om een erectie te krijgen"
                         answerOptions={{
-                            "Very poor to none": "1",
-                            "Poor": "2",
-                            "Fair": "3",
-                        }}
-                        name="item[14].answer[0].valueInteger"
-                    />
-                </QuestionWrapper>
-                <QuestionWrapper>
-                    <MultipleChoiceQuestion
-                        question="Your ability to reach orgasm (climax)?"
-                        answerOptions={{
-                            "Very poor to none": "1",
-                            "Poor": "2",
-                            "Fair": "3",
-                            "Good": "4",
-                            "Very good": "5"
-                        }}
-                        name="item[13].answer[0].valueInteger"
-                    />
-                </QuestionWrapper>
-                <QuestionWrapper>
-                    <MultipleChoiceQuestion
-                        question="How would you describe the usual QUALITY of your erections during the last 4 weeks? "
-                        answerOptions={{
-                            "None at all": "1",
-                            "Not firm enought for any sexual activity": "2",
-                            "Firm enough for mastrubtation and foreplay only": "3",
-                            "Firm enough for intercourse": "4"
-                        }}
-                        name="item[14].answer[0].valueInteger"
-                    />
-                </QuestionWrapper>
-                <QuestionWrapper>
-                    <MultipleChoiceQuestion
-                        question="How would you describe the FREQUENCY of your erections during the last 4?"
-                        answerOptions={{
-                            "I NEVER had an erection when I wanted one": "1",
-                            "I had an erection LESS THAN HALF the time I wanted one": "2",
-                            "I had an erection ABOUT HALF the time I wanted one": "3",
-                            "I had an erection MORE THAN HALF the time I wanted one": "4",
-                            "I had an erection WHENEVER I wanted one": "5"
+                            "Zeer slecht tot geen": "0",
+                            "slecht": "1",
+                            "redelijk": "2",
+                            "goed": "3",
+                            "zeer goed": "4"
                         }}
                         name="item[15].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Overall, how would you rate your ability to function sexually during the last 4 weeks?"
+                        question="Uw vermogen om een orgasme te krijgen"
                         answerOptions={{
-                            "Very poor to none": "1",
-                            "Poor": "2",
-                            "Fair": "3",
-                            "Good": "4",
-                            "Very good": "5"
+                            "Zeer slecht tot geen": "0",
+                            "slecht": "1",
+                            "redelijk": "2",
+                            "goed": "3",
+                            "zeer goed": "4"
                         }}
                         name="item[16].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Overall, how big a problem has your sexual function or lack of sexual function been for you during the last 4 weeks? "
+                        question="Hoe zou u de kwaliteit van uw erecties omschrijven in de afgelopen 4 weken?"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Helemaal geen": "1",
+                            "Niet stevig genoeg vor enige seksuele activiteit": "2",
+                            "Alleen stevig genoeg voor masturbatie en voorspel": "3",
+                            "Stevig genoeg voor gemeenschap": "4"
                         }}
                         name="item[17].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
-                    <div className="mt-4">
-                        <h6>How big a problem during the last 4 weeks, if any, has the following been for you?</h6>
-                    </div>
-                </QuestionWrapper>
-                <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Hot flashes"
+                        question="In de afgelopen 4 weken, hoe vaak had u een erectie wanneer u dat wenste?"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Ik had nooit een erectie wanneer ik dat wenste": "1",
+                            "Ik had een erectie minder dan de helft van de keren": "2",
+                            "Ik had een erectie ongeveer de helft van de keren": "3",
+                            "Ik had een erectie meer dan de helft van de keren": "4",
+                            "Ik had altijd een erectie wanneer ik dat wenste": "5"
                         }}
                         name="item[18].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Breast tenderness/enlargement"
+                        question="Over het geheel, hoe zou u uw seksuele functioneren omschrijven in de afgelopen 4 weken?"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Zeer slecht": "1",
+                            "slecht": "2",
+                            "redelijk": "3",
+                            "goed": "4",
+                            "zeer goed": "5"
                         }}
                         name="item[19].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Feeling depressed"
+                        question="Alles overziend, heeft u uw seksueel functioneren in de afgelopen 4 weken als een probleem ervaren?"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "1",
+                            "Zeer klein probleem": "2",
+                            "Klein probleem": "3",
+                            "Nogal een probleem": "4",
+                            "Groot probleem": "5"
                         }}
                         name="item[20].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
+                    <div className="mt-4">
+                        <h6>In hoeverre heeft u, in de afgelopen 4 weken, de volgende zaken als een probleem ervaren?</h6>
+                    </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Lack of energy"
+                        question="Opvliegers"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[21].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
-                        question="Change in body weight"
+                        question="Borstverandering/gevoeligheid"
                         answerOptions={{
-                            "No problem": "0",
-                            "Very small problem": "1",
-                            "Small problem": "2",
-                            "Moderate problem": "3",
-                            "Big problem": "4"
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
                         }}
                         name="item[22].answer[0].valueInteger"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Sombere buien"
+                        answerOptions={{
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
+                        }}
+                        name="item[23].answer[0].valueInteger"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Gebrek aan energie"
+                        answerOptions={{
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
+                        }}
+                        name="item[24].answer[0].valueInteger"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Gewichtsverandering"
+                        answerOptions={{
+                            "Geen probleem": "0",
+                            "Zeer klein probleem": "1",
+                            "Klein probleem": "2",
+                            "Nogal een probleem": "3",
+                            "Groot probleem": "4"
+                        }}
+                        name="item[25].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
