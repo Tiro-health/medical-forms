@@ -69,7 +69,7 @@ export const PatientFactors = ({ author, subject, onSubmit, hideTitle, disabled,
                         htmlFor="AGE"
                         className="block sm:text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                     >
-                        What is your date of birth?
+                        Wat is jouw geboortedatum?
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="mt-1 relative rounded-md w-full shadow-sm">
@@ -88,12 +88,12 @@ export const PatientFactors = ({ author, subject, onSubmit, hideTitle, disabled,
                         <div
                             className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700"
                         >
-                            Have you been told by a doctor that you have any of the following?
+                            Heeft een arts verteld dat u één van volgende aandoeningen heeft?
                         </div>
                     </div>
                     <div className="sm:col-span-2">
                         <div className="mt-4 space-y-4">
-                            {["I have no other diseases", "Heart disease (for example angina, heart attack, or heart failure)", "High blood pressure", "Leg pain when walking due to poor circulation", "Lung disease (for example asthma, chronic bronchitis, or emphysema)", "Diabetes", "Kidney disease"].map((label, index) => (
+                            {["Ik heb geen andere ziekten", "Hart ziekte (bijvoorbeeld angina, hartaanval of hartfalen)", "Hoge bloeddruk", "Pijn aan het been tijdens het lopen door een slechte bloedsomloop", "Longziekte (bijvoorbeeld astma, chronische bronchitis of emfyseem", "Diabetes", "Nierziekte"].map((label, index) => (
                                 <div className="flex items-center">
                                     <Field
                                         name="COMORB"
