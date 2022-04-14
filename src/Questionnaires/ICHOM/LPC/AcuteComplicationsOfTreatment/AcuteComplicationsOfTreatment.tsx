@@ -1,5 +1,4 @@
-import { Label } from "Base/Label"
-import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueInteger, IAnswerValueString, IReference } from "FHIR/types"
+import { IAnswerValueBoolean, IAnswerValueInteger, IAnswerValueString, IReference } from "FHIR/types"
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate"
 import { Field, Formik, FormikHelpers } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"

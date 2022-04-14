@@ -1,3 +1,4 @@
 node_modules
 dist
+.VSCodeCounter
 yarn-error.log
