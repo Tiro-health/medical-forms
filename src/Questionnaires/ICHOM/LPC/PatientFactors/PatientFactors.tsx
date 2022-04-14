@@ -96,12 +96,13 @@ export const PatientFactors = ({ author, subject, onSubmit, hideTitle, disabled,
                             {["Ik heb geen andere ziekten", "Hart ziekte (bijvoorbeeld angina, hartaanval of hartfalen)", "Hoge bloeddruk", "Pijn aan het been tijdens het lopen door een slechte bloedsomloop", "Longziekte (bijvoorbeeld astma, chronische bronchitis of emfyseem", "Diabetes", "Nierziekte"].map((label, index) => (
                                 <div className="flex items-center">
                                     <Field
+                                        id={`COMORB-${index}`}
                                         name="COMORB"
                                         value={`${index}`}
                                         type="checkbox"
                                         className="checkbox"
                                     />
-                                    <label htmlFor="COMORB" className="ml-3 block text-sm font-medium text-gray-700">
+                                    <label htmlFor={`COMORB-${index}`} className="ml-3 block text-sm font-medium text-gray-700">
                                         {label}
                                     </label>
                                 </div>

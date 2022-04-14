@@ -104,7 +104,7 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="flex items-center">
                             <Field
-                                id="marging-positive"
+                                id="margin-positive"
                                 type="radio"
                                 name="MARGIN"
                                 value="1"
@@ -139,11 +139,11 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                                 value="1"
                                 className="radio"
                             />
-                            <label htmlFor="margin-focality-focal" className="ml-3 block text-sm font-medium text-gray-700">focal</label>
+                            <label htmlFor="marging-focality-focal" className="ml-3 block text-sm font-medium text-gray-700">focal</label>
                         </div>
                         <div className="flex items-center">
                             <Field
-                                id="margin-focality-focal"
+                                id="margin-focality-multi"
                                 type="radio"
                                 name="MARGINFOC"
                                 value="2"

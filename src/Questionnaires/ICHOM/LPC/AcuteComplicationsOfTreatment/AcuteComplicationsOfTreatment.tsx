@@ -80,34 +80,37 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                 <div className="mt-4 space-y-4">
                                     <div className="flex items-center">
                                         <Field
+                                            id="COMPLSURG-0"
                                             name="COMPLSURG"
                                             value="0"
                                             type="radio"
                                             className="radio"
                                         />
-                                        <label htmlFor="COMPLSURG" className="ml-3 block text-sm font-medium text-gray-700">
+                                        <label htmlFor="COMPLSURG-0" className="ml-3 block text-sm font-medium text-gray-700">
                                             no
                                         </label>
                                     </div>
                                     <div className="flex items-center">
                                         <Field
+                                            id="COMPLSURG-1"
                                             name="COMPLSURG"
                                             value="1"
                                             type="radio"
                                             className="radio"
                                         />
-                                        <label htmlFor="COMPLSURG" className="ml-3 block text-sm font-medium text-gray-700">
+                                        <label htmlFor="COMPLSURG-1" className="ml-3 block text-sm font-medium text-gray-700">
                                             yes, grade 3
                                         </label>
                                     </div>
                                     <div className="flex items-center">
                                         <Field
+                                            id="COMPLSURG-2"
                                             name="COMPLSURG"
                                             value="2"
                                             type="radio"
                                             className="radio"
                                         />
-                                        <label htmlFor="COMPLSURG" className="ml-3 block text-sm font-medium text-gray-700">
+                                        <label htmlFor="COMPLSURG-2" className="ml-3 block text-sm font-medium text-gray-700">
                                             yes, grade 4
                                         </label>
                                     </div>
@@ -128,23 +131,25 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
                                 <div className="mt-4 space-y-4">
                                     <div className="flex items-center">
                                         <Field
+                                            id="COMPLRAD-1"
                                             name="COMPLRAD"
                                             value="1"
                                             type="radio"
                                             className="radio"
                                         />
-                                        <label htmlFor="COMPLRAD" className="ml-3 block text-sm font-medium text-gray-700">
+                                        <label htmlFor="COMPLRAD-1" className="ml-3 block text-sm font-medium text-gray-700">
                                             yes
                                         </label>
                                     </div>
                                     <div className="flex items-center">
                                         <Field
+                                            id="COMPLRAD-0"
                                             name="COMPLRAD"
                                             value="0"
                                             type="radio"
                                             className="radio"
                                         />
-                                        <label htmlFor="COMPLRAD" className="ml-3 block text-sm font-medium text-gray-700">
+                                        <label htmlFor="COMPLRAD-0" className="ml-3 block text-sm font-medium text-gray-700">
                                             no
                                         </label>
                                     </div>

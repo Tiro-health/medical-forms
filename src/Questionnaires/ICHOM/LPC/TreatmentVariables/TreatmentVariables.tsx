@@ -130,42 +130,6 @@ const initBaselineTumorFactorsRecord = () => {
     return record as TreatmentVariablesRecord
 }
 
-const QuestionStartStopOngoing = ({ startVariableID, stopVariableId, ongoingVariableId, label }: { startVariableID: string, stopVariableId: string, ongoingVariableId: string, label: string }) => (
-    <>
-        <legend className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">{label}</legend>
-        <fieldset>
-            <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
-                <div className="mt-1 relative rounded-md w-full flex shadow-sm border border-gray-300 bg-white">
-                    <Field
-                        name={startVariableID}
-                        type="date"
-                        placeholder="dd/mm/yyyy"
-                        className="focus:ring-blue-500 focus:border-blue-500 block w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
-                    />
-                    <div className="mx-3 flex items-center text-lg text-gray-400">
-                        <span>&rarr;</span>
-                    </div>
-                    <Field
-                        name={stopVariableId}
-                        type="date"
-                        placeholder="dd/mm/yyyy"
-                        className="focus:ring-blue-500 focus:border-blue-500 block w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
-                    />
-                </div>
-                <div className="mt-2 relative w-full flex">
-                    <Field
-                        type="checkbox"
-                        name={ongoingVariableId}
-                        value="0"
-                        className="focus:ring-blue-500 text-blue-600 border-gray-300 h-4 w-4 rounded-md"
-                    />
-                    <label htmlFor="margin-negative" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
-                </div>
-            </div>
-        </fieldset>
-    </>
-)
-
 
 export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatment variables", hideTitle, disabled, initQuestionnaireResponse }: IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>) => {
     const authorReference = typeof author === "string" ? { identifier: { value: author } } as IReference : author
@@ -223,10 +187,11 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     <tbody>
                                         <tr className="my-1 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Watchfull waiting
+                                                <label htmlFor="PRIMARYTX-1">Watchfull waiting</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-1"
                                                     name="PRIMARYTX"
                                                     value="1"
                                                     type="checkbox"
@@ -244,10 +209,11 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                         </tr>
                                         <tr className="my-1 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Active surveillance
+                                                <label htmlFor="PRIMARYTX-2">Active surveillance</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-2"
                                                     name="PRIMARYTX"
                                                     value="2"
                                                     type="checkbox"
@@ -265,10 +231,11 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                         </tr>
                                         <tr className="mt-3 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Radical prostatectomy
+                                                <label htmlFor="PRIMARYTX-3">Radical prostatectomy</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-3"
                                                     name="PRIMARYTX"
                                                     value="3"
                                                     type="checkbox"
@@ -286,10 +253,11 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                         </tr>
                                         <tr className="mt-3 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                External beam radiation therapy
+                                                <label htmlFor="PRIMARYTX-4">External beam radiation therapy</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-4"
                                                     name="PRIMARYTX"
                                                     value="4"
                                                     type="checkbox"
@@ -320,12 +288,13 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                     </div>
                                                     <div className="col-span-1 mt-1 self-center relative w-full flex">
                                                         <Field
+                                                            id="PREBRTTXONGOING"
                                                             type="checkbox"
                                                             name="PREBRTTXONGOING"
                                                             disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("4")}
                                                             className="checkbox"
                                                         />
-                                                        <label htmlFor="margin-negative" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        <label htmlFor="PREBRTTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -333,10 +302,11 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
 
                                         <tr className="mt-3 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Brachytherapy
+                                                <label htmlFor="PRIMARYTX-5">Brachytherapy</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-5"
                                                     name="PRIMARYTX"
                                                     value="5"
                                                     type="checkbox"
@@ -368,21 +338,23 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                     <div className="col-span-1 mt-1 self-center relative w-full flex">
                                                         <Field
                                                             type="checkbox"
+                                                            id="PRBRACHYTXONGOING"
                                                             name="PRBRACHYTXONGOING"
                                                             disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("6")}
                                                             className="checkbox"
                                                         />
-                                                        <label htmlFor="margin-negative" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        <label htmlFor="PRBRACHYTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr className="mt-3 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Androgen Deprivation Therapy
+                                                <label htmlFor="PRIMARYTX-6">Androgen Deprivation Therapy</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-6"
                                                     name="PRIMARYTX"
                                                     value="6"
                                                     type="checkbox"
@@ -413,22 +385,24 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                     </div>
                                                     <div className="col-span-1 mt-1 self-center relative w-full flex">
                                                         <Field
+                                                            id="PRADTTXONGOING"
                                                             type="checkbox"
                                                             name="PRADTTXONGOING"
                                                             disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("5")}
                                                             className="checkbox"
                                                         />
-                                                        <label htmlFor="margin-negative" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        <label htmlFor="PRADTTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr className="mt-3 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Focal therapy
+                                                <label htmlFor="PRIMARYTX-7">Focal therapy</label>
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-7"
                                                     name="PRIMARYTX"
                                                     value="7"
                                                     type="checkbox"
@@ -460,22 +434,24 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                     <div className="col-span-1 mt-1 self-center relative w-full flex">
                                                         <Field
                                                             type="checkbox"
+                                                            id="PRFOCTXONGOING"
                                                             name="PRFOCTXONGOING"
                                                             disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("7")}
                                                             className="checkbox"
                                                         />
-                                                        <label htmlFor="margin-negative" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        <label htmlFor="PRFOCTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr className="mt-3 hover:bg-gray-50">
                                             <td className="text-sm font-medium text-gray-700">
-                                                Other
+                                                <label htmlFor="PRIMARYTX-888">Other</label>
                                                 <Field name="PRIMARYTXOTHER" type="text" className="field" />
                                             </td>
                                             <td className="text-center">
                                                 <Field
+                                                    id="PRIMARYTX-888"
                                                     name="PRIMARYTX"
                                                     value="888"
                                                     type="checkbox"
@@ -507,11 +483,12 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                     <div className="col-span-1 mt-1 self-center relative w-full flex">
                                                         <Field
                                                             type="checkbox"
-                                                            name="PRFOCTXONGOING"
+                                                            name="PROTHERTXONGOING"
+                                                            id="PROTHERTXONGOING"
                                                             disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("888")}
                                                             className="checkbox"
                                                         />
-                                                        <label htmlFor="margin-negative" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        <label htmlFor="PROTHERTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -533,12 +510,13 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                 ([text, value]) => (
                                                     <div className="flex items-center" key={text}>
                                                         <Field
+                                                            id={`PRNERVESPARE-${value}`}
                                                             name="PRNERVESPARE"
                                                             value={value}
                                                             type="radio"
                                                             className="radio"
                                                         />
-                                                        <label htmlFor="PRNERVESPARE" className="ml-3 block text-sm font-medium text-gray-700">
+                                                        <label htmlFor={`PRNERVESPARE-${value}`} className="ml-3 block text-sm font-medium text-gray-700">
                                                             {text}
                                                         </label>
                                                     </div>
@@ -552,7 +530,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                 <div className="col-span-1">
                                     <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details EBRT</legend>
                                 </div>
-                                <div className="sm:col-span-2" >
+                                <div className="sm:col-span-2 col-start-2" >
                                     <label
                                         htmlFor="PREBRTTOTDOSE"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -562,6 +540,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                                         <div className="mt-1 relative rounded-md w-full shadow-sm ">
                                             <Field
+                                                id="PREBRTTOTDOSE"
                                                 name="PREBRTTOTDOSE"
                                                 type="number"
                                                 min={0}
@@ -573,7 +552,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div className="sm:col-span-2 col-start-2">
                                     <label
                                         htmlFor="PREBRTDOSEPERFRACT"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -583,6 +562,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                                         <div className="mt-1 relative rounded-md w-full shadow-sm ">
                                             <Field
+                                                id="PREBRTDOSEPERFRACT"
                                                 name="PREBRTDOSEPERFRACT"
                                                 type="number"
                                                 min={0}
@@ -608,12 +588,13 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                 ([text, value]) => (
                                                     <div className="flex items-center" key={text}>
                                                         <Field
+                                                            id={`PRBRACHYDOSERATE-${value}`}
                                                             name="PRBRACHYDOSERATE"
                                                             value={value}
                                                             type="radio"
                                                             className="radio"
                                                         />
-                                                        <label htmlFor="PRBRACHYDOSERATE" className="ml-3 block text-sm font-medium text-gray-700">
+                                                        <label htmlFor={`PRBRACHYDOSERATE-${value}`} className="ml-3 block text-sm font-medium text-gray-700">
                                                             {text}
                                                         </label>
                                                     </div>
@@ -640,23 +621,6 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     </div>
                                 </div>
                             </QuestionWrapper>)}
-
-                        {/**<QuestionCoding variableID="item[0].answer[0].valueCoding" label="Indicate the primary treatment modalities used for this patient " placeholder="..." options={primaryTherapyOptions} />
-                        <QuestionDate variableID="item[1].answer[0].valueDate" label="Date watchful waiting initiated" />
-                        <QuestionDate variableID="item[2].answer[0].valueDate" label="Date active surveillance initiated" />
-                        <QuestionDate variableID="item[3].answer[0].valueDate" label="Date of primary pradical prostatectomy" />
-                        <QuestionMultipleChoiceRadio variableID="item[4].answer[0].valueInteger" label="Primary nerve sparing status" answerOptions={{ "non nerve-sparing": "1", "nerve-sparing": "2" }} />
-                        <QuestionQuantity variableID="item[5].answer[0].valueQuantity" label="Primary EBRT dose" min={0} step={0.01} placeholder="0.00" />
-                        <QuestionQuantity variableID="item[6].answer[0].valueQuantity" label="Primary EBRT average dose per fraction" min={0} step={0.01} placeholder="0.00" />
-                        <QuestionStartStopOngoing startVariableID="item[7].answer[0].valueDate" stopVariableId="item[8].answer[0].valueDate" ongoingVariableId="item[9].answer[0].valueInteger" label="Period of primary EBRT" />
-                        <QuestionStartStopOngoing startVariableID="item[10].answer[0].valueDate" stopVariableId="item[11].answer[0].valueDate" ongoingVariableId="item[12].answer[0].valueInteger" label="Period of primary brachytherapy" />
-                        <QuestionMultipleChoiceRadio variableID="item[13].answer[0].valueInteger" label="Primary branchytherapy dose" answerOptions={{ "low dose": "1", "high dose": "2", "unkown": "999" }} />
-                        <QuestionStartStopOngoing startVariableID="item[14].answer[0].valueDate" stopVariableId="item[15].answer[0].valueDate" ongoingVariableId="item[16].answer[0].valueInteger" label="Period of primary ADT" />
-                        <QuestionStartStopOngoing startVariableID="item[17].answer[0].valueDate" stopVariableId="item[18].answer[0].valueDate" ongoingVariableId="item[19].answer[0].valueInteger" label="Period of primary brachytherapy" />
-                        <QuestionTextArea variableID="item[20].answer[0].valueDate" label="Indicate the type of focal therapy used for this patient" />
-                        <QuestionStartStopOngoing startVariableID="item[21].answer[0].valueDate" stopVariableId="item[22].answer[0].valueDate" ongoingVariableId="item[23].answer[0].valueInteger" label="Period of primary focal therapy" />
-                        <QuestionTextArea variableID="item[24].answer[0].valueDate" label="Indicate the other primary treatment modality used" />
-                <QuestionStartStopOngoing startVariableID="item[25].answer[0].valueDate" stopVariableId="item[26].answer[0].valueDate" ongoingVariableId="item[27].answer[0].valueInteger" label="Period of primary other therapy" />**/}
                     </FormikContainer >
                 )
             }}

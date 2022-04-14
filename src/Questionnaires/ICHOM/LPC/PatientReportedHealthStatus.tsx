@@ -104,12 +104,13 @@ const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { 
                             ([text, value]) => (
                                 <div className="flex items-center" key={text}>
                                     <Field
+                                        id={`${name}-${value}`}
                                         name={name}
                                         value={value}
                                         type="radio"
                                         className="radio"
                                     />
-                                    <label htmlFor={name} className="ml-3 block text-sm font-medium text-gray-700">
+                                    <label htmlFor={`${name}-${value}`} className="ml-3 block text-sm font-medium text-gray-700">
                                         {text}
                                     </label>
                                 </div>
@@ -253,7 +254,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                 <QuestionWrapper>
                     <div className="mt-4">
                         <h6>In hoeverre heeft u de volgende ontlastingsklachten, in de afgelopen 4 weken, als een probleem
-ervaren?</h6>
+                            ervaren?</h6>
                     </div>
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -487,7 +488,7 @@ ervaren?</h6>
                         name="item[25].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
-               
+
             </FormikContainer>
         </Formik>
     )
