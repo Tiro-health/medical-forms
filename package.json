@@ -1,6 +1,6 @@
 {
   "name": "@tiro-health/medical-forms",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Medical Forms for Structured Data Capture.",
   "main": "./dist/commonjs",
   "module": "./dist/es6",
@@ -14,14 +14,10 @@
   "private": false,
   "dependencies": {
     "@heroicons/react": "^1.0.1",
-    "@udecode/slate-plugins": "^1.0.0-alpha.17",
     "classnames": "^2.3.1",
     "formik": "^2.2.9",
     "immer": "^9.0.1",
     "moment": "^2.29.1",
-    "slate": "^0.62.0",
-    "slate-hyperscript": "^0.62.0",
-    "slate-react": "^0.62.0",
     "superstruct": "^0.15.2",
     "use-immer": "^0.5.1",
     "uuidjs": "^4.2.8"
