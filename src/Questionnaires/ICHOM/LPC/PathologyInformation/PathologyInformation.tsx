@@ -15,7 +15,7 @@ const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathol
 type PathologyInformationField = keyof typeof modelRecord
 type PathologyInformationRecord = Record<PathologyInformationField, string>
 
-interface IPathologyInformationQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> { }
+export interface IPathologyInformationQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> { }
 
 export const initPathologicalInformation = (): IPathologyInformationQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),

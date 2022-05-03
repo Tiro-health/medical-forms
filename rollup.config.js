@@ -1,7 +1,7 @@
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import ts from "@wessberg/rollup-plugin-ts";
+import ts from "rollup-plugin-ts";
 import postcss from 'rollup-plugin-postcss';
 
 const packageJson = require("./package.json");
@@ -21,7 +21,7 @@ export default {
     nodeResolve(),
     commonjs(),
     ts(),
-    postcss({extensions: [".css"]})
- ],
+    postcss({ extensions: [".css"] })
+  ],
   external: ["react", "react-dom", "uuidjs"],
 };

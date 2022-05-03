@@ -1,6 +1,6 @@
 import React from "react"
 import { IQuestionnaire } from "FHIR/types";
-import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQR, PathologyInformation, PatientReportedHealthStatus, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables, IPatientReportedHealthStatusQuestionnaireResponse, ITreatmentVariablesQuestionnaireResponse } from "./ICHOM/LPC";
+import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQuestionnaireResponse, PathologyInformation, PatientReportedHealthStatus, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables, IPatientReportedHealthStatusQuestionnaireResponse, ITreatmentVariablesQuestionnaireResponse, IPathologyInformationQuestionnaireResponse } from "./ICHOM/LPC";
 import { IQuestionnaireProps, TiroQuestionnaireResponse } from "./QuestionnaireResponse";
 import { assert, optional } from "superstruct";
 import { PatientReportedHealthStatusQuestionnaireResponseModel } from "./ICHOM/LPC/PatientReportedHealthStatus";
@@ -16,7 +16,7 @@ export const questionnaires = [
 
 export type TiroQuestionnaireCanonical = typeof questionnaires[number]
 
-export const getQuestionnaireIDs=()=>questionnaires
+export const getQuestionnaireIDs = () => questionnaires
 
 export interface TiroQuestionnaire extends IQuestionnaire {
     id: TiroQuestionnaireCanonical,
@@ -65,20 +65,19 @@ export const getQuestionnaire = (id: TiroQuestionnaireCanonical): IQuestionnaire
             throw Error(`Invalid questionnaire id: ${id}`)
     }
 }
-export const DynamicQuestionnaire = ({ questionnaire, initQuestionnaireResponse, ...props }: IQuestionnaireProps<TiroQuestionnaireResponse> & { questionnaire: TiroQuestionnaireCanonical }) => {
+export const DynamicQuestionnaire = ({ questionnaire, ...props }: IQuestionnaireProps<TiroQuestionnaireResponse> & { questionnaire: TiroQuestionnaireCanonical }) => {
     switch (questionnaire) {
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1":
-            return <BaselineTumorFactors {...props as IQuestionnaireProps<IBaselineTumorFactorsQR>} />
+            return <BaselineTumorFactors {...props as IQuestionnaireProps<IBaselineTumorFactorsQuestionnaireResponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathology-info|0.1":
-            return <PathologyInformation {...props} initQuestionnaireResponse={initQuestionnaireResponse}/>
+            return <PathologyInformation {...props as IQuestionnaireProps<IPathologyInformationQuestionnaireResponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1":
             return <TreatmentVariables {...props as IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1":
-            return <AcuteComplicationsOfTreatment {...props as IQuestionnaireProps<IAcuteComplicationsOfTreatmentQuestionnaireResponse>}/>
+            return <AcuteComplicationsOfTreatment {...props as IQuestionnaireProps<IAcuteComplicationsOfTreatmentQuestionnaireResponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1":
-            return <SurvivalDiseaseControl {...props as IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>}/>
+            return <SurvivalDiseaseControl {...props as IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1":
-            assert(initQuestionnaireResponse, optional(PatientReportedHealthStatusQuestionnaireResponseModel))
-            return <PatientReportedHealthStatus {...props as IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>}/>
+            return <PatientReportedHealthStatus {...props as IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>} />
     }
 }

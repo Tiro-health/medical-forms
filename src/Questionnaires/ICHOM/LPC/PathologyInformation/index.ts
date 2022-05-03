@@ -1,1 +1,1 @@
-export {PathologyInformation, initPathologicalInformation} from "./PathologyInformation"
+export { PathologyInformation, initPathologicalInformation, IPathologyInformationQuestionnaireResponse } from "./PathologyInformation"
