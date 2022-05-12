@@ -11,14 +11,14 @@ export const SurvivalDiseaseControlModel = object({
     resourceType: literal("QuestionnaireResponse"),
     questionnaire: literal("http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1"),
     item: tuple([
-        object({ linkId: literal("DEATH"), answer: tuple([AnswerValueBooleanModel])}),
-        object({ linkId: literal("DEATHDATE"), answer: tuple([AnswerValueDateModel])}),
-        object({ linkId: literal("DEATHLPC"), answer: tuple([AnswerValueBooleanModel])}),
-        object({ linkId: literal("METADEV"), answer:  tuple([AnswerValueBooleanModel])}),
-        object({ linkId: literal("METADATE"), answer: tuple([AnswerValueDateModel])}),
-        object({ linkId: literal("BIOCHEM"), answer:  tuple([AnswerValueBooleanModel])}),
-        object({ linkId: literal("BIOCHEMDATE"), answer: tuple([AnswerValueDateModel])}),
-        object({ linkId: literal("BIOCHEMPSA"), answer: tuple([AnswerValueQuantityModel])})
+        object({ linkId: literal("DEATH"), answer: tuple([AnswerValueBooleanModel]) }),
+        object({ linkId: literal("DEATHDATE"), answer: tuple([AnswerValueDateModel]) }),
+        object({ linkId: literal("DEATHLPC"), answer: tuple([AnswerValueBooleanModel]) }),
+        object({ linkId: literal("METADEV"), answer: tuple([AnswerValueBooleanModel]) }),
+        object({ linkId: literal("METADATE"), answer: tuple([AnswerValueDateModel]) }),
+        object({ linkId: literal("BIOCHEM"), answer: tuple([AnswerValueBooleanModel]) }),
+        object({ linkId: literal("BIOCHEMDATE"), answer: tuple([AnswerValueDateModel]) }),
+        object({ linkId: literal("BIOCHEMPSA"), answer: tuple([AnswerValueQuantityModel]) })
     ])
 })
 export type ISurvivalDiseaseControlQuestionnaireReponse = Infer<typeof SurvivalDiseaseControlModel>
@@ -29,20 +29,20 @@ const initSurvivalDiseaseControl = (): ISurvivalDiseaseControlQuestionnaireRepon
     item: [
         { linkId: "DEATH", answer: [{ valueBoolean: false }] },
         { linkId: "DEATHDATE", answer: [{ valueDate: "" }] },
-        { linkId: "DEATHLPC", answer: [{valueBoolean: false}]},
-        { linkId: "METADEV", answer: [{valueBoolean: false}]},
-        { linkId: "METADATE", answer: [{ valueDate: ""}] },
-        { linkId: "BIOCHEM", answer: [{valueBoolean: false}]},
-        { linkId: "BIOCHEMDATE", answer: [{ valueDate: ""}] },
-        { linkId: "BIOCHEMPSA", answer: [{ valueQuantity: {value: undefined, unit: "ng/ml"} }] }
+        { linkId: "DEATHLPC", answer: [{ valueBoolean: false }] },
+        { linkId: "METADEV", answer: [{ valueBoolean: false }] },
+        { linkId: "METADATE", answer: [{ valueDate: "" }] },
+        { linkId: "BIOCHEM", answer: [{ valueBoolean: false }] },
+        { linkId: "BIOCHEMDATE", answer: [{ valueDate: "" }] },
+        { linkId: "BIOCHEMPSA", answer: [{ valueQuantity: { value: undefined, unit: "ng/ml" } }] }
     ]
 })
-export const SurvivalDiseaseControl = ({ author, subject, disabled, onSubmit, title="Survival and Disease Control", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>) => {
-    const authorReference = typeof author  === "string" ? {identifier: {value: author}} as IReference : author
-    const subjectReference  = typeof subject === "string" ? {identifier: {value: subject}} as IReference : subject
-    const init =  {...initQuestionnaireResponse ?? initSurvivalDiseaseControl() as ISurvivalDiseaseControlQuestionnaireReponse, author: authorReference, subject:subjectReference}
+export const SurvivalDiseaseControl = ({ author, subject, disabled, onSubmit, title = "Survival and Disease Control", hideTitle, initQuestionnaireResponse }: IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>) => {
+    const authorReference = typeof author === "string" ? { identifier: { value: author } } as IReference : author
+    const subjectReference = typeof subject === "string" ? { identifier: { value: subject } } as IReference : subject
+    const init = { ...initQuestionnaireResponse ?? initSurvivalDiseaseControl() as ISurvivalDiseaseControlQuestionnaireReponse, author: authorReference, subject: subjectReference }
     return (
-        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} validate={createFormikValidatorFromStruct(SurvivalDiseaseControlModel)}>
+        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} >
             {({
                 values,
             }) => (
