@@ -127,7 +127,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject }, type: "Patient" } as IPatientReference : subject
     const init = { ...initQuestionnaireResponse ?? initPatientReportedHealthStatus(), author: authorReference, subject: subjectReference }
     return (
-        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)} validate={createFormikValidatorFromStruct(PatientReportedHealthStatusQuestionnaireResponseModel)}>
+        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)}>
             <FormikContainer title={title} hideTitle={hideTitle} disabled={disabled}>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
@@ -346,10 +346,10 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         question="Uw vermogen om een erectie te krijgen"
                         answerOptions={{
                             "Zeer slecht tot geen": "0",
-                            "slecht": "1",
-                            "redelijk": "2",
-                            "goed": "3",
-                            "zeer goed": "4"
+                            "Slecht": "1",
+                            "Redelijk": "2",
+                            "Goed": "3",
+                            "Zeer goed": "4"
                         }}
                         name="item[15].answer[0].valueInteger"
                     />
@@ -359,10 +359,10 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         question="Uw vermogen om een orgasme te krijgen"
                         answerOptions={{
                             "Zeer slecht tot geen": "0",
-                            "slecht": "1",
-                            "redelijk": "2",
-                            "goed": "3",
-                            "zeer goed": "4"
+                            "Slecht": "1",
+                            "Redelijk": "2",
+                            "Goed": "3",
+                            "Zeer goed": "4"
                         }}
                         name="item[16].answer[0].valueInteger"
                     />
@@ -397,10 +397,10 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         question="Over het geheel, hoe zou u uw seksuele functioneren omschrijven in de afgelopen 4 weken?"
                         answerOptions={{
                             "Zeer slecht": "1",
-                            "slecht": "2",
-                            "redelijk": "3",
-                            "goed": "4",
-                            "zeer goed": "5"
+                            "Slecht": "2",
+                            "Redelijk": "3",
+                            "Goed": "4",
+                            "Zeer goed": "5"
                         }}
                         name="item[19].answer[0].valueInteger"
                     />
@@ -488,7 +488,6 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                         name="item[25].answer[0].valueInteger"
                     />
                 </QuestionWrapper>
-
             </FormikContainer>
         </Formik>
     )
