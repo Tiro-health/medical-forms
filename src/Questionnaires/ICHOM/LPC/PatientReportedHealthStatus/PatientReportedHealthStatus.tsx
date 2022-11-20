@@ -1,57 +1,29 @@
-import React from "react"
-import { AnswerValueIntegerModel, createSingleValuedQuestionnaireResponseItemModel, PractitionerReferenceModel, PatientReferenceModel, IPatientReference, IPractitionerReference } from "FHIR/types"
-import { Field, Formik } from "formik"
+import React, { useMemo } from "react"
+import { IPatientReference, IPractitionerReference, IQuestionnaireResponse, IQuestionnaireResponseItem } from "FHIR/types"
+import { Field, Formik, FormikHelpers } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
-import { FormikContainer } from "./FormContainer"
-import { Infer, literal, object, optional, tuple } from "superstruct"
-import { createFormikValidatorFromStruct } from "util/createFormikValidatorFromStruct"
-import { QuestionWrapper } from "./QuestionWrapper"
+import { FormikContainer } from "../FormContainer"
+import { QuestionWrapper } from "../QuestionWrapper"
+import { modelRecord } from "./consts"
+import { create, object } from "superstruct"
+import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate"
+const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1"
 
-export const PatientReportedHealthStatusQuestionnaireResponseModel = object({
-    resourceType: literal("QuestionnaireResponse"),
-    subject: optional(PatientReferenceModel),
-    author: optional(PractitionerReferenceModel),
-    questionnaire: literal("http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1"),
-    item: tuple([
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q01", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q02", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q03", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04a", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04b", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04c", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04d", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q04e", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q05", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q06a", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q06b", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q06c", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q07", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q08a", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q08b", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q09", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q10", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q11", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q12", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13a", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13b", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13c", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13d", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("EPIC26_Q13e", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q01", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q02", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03a", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03b", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03c", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03d", AnswerValueIntegerModel),
-        createSingleValuedQuestionnaireResponseItemModel("LIBID_Q03e", AnswerValueIntegerModel)
-    ])
-})
+type PatientReportedHealthStatusField = keyof typeof modelRecord
+type PatientReportedhealthStatusRecord = Record<PatientReportedHealthStatusField, string | string[]>
 
-export type IPatientReportedHealthStatusQuestionnaireResponse = Infer<typeof PatientReportedHealthStatusQuestionnaireResponseModel>
+
+export interface IPatientReportedHealthStatusQuestionnaireResponse extends IQuestionnaireResponse {
+    resourceType: "QuestionnaireResponse"
+    subject?: IPatientReference
+    author?: IPractitionerReference
+    questionnaire: typeof QUESTIONNAIRE_ID
+    item: IQuestionnaireResponseItem[]
+}
 
 export const initPatientReportedHealthStatus = (): IPatientReportedHealthStatusQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),
-    questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1",
+    questionnaire: QUESTIONNAIRE_ID,
     item: [
         { linkId: "EPIC26_Q01", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q02", answer: [{ valueInteger: undefined }] },
@@ -65,6 +37,8 @@ export const initPatientReportedHealthStatus = (): IPatientReportedHealthStatusQ
         { linkId: "EPIC26_Q06a", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q06b", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q06c", answer: [{ valueInteger: undefined }] },
+        { linkId: "EPIC26_Q06d", answer: [{ valueInteger: undefined }] },
+        { linkId: "EPIC26_Q06e", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q07", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q08a", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q08b", answer: [{ valueInteger: undefined }] },
@@ -77,13 +51,13 @@ export const initPatientReportedHealthStatus = (): IPatientReportedHealthStatusQ
         { linkId: "EPIC26_Q13c", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q13d", answer: [{ valueInteger: undefined }] },
         { linkId: "EPIC26_Q13e", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q01", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q02", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q03a", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q03b", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q03c", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q03d", answer: [{ valueInteger: undefined }] },
-        { linkId: "LIBID_Q03e", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q01", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q02", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q03a", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q03b", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q03c", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q03d", answer: [{ valueInteger: undefined }] },
+        // { linkId: "LIBID_Q03e", answer: [{ valueInteger: undefined }] },
     ]
 })
 const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { question: string, extraInfo?: string, answerOptions: { [label: string]: string }, name: string }) => {
@@ -121,14 +95,40 @@ const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { 
         </>
     )
 }
+const initPatientReportedHealthStatusRecord = (): PatientReportedhealthStatusRecord => {
+    const record = {} as PatientReportedhealthStatusRecord
+    Object.keys(modelRecord).forEach(key => { record[key as keyof PatientReportedhealthStatusRecord] = "" })
+    return record as PatientReportedhealthStatusRecord
+}
 
 export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmit, disabled, title = "Patient-Reported Health Status", hideTitle, author, subject }: IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>) => {
     const authorReference = typeof author === "string" ? { identifier: { value: author }, type: "Practitioner" } as IPractitionerReference : author
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject }, type: "Patient" } as IPatientReference : subject
-    const init = { ...initQuestionnaireResponse ?? initPatientReportedHealthStatus(), author: authorReference, subject: subjectReference }
+    const handleSubmit = (values: PatientReportedhealthStatusRecord, helpers: FormikHelpers<PatientReportedhealthStatusRecord>) => {
+        console.debug("📥 Received TreatmentVariables form values:", values)
+        const qr: IPatientReportedHealthStatusQuestionnaireResponse = {
+            ...initPatientReportedHealthStatus(),
+            author: authorReference && { ...authorReference, type: "Practitioner" },
+            subject: subjectReference && { ...subjectReference, type: "Patient" },
+        }
+        const record = create(values, object(modelRecord))
+        console.log("✅ TreatmentVariables form is valid")
+        qr.item = convertRecordToQRItems(record) as IPatientReportedHealthStatusQuestionnaireResponse["item"]
+        console.debug(" ⚙️️ Converted TreatmentVariables to a FHIR QuestionnaireReponse", qr)
+        onSubmit && onSubmit(qr)
+        helpers.resetForm({ values })
+    } // onSubmit(values)
+    const initialValues = useMemo(() => {
+        let values: PatientReportedhealthStatusRecord = initPatientReportedHealthStatusRecord()
+        if (initQuestionnaireResponse) {
+            values = convertQRItemsToRecord(initQuestionnaireResponse.item) as PatientReportedhealthStatusRecord
+        }
+        console.debug("📤 initialValues", values)
+        return values
+    }, [initQuestionnaireResponse, initPatientReportedHealthStatusRecord])
     return (
-        <Formik initialValues={init} onSubmit={(values) => onSubmit && onSubmit(values)}>
-            <FormikContainer title={title} hideTitle={hideTitle} disabled={disabled}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <FormikContainer id={QUESTIONNAIRE_ID} title={title} hideTitle={hideTitle} disabled={disabled}>
                 <QuestionWrapper>
                     <MultipleChoiceQuestion
                         question="Hoe vaak verloor u, in de afgelopen 4 weken, urine zonder dat u dat wilde?"
@@ -139,7 +139,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Ongeveer één keer per week": "4",
                             "Zelden of nooit": "5"
                         }}
-                        name="item[0].answer[0].valueInteger"
+                        name="EPIC26_Q01"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -151,7 +151,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Af en toe ongewild verlies van druppels urine": "3",
                             "Geen ongewild urineverlies": "4",
                         }}
-                        name="item[1].answer[0].valueInteger"
+                        name="EPIC26_Q02"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -164,11 +164,11 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "2 verband per dag": "2",
                             "3 of meer verbanden per dag": "3",
                         }}
-                        name="item[2].answer[0].valueInteger"
+                        name="EPIC26_Q03"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
-                    <div className="mt-4">
+                    <div className="mt-4 col-span-full">
                         <h6>In hoeverre heeft u de volgende plasklachten, in de afgelopen 4 weken, als een probleem ervaren?</h6>
                     </div>
                 </QuestionWrapper>
@@ -182,7 +182,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[3].answer[0].valueInteger"
+                        name="EPIC26_Q04a"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -195,7 +195,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[4].answer[0].valueInteger"
+                        name="EPIC26_Q04b"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -208,7 +208,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[5].answer[0].valueInteger"
+                        name="EPIC26_Q04c"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -221,7 +221,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[6].answer[0].valueInteger"
+                        name="EPIC26_Q04d"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -234,7 +234,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[7].answer[0].valueInteger"
+                        name="EPIC26_Q04e"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -248,11 +248,11 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "4",
                             "Groot probleem": "5"
                         }}
-                        name="item[8].answer[0].valueInteger"
+                        name="EPIC26_Q05"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
-                    <div className="mt-4">
+                    <div className="mt-4 col-span-full">
                         <h6>In hoeverre heeft u de volgende ontlastingsklachten, in de afgelopen 4 weken, als een probleem
                             ervaren?</h6>
                     </div>
@@ -267,7 +267,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[9].answer[0].valueInteger"
+                        name="EPIC26_Q06a"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -280,7 +280,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[10].answer[0].valueInteger"
+                        name="EPIC26_Q06b"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -293,7 +293,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[11].answer[0].valueInteger"
+                        name="EPIC26_Q06c"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -306,7 +306,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[12].answer[0].valueInteger"
+                        name="EPIC26_Q06d"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -319,7 +319,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[13].answer[0].valueInteger"
+                        name="EPIC26_Q06e"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -333,11 +333,11 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "4",
                             "Groot probleem": "5"
                         }}
-                        name="item[14].answer[0].valueInteger"
+                        name="EPIC26_Q07"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
-                    <div className="mt-4">
+                    <div className="mt-4 col-span-full">
                         <h6>In de afgelopen 4 weken, hoe zou u voor uzelf de volgende zaken beoordelen?</h6>
                     </div>
                 </QuestionWrapper>
@@ -351,7 +351,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Goed": "3",
                             "Zeer goed": "4"
                         }}
-                        name="item[15].answer[0].valueInteger"
+                        name="EPIC26_Q08a"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -364,7 +364,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Goed": "3",
                             "Zeer goed": "4"
                         }}
-                        name="item[16].answer[0].valueInteger"
+                        name="EPIC26_Q08b"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -376,7 +376,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Alleen stevig genoeg voor masturbatie en voorspel": "3",
                             "Stevig genoeg voor gemeenschap": "4"
                         }}
-                        name="item[17].answer[0].valueInteger"
+                        name="EPIC26_Q9"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -389,7 +389,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Ik had een erectie meer dan de helft van de keren": "4",
                             "Ik had altijd een erectie wanneer ik dat wenste": "5"
                         }}
-                        name="item[18].answer[0].valueInteger"
+                        name="EPIC26_Q10"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -402,7 +402,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Goed": "4",
                             "Zeer goed": "5"
                         }}
-                        name="item[19].answer[0].valueInteger"
+                        name="EPIC26_Q11"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -415,11 +415,11 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "4",
                             "Groot probleem": "5"
                         }}
-                        name="item[20].answer[0].valueInteger"
+                        name="EPIC26_Q12"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
-                    <div className="mt-4">
+                    <div className="mt-4 col-span-full">
                         <h6>In hoeverre heeft u, in de afgelopen 4 weken, de volgende zaken als een probleem ervaren?</h6>
                     </div>
                 </QuestionWrapper>
@@ -433,7 +433,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[21].answer[0].valueInteger"
+                        name="EPIC26_Q13a"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -446,7 +446,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[22].answer[0].valueInteger"
+                        name="EPIC26_Q13b"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -459,7 +459,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[23].answer[0].valueInteger"
+                        name="EPIC26_Q13c"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -472,7 +472,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[24].answer[0].valueInteger"
+                        name="EPIC26_Q13d"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>
@@ -485,9 +485,105 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Nogal een probleem": "3",
                             "Groot probleem": "4"
                         }}
-                        name="item[25].answer[0].valueInteger"
+                        name="EPIC26_Q13e"
                     />
                 </QuestionWrapper>
+                {/**<QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="During the last 4 weeks, to what extent were you interested in sex?"
+                        answerOptions={{
+                            "Not at all": "0",
+                            "A little": "1",
+                            "Quite a bit": "2",
+                            "Very much": "3"
+                        }}
+                        name="LIBID_Q01"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Have you used any medications or devices to aid or improve erections"
+                        answerOptions={{
+                            "No": "0",
+                            "Yes": "1"
+                        }}
+                        name="LIBID_Q02"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <div className="mt-4 col-span-full">
+                        <h6>
+                            For each of the following medicines or devices, please indicate whether or not you
+                            have tried or currently use it to improve your erections
+                        </h6>
+                    </div>
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Viagra or another pill"
+                        answerOptions={{
+                            "Have not tried it": "0",
+                            "Tried it but was not helpful": "1",
+                            "It helped but I am not using it now": "2",
+                            "It helped and I use it sometimes": "3",
+                            "It helped and I use it always": "4",
+                        }}
+                        name="LIBID_Q03a"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Muse (intra-urethral alprostadil suppository)"
+                        answerOptions={{
+                            "Have not tried it": "0",
+                            "Tried it but was not helpful": "1",
+                            "It helped but I am not using it now": "2",
+                            "It helped and I use it sometimes": "3",
+                            "It helped and I use it always": "4",
+                        }}
+                        name="LIBID_Q03b"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Penile injection therapy (such as caverject)"
+                        answerOptions={{
+                            "Have not tried it": "0",
+                            "Tried it but was not helpful": "1",
+                            "It helped but I am not using it now": "2",
+                            "It helped and I use it sometimes": "3",
+                            "It helped and I use it always": "4",
+                        }}
+                        name="LIBID_Q03c"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Vacuum erection device (such as erect-aid)"
+                        answerOptions={{
+                            "Have not tried it": "0",
+                            "Tried it but was not helpful": "1",
+                            "It helped but I am not using it now": "2",
+                            "It helped and I use it sometimes": "3",
+                            "It helped and I use it always": "4",
+                        }}
+                        name="LIBID_Q03d"
+                    />
+                </QuestionWrapper>
+                <QuestionWrapper>
+                    <MultipleChoiceQuestion
+                        question="Other medication/device"
+                        answerOptions={{
+                            "Have not tried it": "0",
+                            "Tried it but was not helpful": "1",
+                            "It helped but I am not using it now": "2",
+                            "It helped and I use it sometimes": "3",
+                            "It helped and I use it always": "4",
+                        }}
+                        name="LIBID_Q03e"
+                    />
+                </QuestionWrapper>
+                **/}
             </FormikContainer>
         </Formik>
     )

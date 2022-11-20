@@ -1,21 +1,23 @@
 import React, { useMemo } from "react"
 import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IReference } from "FHIR/types";
 import { Field, Formik, FormikHelpers } from "formik";
-import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse";
+import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse";
 import { FormikContainer } from "../FormContainer";
 import { modelRecord } from "./consts";
 import { create, object } from "superstruct";
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate";
 import { QuestionWrapper } from "../QuestionWrapper";
+import { IAbsractQuestionnaireResponse } from "../types";
 
 const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1"
 type TreatmentVariablesField = keyof typeof modelRecord
 type TreatmentVariablesRecord = Record<TreatmentVariablesField, string>
 
-export interface ITreatmentVariablesQuestionnaireResponse extends TiroQuestionnaireResponse {
+export interface ITreatmentVariablesQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
+    resourceType: "QuestionnaireResponse"
     questionnaire: typeof QUESTIONNAIRE_ID
     item: [
-        { linkId: "PRIMARYTX", answer: [IAnswerValueCoding] },
+        { linkId: "PRIMARYTX", answer: [IAnswerValueInteger] },
         { linkId: "PRWATCHDATE", answer: [IAnswerValueDate] },
         { linkId: "PRACTIVEDATE", answer: [IAnswerValueDate] },
         { linkId: "PRRADPROTXDATE", answer: [IAnswerValueDate] },
@@ -53,7 +55,7 @@ export interface ITreatmentVariablesQuestionnaireResponse extends TiroQuestionna
         { linkId: "SVBRACHYTXSTARTDATE", answer: [IAnswerValueDate] },
         { linkId: "SVBRACHYTXSTOPDATE", answer: [IAnswerValueDate] },
         { linkId: "SVBRACHYTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SVBRACHYDOSERATE", answer: [IAnswerValueQuantity] },
+        { linkId: "SVBRACHYDOSERATE", answer: [IAnswerValueInteger] },
         { linkId: "SVADTTXSTARTDATE", answer: [IAnswerValueDate] },
         { linkId: "SVADTTXSTOPDATE", answer: [IAnswerValueDate] },
         { linkId: "SVADTTXONGOING", answer: [IAnswerValueInteger] },
@@ -72,7 +74,7 @@ export const initTreatmentVariables = (): ITreatmentVariablesQuestionnaireRespon
     ...initQuestionnaireResponse(),
     questionnaire: QUESTIONNAIRE_ID,
     item: [
-        { linkId: "PRIMARYTX", answer: [{ valueCoding: undefined }] },
+        { linkId: "PRIMARYTX", answer: [{ valueInteger: undefined }] },
         { linkId: "PRWATCHDATE", answer: [{ valueDate: undefined }] },
         { linkId: "PRACTIVEDATE", answer: [{ valueDate: undefined }] },
         { linkId: "PRRADPROTXDATE", answer: [{ valueDate: undefined }] },
@@ -110,7 +112,7 @@ export const initTreatmentVariables = (): ITreatmentVariablesQuestionnaireRespon
         { linkId: "SVBRACHYTXSTARTDATE", answer: [{ valueDate: undefined }] },
         { linkId: "SVBRACHYTXSTOPDATE", answer: [{ valueDate: undefined }] },
         { linkId: "SVBRACHYTXONGOING", answer: [{ valueInteger: undefined }] },
-        { linkId: "SVBRACHYDOSERATE", answer: [{ valueQuantity: { value: undefined, unit: "Gray" } }] },
+        { linkId: "SVBRACHYDOSERATE", answer: [{ valueInteger: undefined }] },
         { linkId: "SVADTTXSTARTDATE", answer: [{ valueDate: undefined }] },
         { linkId: "SVADTTXSTOPDATE", answer: [{ valueDate: undefined }] },
         { linkId: "SVADTTXONGOING", answer: [{ valueInteger: undefined }] },
@@ -136,35 +138,29 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject } } as IReference : subject
 
     const handleSubmit = (values: TreatmentVariablesRecord, helpers: FormikHelpers<TreatmentVariablesRecord>) => {
+        console.debug("📥 Received TreatmentVariables form values:", values)
         const qr: ITreatmentVariablesQuestionnaireResponse = {
             ...initTreatmentVariables(),
             author: authorReference && { ...authorReference, type: "Practitioner" },
             subject: subjectReference && { ...subjectReference, type: "Patient" }
         }
         const record = create(values, object(modelRecord))
-        console.log(record)
+        console.log("✅ TreatmentVariables form is valid")
         qr.item = convertRecordToQRItems(record) as ITreatmentVariablesQuestionnaireResponse["item"]
+        console.debug(" ⚙️️ Converted TreatmentVariables to a FHIR QuestionnaireReponse", qr)
         onSubmit && onSubmit(qr)
         helpers.resetForm({ values })
     }
     const initialValues = useMemo(() => {
+        let values: TreatmentVariablesRecord = initBaselineTumorFactorsRecord()
         if (initQuestionnaireResponse) {
-            return convertQRItemsToRecord(initQuestionnaireResponse.item) as TreatmentVariablesRecord
-        } else {
-            return initBaselineTumorFactorsRecord()
+            values = convertQRItemsToRecord(initQuestionnaireResponse.item) as TreatmentVariablesRecord
         }
+        console.debug("📤 initialValues", values)
+        return values
     },
         [initQuestionnaireResponse, initBaselineTumorFactorsRecord])
-    const primaryTherapyOptions: ICoding[] = [
-        { display: "Watchful waiting", code: "PRIMARYTX/1", system: "" },
-        { display: "Active surveillance", code: "PRIMARYTX/2", system: "" },
-        { display: "Radical prostatectomy", code: "PRIMARYTX/3", system: "" },
-        { display: "External beam radiation therapy", code: "PRIMARYTX/4", system: "" },
-        { display: "Brachytherapy", code: "PRIMARYTX/5", system: "" },
-        { display: "Androgen deprivation therapy", code: "PRIMARYTX/6", system: "" },
-        { display: "Focal therapy", code: "PRIMARYTX/7", system: "" },
-        { display: "Other", code: "PRIMARYTX/888", system: "" }
-    ]
+
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({ values }) => {
@@ -340,7 +336,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                             type="checkbox"
                                                             id="PRBRACHYTXONGOING"
                                                             name="PRBRACHYTXONGOING"
-                                                            disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("6")}
+                                                            disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("5")}
                                                             className="checkbox"
                                                         />
                                                         <label htmlFor="PRBRACHYTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
@@ -388,7 +384,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                             id="PRADTTXONGOING"
                                                             type="checkbox"
                                                             name="PRADTTXONGOING"
-                                                            disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("5")}
+                                                            disabled={values.PRIMARYTX === "" || !values.PRIMARYTX.includes("6")}
                                                             className="checkbox"
                                                         />
                                                         <label htmlFor="PRADTTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
@@ -515,6 +511,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                             value={value}
                                                             type="radio"
                                                             className="radio"
+                                                            required={values.PRIMARYTX.includes("3")}
                                                         />
                                                         <label htmlFor={`PRNERVESPARE-${value}`} className="ml-3 block text-sm font-medium text-gray-700">
                                                             {text}
@@ -530,7 +527,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                 <div className="col-span-1">
                                     <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details EBRT</legend>
                                 </div>
-                                <div className="sm:col-span-2 col-start-2" >
+                                <div className="col-start-2 sm:col-start-2 sm:col-span-2" >
                                     <label
                                         htmlFor="PREBRTTOTDOSE"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -544,6 +541,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                 name="PREBRTTOTDOSE"
                                                 type="number"
                                                 min={0}
+                                                required={values.PRIMARYTX.includes("4")}
                                                 className="field hide-arrows placeholder-gray-300"
                                             />
                                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -552,7 +550,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                         </div>
                                     </div>
                                 </div>
-                                <div className="sm:col-span-2 col-start-2">
+                                <div className="col-start-2 sm:col-start-2 sm:col-span-2">
                                     <label
                                         htmlFor="PREBRTDOSEPERFRACT"
                                         className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -591,6 +589,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                                             id={`PRBRACHYDOSERATE-${value}`}
                                                             name="PRBRACHYDOSERATE"
                                                             value={value}
+                                                            required={values.PRIMARYTX.includes("5")}
                                                             type="radio"
                                                             className="radio"
                                                         />
@@ -614,9 +613,420 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                         <div className="mt-4 space-y-4">
                                             <Field
                                                 name="PRIMARYTXFT"
+                                                required={values.PRIMARYTX.includes("7")}
                                                 type="text"
                                                 className="field"
                                             />
+                                        </div>
+                                    </div>
+                                </div>
+                            </QuestionWrapper>)}
+                        <QuestionWrapper>
+                            <div>
+                                <div
+                                    className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700"
+                                >
+                                    Salvage treatment initiated (within last year?)
+                                </div>
+                            </div>
+                            <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
+                                <Field
+                                    type="checkbox"
+                                    id="SALVAGETXINI"
+                                    name="SALVAGETXINI"
+                                    className="checkbox"
+                                />
+                            </div>
+                        </QuestionWrapper>
+                        {values.SALVAGETXINI && (
+                            <QuestionWrapper>
+                                <div className="mt-1 sm:mt-0 col-span-full">
+                                    <table className="w-full">
+                                        <thead>
+                                            <tr>
+                                                <td width="25%"></td>
+                                                <th>
+                                                    Salvage treatment modality?
+                                                </th>
+                                                <th>
+                                                    Start - End / Ongoing
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr className="mt-3 hover:bg-gray-50">
+                                                <td className="text-sm font-medium text-gray-700">
+                                                    <label htmlFor="SALVAGETX-1">Radical prostatectomy</label>
+                                                </td>
+                                                <td className="text-center">
+                                                    <Field
+                                                        id="SALVAGETX-1"
+                                                        name="SALVAGETX"
+                                                        value="1"
+                                                        type="checkbox"
+                                                        className="checkbox"
+                                                    />
+                                                </td>
+                                                <td width="50%">
+                                                    <Field
+                                                        name="SVRADPROTXDATE"
+                                                        type="date"
+                                                        className="field"
+                                                        disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("1")}
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr className="mt-3 hover:bg-gray-50">
+                                                <td className="text-sm font-medium text-gray-700">
+                                                    <label htmlFor="SALVAGETX-2">External beam radiation therapy</label>
+                                                </td>
+                                                <td className="text-center">
+                                                    <Field
+                                                        id="SALVAGETX-2"
+                                                        name="SALVAGETX"
+                                                        value="2"
+                                                        type="checkbox"
+                                                        className="checkbox"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <div className="mt-1 sm:mt-0 w-full grid gap-2 grid-cols-2 lg:grid-cols-3">
+                                                        <div className="col-span-2 mt-1 relative rounded-md w-full flex shadow-sm border border-gray-300 bg-white">
+                                                            <Field
+                                                                name="SVEBRTTXSTARTDATE"
+                                                                type="date"
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("2")}
+
+                                                            />
+                                                            <div className="mx-3 flex items-center text-lg text-gray-400">
+                                                                <span>&rarr;</span>
+                                                            </div>
+                                                            <Field
+                                                                name="SVEBRTTXSTOPDATE"
+                                                                type="date"
+                                                                disabled={values.SVEBRTTXONGOING || values.SALVAGETX === "" || !values.SALVAGETX.includes("2")}
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-1 mt-1 self-center relative w-full flex">
+                                                            <Field
+                                                                id="SVEBRTTXONGOING"
+                                                                type="checkbox"
+                                                                name="SVEBRTTXONGOING"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("2")}
+                                                                className="checkbox"
+                                                            />
+                                                            <label htmlFor="SVEBRTTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr className="mt-3 hover:bg-gray-50">
+                                                <td className="text-sm font-medium text-gray-700">
+                                                    <label htmlFor="SALVAGETX-3">Brachytherapy</label>
+                                                </td>
+                                                <td className="text-center">
+                                                    <Field
+                                                        id="SALVAGETX-3"
+                                                        name="SALVAGETX"
+                                                        value="3"
+                                                        type="checkbox"
+                                                        className="checkbox"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <div className="mt-1 sm:mt-0 w-full grid gap-2 grid-cols-2 lg:grid-cols-3">
+                                                        <div className="col-span-2 mt-1 relative rounded-md w-full flex shadow-sm border border-gray-300 bg-white">
+                                                            <Field
+                                                                name="SVBRACHYTXSTARTDATE"
+                                                                type="date"
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("3")}
+
+                                                            />
+                                                            <div className="mx-3 flex items-center text-lg text-gray-400">
+                                                                <span>&rarr;</span>
+                                                            </div>
+                                                            <Field
+                                                                name="SVBRACHYTXSTOPDATE"
+                                                                type="date"
+                                                                disabled={values.SVBRACHYTXONGOING || values.SALVAGETX === "" || !values.SALVAGETX.includes("3")}
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-1 mt-1 self-center relative w-full flex">
+                                                            <Field
+                                                                type="checkbox"
+                                                                id="SVBRACHYTXONGOING"
+                                                                name="SVBRACHYTXONGOING"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("3")}
+                                                                className="checkbox"
+                                                            />
+                                                            <label htmlFor="SVBRACHYTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="mt-3 hover:bg-gray-50">
+                                                <td className="text-sm font-medium text-gray-700">
+                                                    <label htmlFor="SALVAGETX-4">Androgen Deprivation Therapy</label>
+                                                </td>
+                                                <td className="text-center">
+                                                    <Field
+                                                        id="SALVAGETX-4"
+                                                        name="SALVAGETX"
+                                                        value="4"
+                                                        type="checkbox"
+                                                        className="checkbox"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <div className="mt-1 sm:mt-0 w-full grid gap-2 grid-cols-2 lg:grid-cols-3">
+                                                        <div className="col-span-2 mt-1 relative rounded-md w-full flex shadow-sm border border-gray-300 bg-white">
+                                                            <Field
+                                                                name="SVADTTXSTARTDATE"
+                                                                type="date"
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("4")}
+
+                                                            />
+                                                            <div className="mx-3 flex items-center text-lg text-gray-400">
+                                                                <span>&rarr;</span>
+                                                            </div>
+                                                            <Field
+                                                                name="SVADTTXSTOPDATE"
+                                                                type="date"
+                                                                disabled={values.SVADTTXONGOING || values.SALVAGETX === "" || !values.SALVAGETX.includes("4")}
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-1 mt-1 self-center relative w-full flex">
+                                                            <Field
+                                                                id="SVADTTXONGOING"
+                                                                type="checkbox"
+                                                                name="SVADTTXONGOING"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("4")}
+                                                                className="checkbox"
+                                                            />
+                                                            <label htmlFor="SVADTTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="mt-3 hover:bg-gray-50">
+                                                <td className="text-sm font-medium text-gray-700">
+                                                    <label htmlFor="SALVAGETX-5">Focal therapy</label>
+                                                </td>
+                                                <td className="text-center">
+                                                    <Field
+                                                        id="SALVAGETX-5"
+                                                        name="SALVAGETX"
+                                                        value="5"
+                                                        type="checkbox"
+                                                        className="checkbox"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <div className="mt-1 sm:mt-0 w-full grid gap-2 grid-cols-2 lg:grid-cols-3">
+                                                        <div className="col-span-2 mt-1 relative rounded-md w-full flex shadow-sm border border-gray-300 bg-white">
+                                                            <Field
+                                                                name="SVFOCTXSTARTDATE"
+                                                                type="date"
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("5")}
+
+                                                            />
+                                                            <div className="mx-3 flex items-center text-lg text-gray-400">
+                                                                <span>&rarr;</span>
+                                                            </div>
+                                                            <Field
+                                                                name="SVFOCTXSTOPDATE"
+                                                                type="date"
+                                                                disabled={values.SVFOCTXONGOING || values.SALVAGETX === "" || !values.SALVAGETX.includes("5")}
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-1 mt-1 self-center relative w-full flex">
+                                                            <Field
+                                                                type="checkbox"
+                                                                id="SVFOCTXONGOING"
+                                                                name="SVFOCTXONGOING"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("5")}
+                                                                className="checkbox"
+                                                            />
+                                                            <label htmlFor="SVFOCTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr className="mt-3 hover:bg-gray-50">
+                                                <td className="text-sm font-medium text-gray-700">
+                                                    <label htmlFor="SALVAGETX-888">Other</label>
+                                                    <Field name="SALVAGETXOTHER" type="text" className="field" />
+                                                </td>
+                                                <td className="text-center">
+                                                    <Field
+                                                        id="SALVAGETX-888"
+                                                        name="SALVAGETX"
+                                                        value="888"
+                                                        type="checkbox"
+                                                        className="checkbox"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <div className="mt-1 sm:mt-0 w-full grid gap-2 grid-cols-2 lg:grid-cols-3">
+                                                        <div className="col-span-2 mt-1 relative rounded-md w-full flex shadow-sm border border-gray-300 bg-white">
+                                                            <Field
+                                                                name="SVOTHERTXSTARTDATE"
+                                                                type="date"
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("888")}
+
+                                                            />
+                                                            <div className="mx-3 flex items-center text-lg text-gray-400">
+                                                                <span>&rarr;</span>
+                                                            </div>
+                                                            <Field
+                                                                name="SVOTHERTXSTOPDATE"
+                                                                type="date"
+                                                                disabled={values.SVOTHERTXONGOING || values.SALVAGETX === "" || !values.SALVAGETX.includes("888")}
+                                                                placeholder="dd/mm/yyyy"
+                                                                className="focus:ring-blue-500 focus:border-blue-500 block pl-7 w-0.5 flex-1 sm:text-sm border-transparent rounded-md"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-1 mt-1 self-center relative w-full flex">
+                                                            <Field
+                                                                type="checkbox"
+                                                                name="SVOTHERTXONGOING"
+                                                                id="SVOTHERTXONGOING"
+                                                                disabled={values.SALVAGETX === "" || !values.SALVAGETX.includes("888")}
+                                                                className="checkbox"
+                                                            />
+                                                            <label htmlFor="SVOTHERTXONGOING" className="ml-3 block text-sm font-medium text-gray-700">ongoing</label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </QuestionWrapper>)}
+                        {values.SALVAGETX !== "" && values.SALVAGETX.includes("1") && (
+                            <QuestionWrapper>
+                                <div className="col-span-1">
+                                    <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details radical prostectomy</legend>
+                                </div>
+                                <div className="sm:col-span-2" >
+                                    <div className="max-w-lg">
+                                        <p className="text-sm text-gray-500">Nerve sparing status</p>
+                                        <div className="mt-4 space-y-4">
+                                            {Object.entries({ "non nerve-sparing": "1", "nerve-sparing": "2" }).map(
+                                                ([text, value]) => (
+                                                    <div className="flex items-center" key={text}>
+                                                        <Field
+                                                            id={`SVNERVESPARE-${value}`}
+                                                            name="SVNERVESPARE"
+                                                            value={value}
+                                                            type="radio"
+                                                            className="radio"
+                                                            required={values.SALVAGETX.includes("1")}
+                                                        />
+                                                        <label htmlFor={`SVNERVESPARE-${value}`} className="ml-3 block text-sm font-medium text-gray-700">
+                                                            {text}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </QuestionWrapper>)}
+                        {values.SALVAGETX !== "" && values.SALVAGETX.includes("2") && (
+                            <QuestionWrapper>
+                                <div className="col-span-1">
+                                    <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details EBRT</legend>
+                                </div>
+                                <div className="col-start-2 sm:col-start-2 sm:col-span-2" >
+                                    <label
+                                        htmlFor="SVEBRTTOTDOSE"
+                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                    >
+                                        EBRT dose
+                                    </label>
+                                    <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
+                                        <div className="mt-1 relative rounded-md w-full shadow-sm ">
+                                            <Field
+                                                id="SVEBRTTOTDOSE"
+                                                name="SVEBRTTOTDOSE"
+                                                type="number"
+                                                min={0}
+                                                required={values.SALVAGETX.includes("2")}
+                                                className="field hide-arrows placeholder-gray-300"
+                                            />
+                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                <span className="text-gray-500 sm:text-sm bg-white">Gray</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-start-2 sm:col-start-2 sm:col-span-2">
+                                    <label
+                                        htmlFor="SVEBRTDOSEPERFRACT"
+                                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                                    >
+                                        Average dose per fraction
+                                    </label>
+                                    <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
+                                        <div className="mt-1 relative rounded-md w-full shadow-sm ">
+                                            <Field
+                                                id="SVEBRTDOSEPERFRACT"
+                                                name="SVEBRTDOSEPERFRACT"
+                                                type="number"
+                                                min={0}
+                                                className="field hide-arrows placeholder-gray-300"
+                                            />
+                                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                                <span className="text-gray-500 sm:text-sm bg-white">Gray</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </QuestionWrapper>)}
+                        {values.SALVAGETX !== "" && values.SALVAGETX.includes("3") && (
+                            <QuestionWrapper>
+                                <div className="col-span-1">
+                                    <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details brachytherapy</legend>
+                                </div>
+                                <div className="sm:col-span-2" >
+                                    <div className="max-w-lg">
+                                        <p className="text-sm text-gray-500">Branchytherapy dose</p>
+                                        <div className="mt-4 space-y-4">
+                                            {Object.entries({ "low dose": "1", "high dose": "2", "unkown": "999" }).map(
+                                                ([text, value]) => (
+                                                    <div className="flex items-center" key={text}>
+                                                        <Field
+                                                            id={`SVBRACHYDOSERATE-${value}`}
+                                                            name="SVBRACHYDOSERATE"
+                                                            value={value}
+                                                            required={values.SALVAGETX.includes("3")}
+                                                            type="radio"
+                                                            className="radio"
+                                                        />
+                                                        <label htmlFor={`SVBRACHYDOSERATE-${value}`} className="ml-3 block text-sm font-medium text-gray-700">
+                                                            {text}
+                                                        </label>
+                                                    </div>
+                                                ))}
                                         </div>
                                     </div>
                                 </div>

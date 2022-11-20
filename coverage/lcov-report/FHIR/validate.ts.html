@@ -1,0 +1,355 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for FHIR/validate.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">FHIR</a> validate.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">97.02% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>98/101</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">80% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>32/40</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">86.36% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>19/22</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>56/56</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">268x</span>
+<span class="cline-any cline-yes">268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">208x</span>
+<span class="cline-any cline-yes">159x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">129x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-yes">201x</span>
+<span class="cline-any cline-yes">201x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import moment from "moment"
+import { any, array, boolean, coerce, date, defaulted, empty, integer, is, literal, number, object, optional, string, Struct, union } from "superstruct"
+import { CodingModel, IAnswerValue, ICoding, IQuestionnaireResponseItem, QuantityModel } from "./types"
+&nbsp;
+export const dateFromString = coerce(date(), string(), s =&gt; s === "" ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: new Date(s))
+export const dateFromStringWithDefault = defaulted(dateFromString, <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>ew Date())</span>
+export const optionalDateFromString = coerce(optional(date()), string(), s =&gt; s === "" ? undefined : new Date(s))
+export const integerFromString = coerce(integer(), string(), s =&gt; s === "" ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: parseInt(s))
+export const integerFromStringWithDefault = (d: number) =&gt; coerce(integer(), string(), s =&gt; s === "" ? <span class="branch-0 cbranch-no" title="branch not covered" >d </span>: parseInt(s))
+export const optionalIntegerFromString = coerce(optional(integer()), string(), s =&gt; s === "" ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: parseInt(s))
+&nbsp;
+export const booleanFromString = coerce(boolean(), string(), s =&gt; s === "1")
+export const optionalBooleanFromString = coerce(optional(boolean()), string(), s =&gt; s === "" ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: s === "1")
+export const codingWithDefault = (c: ICoding) =&gt; coerce(defaulted(CodingModel, c), string(), <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >u</span>ndefined)</span>
+export const quantityWithFixedUnitFromString = (unit: string) =&gt; coerce(object({ value: number(), unit: literal(unit) }), number(), v =&gt; ({ value: v, unit }))
+export const optionalQuantityWithFixedUnitFromString = (unit: string) =&gt; coerce(optional(object({ value: number(), unit: literal(unit) })), optional(union([number(), empty(string())])), v =&gt; (v === undefined || v === "") ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: ({ value: v, unit }))
+&nbsp;
+const MODEL_FHIR_FIELD_MAP: Record&lt;string, Struct&lt;any, any&gt;&gt; = {
+    "valueInteger": integer(),
+    "valueCoding": CodingModel,
+    "valueQuantity": QuantityModel,
+    "valueDate": date(),
+    "valueBoolean": boolean(),
+    "valueString": string()
+}
+&nbsp;
+export function mapToFHIRValueField(o: any) {
+    for (const [field, model] of Object.entries(MODEL_FHIR_FIELD_MAP)) {
+        if (is(o, model)) return field
+    }
+    throw Error("Couldn't map the value to a supported FHIR type. Received: " + JSON.stringify(o))
+}
+&nbsp;
+export function mapToRecordValueField(o: unknown) {
+    if (is(o, integer())) return o.toString()
+    if (is(o, boolean())) return o
+    if (is(o, string())) return o
+    if (is(o, date())) return o.toISOString().split("T")[0]
+    if (is(o, QuantityModel)) return o.value ?? ""
+    return o
+}
+&nbsp;
+export function convertRecordToQRItems(o: Record&lt;string, unknown&gt;, initQrItems: IQuestionnaireResponseItem[] = []): IQuestionnaireResponseItem[] {
+    const items: IQuestionnaireResponseItem[] = []
+    Object.entries(o).forEach(([key, value], index) =&gt; {
+        let item = { linkId: key, answer: [] as IAnswerValue[] }
+        try {
+            if (is(value, array(any()))) {
+                value.forEach((v, i) =&gt; {
+                    var field = mapToFHIRValueField(v)
+                    const initAnswerValue = initQrItems[index]<span class="branch-1 cbranch-no" title="branch not covered" >?.answer[i]</span>
+                    item.answer.push({ ...initAnswerValue, [field]: v })
+                })
+            } else {
+&nbsp;
+                const initItem = initQrItems.find(<span class="fstat-no" title="function not covered" >i </span>=&gt; <span class="cstat-no" title="statement not covered" >i.linkId === key)</span>
+                const field = mapToFHIRValueField(value)
+                item.answer.push({ ...<span class="branch-1 cbranch-no" title="branch not covered" >initItem?.answer[0],</span> [field]: value, })
+            }
+&nbsp;
+        } catch (e) {
+            console.debug("ℹ️ Couldn't convert " + key + " to a FHIR value field. Received: " + JSON.stringify(value))
+        }
+        items.push(item)
+    })
+    return items
+}
+&nbsp;
+export function convertQRItemsToRecord(items: IQuestionnaireResponseItem[]) {
+    let record = {}
+    for (const item of items) {
+        if (item.answer.length === 0) {
+            record = { ...record, [item.linkId]: "" }
+        }
+        if ((item.answer.length === 1)) {
+            for (const value of Object.values(item.answer[0])) {
+                record = { ...record, [item.linkId]: mapToRecordValueField(value) }
+            }
+        }
+        if ((item.answer.length &gt; 1)) {
+            let valueArray: any[] = []
+            record = { ...record, [item.linkId]: valueArray }
+            for (const answer of item.answer) {
+                for (const value of Object.values(answer)) {
+                    valueArray.push(mapToRecordValueField(value))
+                }
+            }
+        }
+    }
+    return record
+}</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2022-11-20T20:34:06.889Z
+            </div>
+        <script src="../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
+    </body>
+</html>
+    

@@ -1,21 +1,20 @@
-import { ChoiceField } from "Controlled/ChoiceField"
 import { IReference, IPatientReference, IPractitionerReference, IQuestionnaireResponseItem } from "FHIR/types"
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate"
 import { Field, Formik, FormikHelpers } from "formik"
-import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
+import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import React, { useMemo } from "react"
 import { create, object } from "superstruct"
 import { FormikContainer } from "../FormContainer"
 import _ from "lodash"
 import { modelRecord } from "./consts"
 import { QuestionWrapper } from "../QuestionWrapper"
+import { IAbsractQuestionnaireResponse } from "../types"
 const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-factors|0.1"
-
 
 type PatientFactorsField = keyof typeof modelRecord
 type PatientFactorsRecord = Record<PatientFactorsField, string>
 
-export interface IPatientFactorsQuestionnaireResponse {
+export interface IPatientFactorsQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
     resourceType: "QuestionnaireResponse"
     subject?: IPatientReference
     author?: IPractitionerReference
@@ -43,22 +42,25 @@ export const PatientFactors = ({ author, subject, onSubmit, hideTitle, disabled,
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject } } as IReference : subject
 
     const handleSubmit = (values: PatientFactorsRecord, helpers: FormikHelpers<PatientFactorsRecord>) => {
+        console.debug("📥 Received PatientFactors form values:", values)
         const qr: IPatientFactorsQuestionnaireResponse = {
             ...initPatientFactors(),
             author: authorReference && { ...authorReference, type: "Practitioner" },
             subject: subjectReference && { ...subjectReference, type: "Patient" }
         }
         const record = create(values, object(modelRecord))
+        console.log("✅ PatientFactors form is valid")
         qr.item = convertRecordToQRItems(record) as IPatientFactorsQuestionnaireResponse["item"]
+        console.debug(" ⚙️️ Converted PatientFactors to a FHIR QuestionnaireReponse", qr)
         onSubmit && onSubmit(qr)
         helpers.resetForm({ values })
     }
     const initialValues = useMemo(() => {
-        if (initQuestionnaireResponse) {
-            return convertQRItemsToRecord(initQuestionnaireResponse.item) as PatientFactorsRecord
-        } else {
-            return initPatientFactorsRecord()
-        }
+        let values: PatientFactorsRecord = initPatientFactorsRecord()
+        if (initQuestionnaireResponse)
+            values = convertQRItemsToRecord(initQuestionnaireResponse.item) as PatientFactorsRecord
+        console.debug("📤 initialValues", values)
+        return values
     },
         [initQuestionnaireResponse, initPatientFactorsRecord])
     return (

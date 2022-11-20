@@ -43,22 +43,27 @@ export const AcuteComplicationsOfTreatment = ({ author, subject, onSubmit, title
     const authorReference = typeof author === "string" ? { identifier: { value: author } } as IReference : author
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject } } as IReference : subject
     const handleSubmit = (values: AcuteComplicationsOfTreatmentRecord, helpers: FormikHelpers<AcuteComplicationsOfTreatmentRecord>) => {
+        console.debug("📥 Received AcuteComplicationsOfTreatment form values:", values)
         const qr: IAcuteComplicationsOfTreatmentQuestionnaireResponse = {
             ...initAcuteComplicationsOfTreatment(),
             author: authorReference && { ...authorReference, type: "Practitioner" },
             subject: subjectReference && { ...subjectReference, type: "Patient" }
         }
+        // coerce values to correct types
         const record = create(values, object(modelRecord))
+        console.log("✅ AcuteComplicationsOfTreatment form is valid")
         qr.item = convertRecordToQRItems(record) as IAcuteComplicationsOfTreatmentQuestionnaireResponse["item"]
+        console.debug(" ⚙️️ Converted AcuteComplicationsOfTreatment to a FHIR QuestionnaireReponse", qr)
         onSubmit && onSubmit(qr)
         helpers.resetForm({ values })
     }
     const initialValues = useMemo(() => {
+        let values: AcuteComplicationsOfTreatmentRecord = initAcuteComplicationsOfTreatmentRecord()
         if (initQuestionnaireResponse) {
-            return convertQRItemsToRecord(initQuestionnaireResponse.item) as AcuteComplicationsOfTreatmentRecord
-        } else {
-            return initAcuteComplicationsOfTreatmentRecord()
+            values = convertQRItemsToRecord(initQuestionnaireResponse.item) as AcuteComplicationsOfTreatmentRecord
         }
+        console.debug("📤 initialValues", values)
+        return values
     },
         [initQuestionnaireResponse, initAcuteComplicationsOfTreatment])
 

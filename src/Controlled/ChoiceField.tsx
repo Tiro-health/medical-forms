@@ -44,7 +44,7 @@ function stateReducer(
 }
 
 interface ChoiceSelectProps {
-  name:string
+  name: string
   options: ICoding[]
   containerRef?: RefObject<HTMLElement> | null;
   placeholder?: string;
@@ -53,12 +53,12 @@ interface ChoiceSelectProps {
 export const ChoiceField = ({
   name,
   className,
-  options:initOptions,
+  options: initOptions,
   placeholder,
   containerRef,
 }: ChoiceSelectProps) => {
   const [displayOptions, setDisplayOptions] = useState(initOptions);
-  const [{value, onBlur},,{setValue}] = useField(name)
+  const [{ value, onBlur }, , { setValue }] = useField(name)
   const {
     isOpen,
     openMenu,
@@ -75,7 +75,7 @@ export const ChoiceField = ({
     itemToString: (item) => item?.display ?? "",
     stateReducer,
     onInputValueChange: ({ inputValue }: UseComboboxStateChange<ICoding>) => {
-      if(!inputValue || inputValue.length === 0){
+      if (!inputValue || inputValue.length === 0) {
         setDisplayOptions(initOptions)
         return
       }
@@ -130,7 +130,7 @@ export const ChoiceField = ({
         <input
           name={name}
           {...getInputProps({
-            onFocus: ()=>{
+            onFocus: () => {
               !isOpen && openMenu()
             },
             onBlur

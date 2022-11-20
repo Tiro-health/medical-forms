@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
-import { IReference } from "FHIR/types"
+import { IQuestionnaireResponseItem, IReference } from "FHIR/types"
 import { FormikContainer } from "../FormContainer"
 import { object, create } from "superstruct"
 import { modelRecord } from "../BaselineTumorFactors/consts"
@@ -15,7 +15,10 @@ const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathol
 type PathologyInformationField = keyof typeof modelRecord
 type PathologyInformationRecord = Record<PathologyInformationField, string>
 
-export interface IPathologyInformationQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> { }
+export interface IPathologyInformationQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
+    questionnaire: typeof QUESTIONNAIRE_ID
+    item: IQuestionnaireResponseItem[]
+}
 
 export const initPathologicalInformation = (): IPathologyInformationQuestionnaireResponse => ({
     ...initQuestionnaireResponse(),
@@ -42,22 +45,25 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
     const subjectReference = typeof subject === "string" ? { identifier: { value: subject } } as IReference : subject
 
     const handleSubmit = (values: PathologyInformationRecord, helpers: FormikHelpers<PathologyInformationRecord>) => {
+        console.debug("📥 Received PathologyInformation form values:", values)
         const qr: IPathologyInformationQuestionnaireResponse = {
             ...initPathologicalInformation(),
             author: authorReference && { ...authorReference, type: "Practitioner" },
             subject: subjectReference && { ...subjectReference, type: "Patient" }
         }
         const record = create(values, object(modelRecord))
+        console.log("✅ PathologyInformation form is valid")
         qr.item = convertRecordToQRItems(record) as IPathologyInformationQuestionnaireResponse["item"]
+        console.debug(" ⚙️️ Converted PathologyInformation to a FHIR QuestionnaireReponse", qr)
         onSubmit && onSubmit(qr)
         helpers.resetForm({ values })
     }
     const initialValues = useMemo(() => {
-        if (initQuestionnaireResponse) {
-            return convertQRItemsToRecord(initQuestionnaireResponse.item) as PathologyInformationRecord
-        } else {
-            return initPatientInformationRecord()
-        }
+        let values: PathologyInformationRecord = initPatientInformationRecord()
+        if (initQuestionnaireResponse)
+            values = convertQRItemsToRecord(initQuestionnaireResponse.item) as PathologyInformationRecord
+        console.debug("📤 initialValues", values)
+        return values
     },
         [initQuestionnaireResponse, initPathologicalInformation])
 

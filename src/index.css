@@ -1360,6 +1360,10 @@ select{
   font-weight: 500;
 }
 
+.font-normal{
+  font-weight: 400;
+}
+
 .font-semibold{
   font-weight: 600;
 }
@@ -1789,6 +1793,10 @@ input.date[type=date]:disabled{
     grid-column: span 1 / span 1;
   }
 
+  .sm\:col-start-2{
+    grid-column-start: 2;
+  }
+
   .sm\:mt-px{
     margin-top: 1px;
   }
@@ -1799,6 +1807,10 @@ input.date[type=date]:disabled{
 
   .sm\:mt-5{
     margin-top: 1.25rem;
+  }
+
+  .sm\:mt-6{
+    margin-top: 1.5rem;
   }
 
   .sm\:grid{
@@ -1855,6 +1867,14 @@ input.date[type=date]:disabled{
 
   .sm\:pt-5{
     padding-top: 1.25rem;
+  }
+
+  .sm\:pt-8{
+    padding-top: 2rem;
+  }
+
+  .sm\:pt-6{
+    padding-top: 1.5rem;
   }
 
   .sm\:text-sm{

@@ -11,6 +11,7 @@ export const questionnaires = [
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1",
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-survival-disease-control|0.1",
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-acute-complications-of-treatment|0.1",
+    "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-factors|0.1",
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1"
 ] as const
 
