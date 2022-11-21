@@ -2,8 +2,6 @@ import React from "react"
 import { IQuestionnaire } from "FHIR/types";
 import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQuestionnaireResponse, PathologyInformation, PatientReportedHealthStatus, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables, IPatientReportedHealthStatusQuestionnaireResponse, ITreatmentVariablesQuestionnaireResponse, IPathologyInformationQuestionnaireResponse } from "./ICHOM/LPC";
 import { IQuestionnaireProps, TiroQuestionnaireResponse } from "./QuestionnaireResponse";
-import { assert, optional } from "superstruct";
-import { PatientReportedHealthStatusQuestionnaireResponseModel } from "./ICHOM/LPC/PatientReportedHealthStatus";
 
 export const questionnaires = [
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",

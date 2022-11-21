@@ -66,7 +66,6 @@ export const ChoiceField = ({
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
   } = useCombobox<ICoding>({
@@ -126,7 +125,7 @@ export const ChoiceField = ({
 
   return (
     <div className="relative w-full">
-      <div {...getComboboxProps()} className="w-full">
+      <div className="w-full">
         <input
           name={name}
           {...getInputProps({
