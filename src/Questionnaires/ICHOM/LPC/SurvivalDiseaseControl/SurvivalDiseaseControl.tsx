@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { AnswerValueBooleanModel, AnswerValueDateModel, AnswerValueIntegerModel, AnswerValueQuantityModel, IPatientReference, IPractitionerReference, IQuestionnaireResponse, IQuestionnaireResponseItem, IReference } from "FHIR/types"
 import { Field, Formik, FormikHelpers } from "formik"
-import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
+import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
 import { FormikContainer } from "../FormContainer"
 import { literal, object, tuple, Infer, create } from "superstruct"
 import { QuestionWrapper } from "../QuestionWrapper"

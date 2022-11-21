@@ -1,2 +1,2 @@
-export { SurvivalDiseaseControl, QUESTIONNAIRE_ID } from "./SurvivalDiseaseControl"
+export { SurvivalDiseaseControl, initSurvivalDiseaseControl, QUESTIONNAIRE_ID } from "./SurvivalDiseaseControl"
 export type { ISurvivalDiseaseControlQuestionnaireReponse } from "./SurvivalDiseaseControl"

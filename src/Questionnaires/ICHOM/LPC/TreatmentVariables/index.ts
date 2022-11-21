@@ -1,1 +1,2 @@
-export {ITreatmentVariablesQuestionnaireResponse, initTreatmentVariables, TreatmentVariables} from "./TreatmentVariables"
+export { initTreatmentVariables, TreatmentVariables } from "./TreatmentVariables"
+export type { ITreatmentVariablesQuestionnaireResponse } from "./TreatmentVariables"

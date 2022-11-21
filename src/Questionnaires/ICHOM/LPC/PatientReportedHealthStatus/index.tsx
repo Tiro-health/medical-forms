@@ -1,2 +1,2 @@
-export { PatientReportedHealthStatus } from "./PatientReportedHealthStatus"
+export { PatientReportedHealthStatus, initPatientReportedHealthStatus } from "./PatientReportedHealthStatus"
 export type { IPatientReportedHealthStatusQuestionnaireResponse } from "./PatientReportedHealthStatus"

@@ -1,1 +1,2 @@
-export { PatientFactors, initPatientFactors, IPatientFactorsQuestionnaireResponse } from "./PatientFactors"
+export { PatientFactors, initPatientFactors, } from "./PatientFactors"
+export { IPatientFactorsQuestionnaireResponse } from "./PatientFactors"
