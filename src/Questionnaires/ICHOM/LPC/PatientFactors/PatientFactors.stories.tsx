@@ -14,15 +14,21 @@ export default {
     component: PatientFactors,
 } as Meta<IQuestionnaireProps<TiroQuestionnaireResponse>>
 const Q = PatientFactors
-const submit = async ({ args, canvasElement }) => {
+const submitInvalid = async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByTestId('submit'));
+    const psaDateInput = canvas.getByLabelText("Wat is jouw geboortedatum?")
+    await waitFor(() => expect(psaDateInput).toBeInvalid())
+}
+const submitValid = async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByTestId('submit'));
     await waitFor(() => expect(args.onSubmit).toHaveBeenCalled());
 }
 export const Empty: Story<IQuestionnaireProps<IPatientFactorsQuestionnaireResponse>> = (args) => <Q {...args} />
-Empty.play = submit
+Empty.play = submitInvalid
 export const WithSubjectAndAuthor: Story<IQuestionnaireProps<IPatientFactorsQuestionnaireResponse>> = (args) => <Q {...args} />
-WithSubjectAndAuthor.play = submit
+WithSubjectAndAuthor.play = submitInvalid
 WithSubjectAndAuthor.args = { author: "clinicianId123", subject: "patientId1234" }
 WithSubjectAndAuthor.storyName = "Specify author and subject using string identifiers."
 export const FilledOut: Story<IQuestionnaireProps<IPatientFactorsQuestionnaireResponse>> = (args) => <Q {...args} />
@@ -36,4 +42,4 @@ FilledOut.args = {
         }, object(modelRecord)))
     }
 }
-FilledOut.play = submit
+FilledOut.play = submitValid

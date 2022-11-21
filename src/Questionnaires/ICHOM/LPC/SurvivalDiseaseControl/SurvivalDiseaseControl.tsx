@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { AnswerValueBooleanModel, AnswerValueDateModel, AnswerValueQuantityModel, IPatientReference, IPractitionerReference, IQuestionnaireResponse, IQuestionnaireResponseItem, IReference } from "FHIR/types"
+import { AnswerValueBooleanModel, AnswerValueDateModel, AnswerValueIntegerModel, AnswerValueQuantityModel, IPatientReference, IPractitionerReference, IQuestionnaireResponse, IQuestionnaireResponseItem, IReference } from "FHIR/types"
 import { Field, Formik, FormikHelpers } from "formik"
 import { initQuestionnaireResponse, IQuestionnaireProps, TiroQuestionnaireResponse } from "Questionnaires/QuestionnaireResponse"
 import { FormikContainer } from "../FormContainer"
@@ -19,7 +19,7 @@ export const SurvivalDiseaseControlModel = object({
     item: tuple([
         object({ linkId: literal("DEATH"), answer: tuple([AnswerValueBooleanModel]) }),
         object({ linkId: literal("DEATHDATE"), answer: tuple([AnswerValueDateModel]) }),
-        object({ linkId: literal("DEATHLPC"), answer: tuple([AnswerValueBooleanModel]) }),
+        object({ linkId: literal("DEATHLPC"), answer: tuple([AnswerValueIntegerModel]) }),
         object({ linkId: literal("METADEV"), answer: tuple([AnswerValueBooleanModel]) }),
         object({ linkId: literal("METADATE"), answer: tuple([AnswerValueDateModel]) }),
         object({ linkId: literal("BIOCHEM"), answer: tuple([AnswerValueBooleanModel]) }),
@@ -41,7 +41,7 @@ export const initSurvivalDiseaseControl = (): ISurvivalDiseaseControlQuestionnai
     item: [
         { linkId: "DEATH", answer: [{ valueBoolean: false }] },
         { linkId: "DEATHDATE", answer: [{ valueDate: "" }] },
-        { linkId: "DEATHLPC", answer: [{ valueBoolean: false }] },
+        { linkId: "DEATHLPC", answer: [{ valueInteger: 2 }] },
         { linkId: "METADEV", answer: [{ valueBoolean: false }] },
         { linkId: "METADATE", answer: [{ valueDate: "" }] },
         { linkId: "BIOCHEM", answer: [{ valueBoolean: false }] },

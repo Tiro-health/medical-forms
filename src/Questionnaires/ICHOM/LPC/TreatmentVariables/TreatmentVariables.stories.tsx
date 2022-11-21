@@ -84,4 +84,5 @@ FilledOut.args = {
         }, object(modelRecord))) as ITreatmentVariablesQuestionnaireResponse["item"]
     }
 }
+FilledOut.play = submit
 

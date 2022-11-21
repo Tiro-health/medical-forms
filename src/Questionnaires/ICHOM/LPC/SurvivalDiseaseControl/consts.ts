@@ -1,9 +1,9 @@
-import { booleanFromString, optionalDateFromString, optionalQuantityWithFixedUnitFromString } from "FHIR/validate"
+import { booleanFromString, optionalIntegerFromString, optionalDateFromString, optionalQuantityWithFixedUnitFromString } from "FHIR/validate"
 
 export const modelRecord = {
     "DEATH": booleanFromString,
     "DEATHDATE": optionalDateFromString,
-    "DEATHLPC": booleanFromString,
+    "DEATHLPC": optionalIntegerFromString,
     "METADEV": booleanFromString,
     "METADATE": optionalDateFromString,
     "BIOCHEM": booleanFromString,

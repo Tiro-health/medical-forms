@@ -76,6 +76,7 @@ export const PatientFactors = ({ author, subject, onSubmit, hideTitle, disabled,
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="mt-1 relative rounded-md w-full shadow-sm">
                             <Field
+                                id="AGE"
                                 name="AGE"
                                 type="date"
                                 placeholder="dd/mm/yyyy"

@@ -3,7 +3,7 @@ import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/Q
 import { IQuestionnaireResponseItem, IReference } from "FHIR/types"
 import { FormikContainer } from "../FormContainer"
 import { object, create } from "superstruct"
-import { modelRecord } from "../BaselineTumorFactors/consts"
+import { modelRecord } from "./consts"
 import { IAbsractQuestionnaireResponse } from "../types"
 import { Field, Formik, FormikHelpers } from "formik"
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate"
@@ -81,6 +81,8 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                                 Clinical tumor stage
                             </label>
                             <ChoiceField
+                                required
+                                id="TNMPT"
                                 name="TNMPT"
                                 options={PT_OPTIONS}
                                 placeholder="pT..."
@@ -93,6 +95,8 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                                 Clinical nodal stage
                             </label>
                             <ChoiceField
+                                required
+                                id="TNMPN"
                                 name="TNMPN"
                                 placeholder="cN..."
                                 options={PN_OPTIONS}
@@ -110,6 +114,7 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="flex items-center">
                             <Field
+                                required
                                 id="margin-positive"
                                 type="radio"
                                 name="MARGIN"
@@ -120,6 +125,7 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                         </div>
                         <div className="flex items-center">
                             <Field
+                                required
                                 id="margin-negative"
                                 type="radio"
                                 name="MARGIN"
@@ -139,6 +145,7 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="flex items-center">
                             <Field
+                                required
                                 id="marging-focality-focal"
                                 type="radio"
                                 name="MARGINFOC"
@@ -149,6 +156,7 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                         </div>
                         <div className="flex items-center">
                             <Field
+                                required
                                 id="margin-focality-multi"
                                 type="radio"
                                 name="MARGINFOC"
@@ -170,6 +178,8 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                                 Primary Gleason score
                             </label>
                             <Field
+                                required
+                                id="GLEASONPATH1"
                                 type="number"
                                 step={1}
                                 min={1}
@@ -187,6 +197,8 @@ export const PathologyInformation = ({ author, subject, disabled, onSubmit, init
                                 Secondary Gleason score
                             </label>
                             <Field
+                                required
+                                id="GLEASONPATH2"
                                 type="number"
                                 step={1}
                                 min={1}

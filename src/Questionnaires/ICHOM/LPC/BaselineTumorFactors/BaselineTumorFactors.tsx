@@ -86,6 +86,7 @@ export const BaselineTumorFactors = ({ author, subject, onSubmit, hideTitle, dis
                     <div className="mt-1 sm:mt-0 sm:col-span-2 md:col-span-1">
                         <div className="mt-1 relative rounded-md w-full shadow-sm ">
                             <Field
+                                id="DIAGDATE"
                                 name="DIAGDATE"
                                 type="date"
                                 placeholder="dd/mm/yyyy"

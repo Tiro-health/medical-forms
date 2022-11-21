@@ -1,1 +1,2 @@
-export { BaselineTumorFactors, IBaselineTumorFactorsQuestionnaireResponse, initBaselineTumorFactors } from "./BaselineTumorFactors"
+export { BaselineTumorFactors, initBaselineTumorFactors } from "./BaselineTumorFactors"
+export type { IBaselineTumorFactorsQuestionnaireResponse } from "./BaselineTumorFactors"

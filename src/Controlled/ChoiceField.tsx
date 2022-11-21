@@ -8,7 +8,6 @@ import {
 } from "downshift";
 import ReactDOM from "react-dom"
 import { Dispatch, useState, RefObject, useRef } from "react";
-import { DataElementInputProps } from "./types";
 import { ICoding } from "FHIR/types";
 import { useField } from "formik";
 
@@ -44,6 +43,8 @@ function stateReducer(
 }
 
 interface ChoiceSelectProps {
+  id?: string
+  required?: boolean
   name: string
   options: ICoding[]
   containerRef?: RefObject<HTMLElement> | null;
@@ -51,14 +52,16 @@ interface ChoiceSelectProps {
   className?: string;
 }
 export const ChoiceField = ({
+  id,
   name,
+  required,
   className,
   options: initOptions,
   placeholder,
   containerRef,
 }: ChoiceSelectProps) => {
   const [displayOptions, setDisplayOptions] = useState(initOptions);
-  const [{ value, onBlur }, , { setValue }] = useField(name)
+  const [{ value, onBlur }, , { setValue }] = useField({ name, required })
   const {
     isOpen,
     openMenu,
@@ -129,11 +132,13 @@ export const ChoiceField = ({
         <input
           name={name}
           {...getInputProps({
+            id,
             onFocus: () => {
               !isOpen && openMenu()
             },
             onBlur
           })}
+          id={id}
           placeholder={placeholder}
           size={
             Math.max(

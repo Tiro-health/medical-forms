@@ -33,9 +33,9 @@ FilledOut.args = {
         item: convertRecordToQRItems(create({
             "DEATH": true,
             "DEATHDATE": "2020-01-01",
-            "DEATHLPC": "",
+            "DEATHLPC": 2,
             "METADEV": true,
-            "METADATE": "",
+            "METADATE": "2012-01-01",
             "BIOCHEM": true,
             "BIOCHEMDATE": "",
             "BIOCHEMPSA": 2,
