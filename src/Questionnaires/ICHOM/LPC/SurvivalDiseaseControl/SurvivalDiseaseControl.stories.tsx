@@ -37,7 +37,7 @@ FilledOut.args = {
             "METADEV": true,
             "METADATE": "2012-01-01",
             "BIOCHEM": true,
-            "BIOCHEMDATE": "",
+            "BIOCHEMDATE": "1993-02-02",
             "BIOCHEMPSA": 2,
         }, object(modelRecord)))
     }
