@@ -1,10 +1,12 @@
 import React from "react"
 import { Meta, Story } from "@storybook/react"
-import { IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse"
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect } from "@storybook/jest"
+import { IQuestionnaireProps } from "../../../../Questionnaires/QuestionnaireResponse"
 import { PathologyInformation, IPathologyInformationQuestionnaireResponse } from "./PathologyInformation"
 import { create, object } from "superstruct"
 import { modelRecord, PN_OPTIONS, PT_OPTIONS } from "./consts"
-import { convertRecordToQRItems } from "FHIR/validate"
+import { convertRecordToQRItems } from "../../../../FHIR/validate"
 
 export default {
     title: "components/Questionnaires/ICHOMLocalisedProstateCancer/PathologyInformation",
@@ -14,10 +16,17 @@ export default {
 
 
 const Q = PathologyInformation
-export const Default: Story<IQuestionnaireProps<IPathologyInformationQuestionnaireResponse>> = (args) => <Q {...args} />
+const submit = async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByTestId('submit'));
+    await waitFor(() => expect(args.onSubmit).toHaveBeenCalled());
+}
+export const Empty: Story<IQuestionnaireProps<IPathologyInformationQuestionnaireResponse>> = (args) => <Q {...args} />
+Empty.play = submit
 export const WithSubjectAndAuthor: Story<IQuestionnaireProps<IPathologyInformationQuestionnaireResponse>> = (args) => <Q {...args} />
 WithSubjectAndAuthor.args = { author: "clinicianId123", subject: "patientId1234" }
 WithSubjectAndAuthor.storyName = "Specify author and subject using string identifiers."
+WithSubjectAndAuthor.play = submit
 export const FilledOut: Story<IQuestionnaireProps<IPathologyInformationQuestionnaireResponse>> = (args) => <Q {...args} />
 FilledOut.args = {
     initQuestionnaireResponse: {
@@ -33,4 +42,4 @@ FilledOut.args = {
         }, object(modelRecord)))
     }
 }
-
+FilledOut.play = submit

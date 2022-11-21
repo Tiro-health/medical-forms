@@ -5,6 +5,7 @@ const Footer = ({ clear }: React.PropsWithChildren<{ clear?: () => any }>) => (
     <div className="pt-5">
         <div className="flex justify-end">
             <button
+                data-testid="clear"
                 type="reset"
                 onClick={clear}
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -12,6 +13,7 @@ const Footer = ({ clear }: React.PropsWithChildren<{ clear?: () => any }>) => (
                 Clear
             </button>
             <button
+                data-testid="submit"
                 type="submit"
                 className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
@@ -50,15 +52,15 @@ export const FormikContainer = ({ children, id, title, hideTitle, disabled, ...a
     <Form id={id} className="space-y-8 divide-y divide-gray-200" {...attributes} >
         <fieldset disabled={disabled} form={id}>
             <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
-                    {!hideTitle && (
-                        <div>
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                {title}
-                            </h3>
-                            <p className="mt-1 max-w-2xl text-sm text-gray-500"></p>
-                        </div>
-                    )}
-                    {children}
+                {!hideTitle && (
+                    <div>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">
+                            {title}
+                        </h3>
+                        <p className="mt-1 max-w-2xl text-sm text-gray-500"></p>
+                    </div>
+                )}
+                {children}
             </div>
             <Footer />
         </fieldset>

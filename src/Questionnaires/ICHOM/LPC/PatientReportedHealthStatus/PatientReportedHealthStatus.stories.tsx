@@ -1,10 +1,12 @@
 import React from "react"
 import { Meta, Story } from "@storybook/react"
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect } from "@storybook/jest"
 import { IQuestionnaireProps } from "../../../QuestionnaireResponse"
 import { PatientReportedHealthStatus, IPatientReportedHealthStatusQuestionnaireResponse } from "./PatientReportedHealthStatus"
 import { create, object } from "superstruct"
 import { modelRecord } from "./consts"
-import { convertRecordToQRItems } from "FHIR/validate"
+import { convertRecordToQRItems } from "../../../../FHIR/validate"
 
 export default {
     title: "components/Questionnaires/ICHOMLocalisedProstateCancer/PatientReportedHealthStatus",
@@ -12,10 +14,17 @@ export default {
     component: PatientReportedHealthStatus,
 } as Meta<IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>>
 const Q = PatientReportedHealthStatus
-export const Default: Story<IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>> = (args) => <Q {...args} />
+const submit = async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByTestId('submit'));
+    await waitFor(() => expect(args.onSubmit).toHaveBeenCalled());
+}
+export const Empty: Story<IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>> = (args) => <Q {...args} />
+Empty.play = submit
 export const WithSubjectAndAuthor: Story<IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>> = (args) => <Q {...args} />
 WithSubjectAndAuthor.args = { author: "clinicianId123", subject: "patientId1234" }
 WithSubjectAndAuthor.storyName = "Specify author and subject using string identifiers."
+WithSubjectAndAuthor.play = submit
 export const FilledOut: Story<IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>> = (args) => <Q {...args} />
 FilledOut.args = {
     initQuestionnaireResponse: {
@@ -48,6 +57,7 @@ FilledOut.args = {
             "EPIC26_Q13c": 1,
             "EPIC26_Q13d": 1,
             "EPIC26_Q13e": 1,
+            //These are excluded from the modelRecord since UZ Leuven doesn't use them.
             //"LIBID_Q01": 1,
             //"LIBID_Q02": 1,
             //"LIBID_Q03a": 1,
@@ -58,3 +68,4 @@ FilledOut.args = {
         }, object(modelRecord)))
     }
 }
+FilledOut.play = submit

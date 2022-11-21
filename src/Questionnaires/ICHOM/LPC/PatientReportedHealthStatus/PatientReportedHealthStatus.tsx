@@ -78,6 +78,7 @@ const MultipleChoiceQuestion = ({ question, extraInfo, answerOptions, name }: { 
                             ([text, value]) => (
                                 <div className="flex items-center" key={text}>
                                     <Field
+                                        required={true}
                                         id={`${name}-${value}`}
                                         name={name}
                                         value={value}
@@ -376,7 +377,7 @@ export const PatientReportedHealthStatus = ({ initQuestionnaireResponse, onSubmi
                             "Alleen stevig genoeg voor masturbatie en voorspel": "3",
                             "Stevig genoeg voor gemeenschap": "4"
                         }}
-                        name="EPIC26_Q9"
+                        name="EPIC26_Q09"
                     />
                 </QuestionWrapper>
                 <QuestionWrapper>

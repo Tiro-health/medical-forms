@@ -1,8 +1,10 @@
 import React from "react"
 import { Meta, Story } from "@storybook/react"
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect } from "@storybook/jest"
 import { IQuestionnaireProps } from "../../../QuestionnaireResponse"
 import { ITreatmentVariablesQuestionnaireResponse, TreatmentVariables } from "./TreatmentVariables"
-import { convertRecordToQRItems } from "FHIR/validate";
+import { convertRecordToQRItems } from "../../../../FHIR/validate";
 import { create, object } from "superstruct";
 import { modelRecord } from "./consts";
 
@@ -13,10 +15,17 @@ export default {
     component: TreatmentVariables,
 } as Meta<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>>
 const Q = TreatmentVariables
-export const Default: Story<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>> = (args) => <Q {...args} />
+const submit = async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByTestId('submit'));
+    await waitFor(() => expect(args.onSubmit).toHaveBeenCalled());
+}
+export const Empty: Story<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>> = (args) => <Q {...args} />
+Empty.play = submit
 export const WithSubjectAndAuthor: Story<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>> = (args) => <Q {...args} />
 WithSubjectAndAuthor.args = { author: "clinicianId123", subject: "patientId1234" }
 WithSubjectAndAuthor.storyName = "Specify author and subject using string identifiers."
+WithSubjectAndAuthor.play = submit
 export const FilledOut: Story<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>> = (args) => <Q {...args} />
 FilledOut.args = {
     initQuestionnaireResponse: {
@@ -72,8 +81,7 @@ FilledOut.args = {
             "SVOTHERTXSTOPDATE": "2012-06-06",
             "SVOTHERTXONGOING": true,
 
-        }, object(modelRecord))
-        )
+        }, object(modelRecord))) as ITreatmentVariablesQuestionnaireResponse["item"]
     }
 }
 

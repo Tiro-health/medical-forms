@@ -1,4 +1,3 @@
-import moment from "moment"
 import { any, array, boolean, coerce, date, defaulted, empty, integer, is, literal, number, object, optional, string, Struct, union } from "superstruct"
 import { CodingModel, IAnswerValue, ICoding, IQuestionnaireResponseItem, QuantityModel } from "./types"
 

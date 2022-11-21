@@ -1,7 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
 import { R4 } from "@ahryman40k/ts-fhir-types"
 import { boolean, Describe, Infer, integer, number, object, optional, string, union, array, literal, Struct, tuple, is, date } from "superstruct";
-import { IQuestionnaireResponse_Item } from "@ahryman40k/ts-fhir-types/lib/R4";
 
 export const QuantityModel = object({ value: optional(number()), unit: optional(string()) })
 //export interface IQuantity {
