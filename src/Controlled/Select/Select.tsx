@@ -58,7 +58,6 @@ export const DropdownCombobox = ({
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
   } = useCombobox({
@@ -81,7 +80,7 @@ export const DropdownCombobox = ({
     <div>
       <label {...getLabelProps()}>{label}</label>
       <div className="mt-1 relative">
-        <div {...getComboboxProps()} className={containerClassname}>
+        <div className={containerClassname}>
           <input
             {...getInputProps()}
             type="text"
@@ -124,6 +123,6 @@ export const DropdownCombobox = ({
             ))}
         </ul>
       </div>
-    </div>
+    </div >
   );
 };

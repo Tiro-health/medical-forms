@@ -37,7 +37,6 @@ export const DropdownMultipleCombobox = ({
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     highlightedIndex,
     getItemProps,
     selectItem,
@@ -100,7 +99,7 @@ export const DropdownMultipleCombobox = ({
               </button>
             </span>
           ))}
-          <span {...getComboboxProps()} className="ml-1 my-0.5 flex-1">
+          <span className="ml-1 my-0.5 flex-1">
             <input
               type="text"
               className="p-0 w-full border-0 focus:border-0 focus:ring-0"
