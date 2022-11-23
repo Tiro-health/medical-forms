@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IReference } from "FHIR/types";
+import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IReference } from "FHIR/types";
 import { Field, Formik, FormikHelpers } from "formik";
 import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse";
 import { FormikContainer } from "../FormContainer";
@@ -42,7 +42,7 @@ export interface ITreatmentVariablesQuestionnaireResponse extends IAbsractQuesti
         { linkId: "PROTHERTXSTARTDATE", answer: [IAnswerValueDate] },
         { linkId: "PROTHERTXSTOPDATE", answer: [IAnswerValueDate] },
         { linkId: "PROTHERTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SALVAGETXINI", answer: [IAnswerValueInteger] },
+        { linkId: "SALVAGETXINI", answer: [IAnswerValueBoolean] },
         { linkId: "SALVAGETX", answer: [IAnswerValueInteger] },
         { linkId: "SALVAGETXOTHER", answer: [IAnswerValueString] },
         { linkId: "SVRADPROTXDATE", answer: [IAnswerValueDate] },
@@ -99,7 +99,7 @@ export const initTreatmentVariables = (): ITreatmentVariablesQuestionnaireRespon
         { linkId: "PROTHERTXSTARTDATE", answer: [{ valueDate: undefined }] },
         { linkId: "PROTHERTXSTOPDATE", answer: [{ valueDate: undefined }] },
         { linkId: "PROTHERTXONGOING", answer: [{ valueInteger: undefined }] },
-        { linkId: "SALVAGETXINI", answer: [{ valueInteger: undefined }] },
+        { linkId: "SALVAGETXINI", answer: [{ valueBoolean: undefined }] },
         { linkId: "SALVAGETX", answer: [{ valueInteger: undefined }] },
         { linkId: "SALVAGETXOTHER", answer: [{ valueString: undefined }] },
         { linkId: "SVRADPROTXDATE", answer: [{ valueDate: undefined }] },

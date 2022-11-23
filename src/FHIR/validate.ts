@@ -8,7 +8,7 @@ export const integerFromString = coerce(integer(), string(), s => s === "" ? und
 export const integerFromStringWithDefault = (d: number) => coerce(integer(), string(), s => s === "" ? d : parseInt(s))
 export const optionalIntegerFromString = coerce(optional(integer()), string(), s => s === "" ? undefined : parseInt(s))
 
-export const booleanFromString = coerce(boolean(), string(), s => s === "1")
+export const booleanFromString = coerce(boolean(), string(), s => s === "true")
 export const optionalBooleanFromString = coerce(optional(boolean()), string(), s => s === "" ? undefined : s === "1")
 export const codingWithDefault = (c: ICoding) => coerce(defaulted(CodingModel, c), string(), () => undefined)
 export const quantityWithFixedUnitFromString = (unit: string) => coerce(object({ value: number(), unit: literal(unit) }), number(), v => ({ value: v, unit }))

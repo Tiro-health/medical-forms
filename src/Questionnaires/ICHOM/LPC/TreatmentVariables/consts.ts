@@ -1,4 +1,4 @@
-import { optionalBooleanFromString, optionalDateFromString, optionalIntegerFromString, optionalQuantityWithFixedUnitFromString } from "FHIR/validate"
+import { booleanFromString, optionalBooleanFromString, optionalDateFromString, optionalIntegerFromString, optionalQuantityWithFixedUnitFromString } from "FHIR/validate"
 import { array, coerce, string } from "superstruct"
 
 export const modelRecord = {
@@ -27,7 +27,7 @@ export const modelRecord = {
     "PROTHERTXSTARTDATE": optionalDateFromString,
     "PROTHERTXSTOPDATE": optionalDateFromString,
     "PROTHERTXONGOING": optionalBooleanFromString,
-    "SALVAGETXINI": optionalIntegerFromString,
+    "SALVAGETXINI": booleanFromString,
     "SALVAGETX": coerce(array(optionalIntegerFromString), string(), s => []),
     "SALVAGETXOTHER": string(),
     "SVRADPROTXDATE": optionalDateFromString,
