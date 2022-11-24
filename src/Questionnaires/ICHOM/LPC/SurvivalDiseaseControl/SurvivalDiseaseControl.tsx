@@ -46,7 +46,7 @@ export const initSurvivalDiseaseControl = (): ISurvivalDiseaseControlQuestionnai
         { linkId: "METADATE", answer: [{ valueDate: "" }] },
         { linkId: "BIOCHEM", answer: [{ valueBoolean: false }] },
         { linkId: "BIOCHEMDATE", answer: [{ valueDate: "" }] },
-        { linkId: "BIOCHEMPSA", answer: [{ valueQuantity: { value: undefined, unit: "ng/ml" } }] }
+        { linkId: "BIOCHEMPSA", answer: [{ valueQuantity: undefined }] }
     ]
 })
 

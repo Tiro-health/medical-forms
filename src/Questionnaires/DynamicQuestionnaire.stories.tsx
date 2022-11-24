@@ -26,78 +26,78 @@ Prefilled.args =
     subject: "patientId1234",
     questionnaire: "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
     initQuestionnaireResponse:
-    {
-        "resourceType": "QuestionnaireResponse",
-        "questionnaire": "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
-        "item": [
-            {
-                "linkId": "DIAGDATE",
-                "answer": [
-                    {
-                        "valueDate": "2021-06-20"
-                    }
-                ]
-            },
-            {
-                "linkId": "PSA",
-                "answer": [
-                    {
-                        "valueQuantity": {unit: "ng/ml", value: 21.2}
-                    }
-                ]
-            },
-            {
-                "linkId": "TNMCT",
-                "answer": [
-                    {
-                        "valueCoding": {code: "TNMCT/cT1c", display: "cT1c", system: "http://tiro.health/fhir/ichom"}
-                    }
-                ]
-            },
-            {
-                "linkId": "TNMCN",
-                "answer": [
-                    {
-                        "valueCoding": {code: "TNMCN/cN0", display: "cN0", system: "http://tiro.health/fhir/ichom"}
-                    }
-                ]
-            },
-            {
-                "linkId": "BIOPCORE",
-                "answer": [
-                    {
-                        "valueInteger": 3
-                    }
-                ]
-            },
-            {
-                "linkId": "BIOPPOS",
-                "answer": [
-                    {
-                        "valueInteger": 5
-                    }
-                ]
-            },
-            {
-                "linkId": "BIOPINVOL",
-                "answer": [{ valueQuantity: { value: undefined, unit: "%" } }]
-            },
-            {
-                "linkId": "GLEASONBIOP1",
-                "answer": [
-                    {
-                        valueInteger: 3
-                    }
-                ]
-            },
-            {
-                "linkId": "GLEASONBIOP2",
-                "answer": [
-                    {
-                        valueInteger: 4
-                    }
-                ]
-            }
-        ]
-    } as TiroQuestionnaireResponse
+        {
+            "resourceType": "QuestionnaireResponse",
+            "questionnaire": "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
+            "item": [
+                {
+                    "linkId": "DIAGDATE",
+                    "answer": [
+                        {
+                            "valueDate": "2021-06-20"
+                        }
+                    ]
+                },
+                {
+                    "linkId": "PSA",
+                    "answer": [
+                        {
+                            "valueQuantity": { unit: "ng/ml", value: 21.2 }
+                        }
+                    ]
+                },
+                {
+                    "linkId": "TNMCT",
+                    "answer": [
+                        {
+                            "valueCoding": { code: "TNMCT/cT1c", display: "cT1c", system: "http://tiro.health/fhir/ichom" }
+                        }
+                    ]
+                },
+                {
+                    "linkId": "TNMCN",
+                    "answer": [
+                        {
+                            "valueCoding": { code: "TNMCN/cN0", display: "cN0", system: "http://tiro.health/fhir/ichom" }
+                        }
+                    ]
+                },
+                {
+                    "linkId": "BIOPCORE",
+                    "answer": [
+                        {
+                            "valueInteger": 3
+                        }
+                    ]
+                },
+                {
+                    "linkId": "BIOPPOS",
+                    "answer": [
+                        {
+                            "valueInteger": 5
+                        }
+                    ]
+                },
+                {
+                    "linkId": "BIOPINVOL",
+                    "answer": [{ valueQuantity: undefined }]
+                },
+                {
+                    "linkId": "GLEASONBIOP1",
+                    "answer": [
+                        {
+                            valueInteger: 3
+                        }
+                    ]
+                },
+                {
+                    "linkId": "GLEASONBIOP2",
+                    "answer": [
+                        {
+                            valueInteger: 4
+                        }
+                    ]
+                }
+            ]
+        } as TiroQuestionnaireResponse
 }

@@ -29,12 +29,12 @@ export const initBaselineTumorFactors = (): IBaselineTumorFactorsQuestionnaireRe
     questionnaire: QUESTIONNAIRE_ID,
     item: [
         { linkId: "DIAGDATE", answer: [{ valueDate: undefined }] },
-        { linkId: "PSA", answer: [{ valueQuantity: { unit: "ng/ml", value: undefined } }] },
+        { linkId: "PSA", answer: [{ valueQuantity: undefined }] },
         { linkId: "TNMCT", answer: [{ valueCoding: undefined, }] },
         { linkId: "TNMCN", answer: [{ valueCoding: undefined }] },
         { linkId: "BIOPCORE", answer: [{ valueInteger: undefined }] },
         { linkId: "BIOPPOS", answer: [{ valueInteger: undefined }] },
-        { linkId: "BIOPINVOL", answer: [{ valueQuantity: { value: undefined, unit: "%" } }] },
+        { linkId: "BIOPINVOL", answer: [{ valueQuantity: undefined }] },
         { linkId: "GLEASONBIOP1", answer: [{ valueInteger: undefined }] },
         { linkId: "GLEASONBIOP2", answer: [{ valueInteger: undefined }] },
     ]

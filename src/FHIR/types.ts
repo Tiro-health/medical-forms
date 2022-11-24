@@ -1,7 +1,7 @@
 import { R4 } from "@ahryman40k/ts-fhir-types"
-import { boolean, Describe, Infer, integer, number, object, optional, string, union, array, literal, Struct, tuple, is, date } from "superstruct";
+import { boolean, Describe, Infer, integer, number, object, optional, string, union, array, literal, Struct, tuple, is, date, nullable } from "superstruct";
 
-export const QuantityModel = object({ value: optional(number()), unit: optional(string()) })
+export const QuantityModel = object({ value: number(), unit: string() })
 //export interface IQuantity {
 //value: number | undefined;
 //unit?: string;
@@ -10,7 +10,7 @@ export type IQuantity = Infer<typeof QuantityModel>
 
 export const CodingModel = object({ system: string(), code: string(), display: string() })
 
-export const AnswerValueQuantityModel = object({ valueQuantity: QuantityModel })
+export const AnswerValueQuantityModel = object({ valueQuantity: optional(QuantityModel) })
 export const AnswerValueDateModel = object({ valueDate: optional(string()) })
 export const AnswerValueBooleanModel = object({ valueBoolean: optional(boolean()) })
 export const AnswerValueCodingModel = object({ valueCoding: optional(CodingModel) })
