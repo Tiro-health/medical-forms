@@ -922,7 +922,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     </table>
                                 </div>
                             </QuestionWrapper>)}
-                        {values.SALVAGETX !== "" && values.SALVAGETX.includes("1") && (
+                        {values.SALVAGETXINI && values.SALVAGETX !== "" && values.SALVAGETX.includes("1") && (
                             <QuestionWrapper>
                                 <div className="col-span-1">
                                     <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details radical prostectomy</legend>
@@ -951,7 +951,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     </div>
                                 </div>
                             </QuestionWrapper>)}
-                        {values.SALVAGETX !== "" && values.SALVAGETX.includes("2") && (
+                        {values.SALVAGETXINI && values.SALVAGETX !== "" && values.SALVAGETX.includes("2") && (
                             <QuestionWrapper>
                                 <div className="col-span-1">
                                     <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details EBRT</legend>
@@ -1002,7 +1002,7 @@ export const TreatmentVariables = ({ author, subject, onSubmit, title = "Threatm
                                     </div>
                                 </div>
                             </QuestionWrapper>)}
-                        {values.SALVAGETX !== "" && values.SALVAGETX.includes("3") && (
+                        {values.SALVAGETXINI && values.SALVAGETX !== "" && values.SALVAGETX.includes("3") && (
                             <QuestionWrapper>
                                 <div className="col-span-1">
                                     <legend className="block text-base font-semibold text-gray-700 sm:mt-px sm:pt-2">Details brachytherapy</legend>
