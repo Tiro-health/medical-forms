@@ -2,6 +2,7 @@ import React from "react"
 import { IQuestionnaire } from "FHIR/types";
 import { AcuteComplicationsOfTreatment, IAcuteComplicationsOfTreatmentQuestionnaireResponse, BaselineTumorFactors, IBaselineTumorFactorsQuestionnaireResponse, PathologyInformation, PatientReportedHealthStatus, SurvivalDiseaseControl, ISurvivalDiseaseControlQuestionnaireReponse, TreatmentVariables, IPatientReportedHealthStatusQuestionnaireResponse, ITreatmentVariablesQuestionnaireResponse, IPathologyInformationQuestionnaireResponse } from "./ICHOM/LPC";
 import { IQuestionnaireProps, TiroQuestionnaireResponse } from "./QuestionnaireResponse";
+import { IPatientFactorsQuestionnaireResponse, PatientFactors } from "./ICHOM/LPC/PatientFactors";
 
 export const questionnaires = [
     "http://tiro.health/fhir/Questionnaire/ichom-lpc-baseline-tumor-factors|0.1",
@@ -78,5 +79,7 @@ export const DynamicQuestionnaire = ({ questionnaire, ...props }: IQuestionnaire
             return <SurvivalDiseaseControl {...props as IQuestionnaireProps<ISurvivalDiseaseControlQuestionnaireReponse>} />
         case "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-reported-health-status|0.1":
             return <PatientReportedHealthStatus {...props as IQuestionnaireProps<IPatientReportedHealthStatusQuestionnaireResponse>} />
+        case "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-factors|0.1":
+            return <PatientFactors {...props as IQuestionnaireProps<IPatientFactorsQuestionnaireResponse>} />
     }
 }

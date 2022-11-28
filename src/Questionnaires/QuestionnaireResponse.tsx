@@ -15,7 +15,7 @@ export interface TiroQuestionnaireResponse extends IQuestionnaireResponse {
     questionnaire: TiroQuestionnaireCanonical
 }
 
-export const initQuestionnaireResponse = (): Pick<TiroQuestionnaireResponse, "identifier" | "resourceType"> => (
+export const initQuestionnaireResponse = (): Pick<TiroQuestionnaireResponse, "identifier" | "resourceType"> => (
     {
         identifier: { value: uuid.genV4().urn },
         resourceType: "QuestionnaireResponse",
@@ -100,8 +100,8 @@ export const useQuestionnaireResponseItem = <T extends {}>() => {
 export interface IQuestionnaireProps<QR extends IQuestionnaireResponse> {
     title?: string
     hideTitle?: boolean
-    disabled?:boolean
-    subject?: string |IPatientReference 
+    disabled?: boolean
+    subject?: string | IPatientReference
     author?: string | IPractitionerReference,
     initQuestionnaireResponse?: QR
     onSubmit?: (qr: QR) => any

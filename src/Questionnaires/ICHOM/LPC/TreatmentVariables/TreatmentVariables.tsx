@@ -7,13 +7,13 @@ import { modelRecord } from "./consts";
 import { create, object } from "superstruct";
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate";
 import { QuestionWrapper } from "../QuestionWrapper";
-import { IAbsractQuestionnaireResponse } from "../types";
+import { IAbstractQuestionnaireResponse } from "../types";
 
 const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1"
 type TreatmentVariablesField = keyof typeof modelRecord
 type TreatmentVariablesRecord = Record<TreatmentVariablesField, string>
 
-export interface ITreatmentVariablesQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
+export interface ITreatmentVariablesQuestionnaireResponse extends IAbstractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
     resourceType: "QuestionnaireResponse"
     questionnaire: typeof QUESTIONNAIRE_ID
     item: IQuestionnaireResponseItem[]

@@ -5,7 +5,7 @@ import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/Q
 import { FormikContainer } from "../FormContainer"
 import { literal, object, tuple, Infer, create } from "superstruct"
 import { QuestionWrapper } from "../QuestionWrapper"
-import { IAbsractQuestionnaireResponse } from "../types"
+import { IAbstractQuestionnaireResponse } from "../types"
 import { modelRecord } from "./consts"
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate"
 
@@ -27,7 +27,7 @@ export const SurvivalDiseaseControlModel = object({
         object({ linkId: literal("BIOCHEMPSA"), answer: tuple([AnswerValueQuantityModel]) })
     ])
 })
-export interface ISurvivalDiseaseControlQuestionnaireReponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
+export interface ISurvivalDiseaseControlQuestionnaireReponse extends IAbstractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
     resourceType: "QuestionnaireResponse",
     subject?: IPatientReference
     author?: IPractitionerReference

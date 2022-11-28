@@ -4,7 +4,7 @@ import { IQuestionnaireResponseItem, IReference } from "FHIR/types"
 import { FormikContainer } from "../FormContainer"
 import { object, create } from "superstruct"
 import { modelRecord } from "./consts"
-import { IAbsractQuestionnaireResponse } from "../types"
+import { IAbstractQuestionnaireResponse } from "../types"
 import { Field, Formik, FormikHelpers } from "formik"
 import { convertQRItemsToRecord, convertRecordToQRItems } from "FHIR/validate"
 import { PN_OPTIONS, PT_OPTIONS } from "./consts"
@@ -15,7 +15,7 @@ const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-pathol
 type PathologyInformationField = keyof typeof modelRecord
 type PathologyInformationRecord = Record<PathologyInformationField, string>
 
-export interface IPathologyInformationQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
+export interface IPathologyInformationQuestionnaireResponse extends IAbstractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
     questionnaire: typeof QUESTIONNAIRE_ID
     item: IQuestionnaireResponseItem[]
 }

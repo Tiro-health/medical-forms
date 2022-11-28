@@ -6,6 +6,7 @@ export const QuantityModel = object({ value: number(), unit: string() })
 //value: number | undefined;
 //unit?: string;
 //}
+export type IIdentifier = R4.IIdentifier
 export type IQuantity = Infer<typeof QuantityModel>
 
 export const CodingModel = object({ system: string(), code: string(), display: string() })

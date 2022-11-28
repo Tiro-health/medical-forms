@@ -8,13 +8,13 @@ import { FormikContainer } from "../FormContainer"
 import _ from "lodash"
 import { modelRecord } from "./consts"
 import { QuestionWrapper } from "../QuestionWrapper"
-import { IAbsractQuestionnaireResponse } from "../types"
+import { IAbstractQuestionnaireResponse } from "../types"
 const QUESTIONNAIRE_ID = "http://tiro.health/fhir/Questionnaire/ichom-lpc-patient-factors|0.1"
 
 type PatientFactorsField = keyof typeof modelRecord
 type PatientFactorsRecord = Record<PatientFactorsField, string>
 
-export interface IPatientFactorsQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
+export interface IPatientFactorsQuestionnaireResponse extends IAbstractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
     resourceType: "QuestionnaireResponse"
     subject?: IPatientReference
     author?: IPractitionerReference
