@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IReference } from "FHIR/types";
+import { IAnswerValueBoolean, IAnswerValueCoding, IAnswerValueDate, IAnswerValueInteger, IAnswerValueQuantity, IAnswerValueString, ICoding, IQuestionnaireResponseItem, IReference } from "FHIR/types";
 import { Field, Formik, FormikHelpers } from "formik";
 import { initQuestionnaireResponse, IQuestionnaireProps } from "Questionnaires/QuestionnaireResponse";
 import { FormikContainer } from "../FormContainer";
@@ -16,57 +16,7 @@ type TreatmentVariablesRecord = Record<TreatmentVariablesField, string>
 export interface ITreatmentVariablesQuestionnaireResponse extends IAbsractQuestionnaireResponse<typeof QUESTIONNAIRE_ID> {
     resourceType: "QuestionnaireResponse"
     questionnaire: typeof QUESTIONNAIRE_ID
-    item: [
-        { linkId: "PRIMARYTX", answer: [IAnswerValueInteger] },
-        { linkId: "PRWATCHDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRACTIVEDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRRADPROTXDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRNERVESPARE", answer: [IAnswerValueInteger] },
-        { linkId: "PREBRTTOTDOSE", answer: [IAnswerValueQuantity] },
-        { linkId: "PREBRTDOSEPERFRACT", answer: [IAnswerValueQuantity] },
-        { linkId: "PREBRTTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "PREBRTTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "PREBRTTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "PRBRACHYTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRBRACHYTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRBRACHYTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "PRBRACHYDOSERATE", answer: [IAnswerValueInteger] },
-        { linkId: "PRADTTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRADTTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRADTTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "PRIMARYTXFT", answer: [IAnswerValueString] },
-        { linkId: "PRFOCTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRFOCTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "PRFOCTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "PRIMARYTXOTHER", answer: [IAnswerValueString] },
-        { linkId: "PROTHERTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "PROTHERTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "PROTHERTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SALVAGETXINI", answer: [IAnswerValueBoolean] },
-        { linkId: "SALVAGETX", answer: [IAnswerValueInteger] },
-        { linkId: "SALVAGETXOTHER", answer: [IAnswerValueString] },
-        { linkId: "SVRADPROTXDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVNERVESPARE", answer: [IAnswerValueInteger] },
-        { linkId: "SVEBRTTOTDOSE", answer: [IAnswerValueQuantity] },
-        { linkId: "SVEBRTDOSEPERFRACT", answer: [IAnswerValueQuantity] },
-        { linkId: "SVEBRTTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVEBRTTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVEBRTTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SVBRACHYTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVBRACHYTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVBRACHYTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SVBRACHYDOSERATE", answer: [IAnswerValueInteger] },
-        { linkId: "SVADTTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVADTTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVADTTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SVFOCTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVFOCTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVFOCTXONGOING", answer: [IAnswerValueInteger] },
-        { linkId: "SVOTHERTXSTARTDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVOTHERTXSTOPDATE", answer: [IAnswerValueDate] },
-        { linkId: "SVOTHERTXONGOING", answer: [IAnswerValueInteger] },
-
-    ]
+    item: IQuestionnaireResponseItem[]
 }
 
 

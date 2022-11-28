@@ -1,4 +1,4 @@
-import { any, array, boolean, coerce, date, defaulted, empty, integer, is, literal, number, object, optional, string, Struct, union } from "superstruct"
+import { any, array, boolean, coerce, date, defaulted, empty, integer, is, literal, number, object, optional, string, Struct, union, validate, pattern } from "superstruct"
 import { CodingModel, IAnswerValue, ICoding, IQuestionnaireResponseItem, QuantityModel } from "./types"
 
 export const dateFromString = coerce(date(), string(), s => s === "" ? undefined : new Date(s))
@@ -33,8 +33,9 @@ export function mapToFHIRValueField(o: any) {
 export function mapToRecordValueField(o: unknown) {
     if (is(o, integer())) return o.toString()
     if (is(o, boolean())) return o
-    if (is(o, string())) return o
+    if (is(o, pattern(string(), /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+Z/))) return o.split("T")[0]
     if (is(o, date())) return o.toISOString().split("T")[0]
+    if (is(o, string())) return o
     if (is(o, QuantityModel)) return o.value ?? ""
     return o
 }

@@ -146,3 +146,283 @@ ValidateBugFix20221123.args = {
 }
 ValidateBugFix20221123.play = submit
 
+export const CustomFilledOut: Story<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>> = (args) => <Q {...args} />
+CustomFilledOut.args = {
+    initQuestionnaireResponse: {
+        "resourceType": "QuestionnaireResponse",
+        "questionnaire": "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1",
+        "item": [
+            {
+                "linkId": "PRIMARYTX",
+                "answer": [
+                    {
+                        "valueInteger": 1
+                    },
+                    {
+                        "valueInteger": 2
+                    },
+                    {
+                        "valueInteger": 3
+                    },
+                    {
+                        "valueInteger": 4
+                    },
+                    {
+                        "valueInteger": 7
+                    }
+                ]
+            },
+            {
+                "linkId": "PRWATCHDATE",
+                "answer": [
+                    {
+                        "valueDate": "2022-11-23T00:00:00.000Z"
+                    }
+                ]
+            },
+            {
+                "linkId": "PRACTIVEDATE",
+                "answer": [
+                    {
+                        "valueDate": "2022-11-12T00:00:00.000Z"
+                    }
+                ]
+            },
+            {
+                "linkId": "PRRADPROTXDATE",
+                "answer": [
+                    {
+                        "valueDate": "2022-11-25T00:00:00.000Z"
+                    }
+                ]
+            },
+            {
+                "linkId": "PRNERVESPARE",
+                "answer": [
+                    {
+                        "valueInteger": 1
+                    }
+                ]
+            },
+            {
+                "linkId": "PREBRTTOTDOSE",
+                "answer": [
+                    {
+                        "valueQuantity": {
+                            "value": 23,
+                            "unit": "Gray"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "PREBRTDOSEPERFRACT",
+                "answer": [
+                    {
+                        "valueQuantity": {
+                            "value": 50,
+                            "unit": "Gray"
+                        }
+                    }
+                ]
+            },
+            {
+                "linkId": "PREBRTTXSTARTDATE",
+                "answer": [
+                    {
+                        "valueDate": "2022-11-23T00:00:00.000Z"
+                    }
+                ]
+            },
+            {
+                "linkId": "PREBRTTXSTOPDATE",
+                "answer": [
+                    {
+                        "valueDate": "2022-11-28T00:00:00.000Z"
+                    }
+                ]
+            },
+            {
+                "linkId": "PREBRTTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "PRBRACHYTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PRBRACHYTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PRBRACHYTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "PRBRACHYDOSERATE",
+                "answer": []
+            },
+            {
+                "linkId": "PRADTTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PRADTTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PRADTTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "PRIMARYTXFT",
+                "answer": [
+                    {
+                        "valueString": "test"
+                    }
+                ]
+            },
+            {
+                "linkId": "PRFOCTXSTARTDATE",
+                "answer": [
+                    {
+                        "valueDate": "2022-10-31T00:00:00.000Z"
+                    }
+                ]
+            },
+            {
+                "linkId": "PRFOCTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PRFOCTXONGOING",
+                "answer": [
+                    {
+                        "valueBoolean": true
+                    }
+                ]
+            },
+            {
+                "linkId": "PRIMARYTXOTHER",
+                "answer": [
+                    {
+                        "valueString": ""
+                    }
+                ]
+            },
+            {
+                "linkId": "PROTHERTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PROTHERTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "PROTHERTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "SALVAGETXINI",
+                "answer": [
+                    {
+                        "valueBoolean": false
+                    }
+                ]
+            },
+            {
+                "linkId": "SALVAGETX",
+                "answer": []
+            },
+            {
+                "linkId": "SALVAGETXOTHER",
+                "answer": [
+                    {
+                        "valueString": ""
+                    }
+                ]
+            },
+            {
+                "linkId": "SVRADPROTXDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVNERVESPARE",
+                "answer": []
+            },
+            {
+                "linkId": "SVEBRTTOTDOSE",
+                "answer": []
+            },
+            {
+                "linkId": "SVEBRTDOSEPERFRACT",
+                "answer": []
+            },
+            {
+                "linkId": "SVEBRTTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVEBRTTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVEBRTTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "SVBRACHYTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVBRACHYTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVBRACHYTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "SVBRACHYDOSERATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVADTTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVADTTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVADTTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "SVFOCTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVFOCTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVFOCTXONGOING",
+                "answer": []
+            },
+            {
+                "linkId": "SVOTHERTXSTARTDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVOTHERTXSTOPDATE",
+                "answer": []
+            },
+            {
+                "linkId": "SVOTHERTXONGOING",
+                "answer": []
+            }
+        ]
+    }
+}
+
