@@ -37,11 +37,13 @@ export interface IQuestionnaire extends R4.IQuestionnaire {
 export interface IQuestionnaireResponseItem extends R4.IQuestionnaireResponse_Item {
   linkId: string
   definition?: string
+  multiple?: boolean
   text?: string
   answer: IAnswerValue[]
 }
 export const QuestionnaireResponseItemModel: Describe<IQuestionnaireResponseItem> = object({
   linkId: string(),
+  multiple: optional(boolean()),
   definition: optional(string()),
   text: optional(string()),
   answer: array(union([AnswerValueBooleanModel, AnswerValueCodingModel, AnswerValueDateModel, AnswerValueDecimalModel, AnswerValueIntegerModel, AnswerValueQuantityModel, AnswerValueStringModel])),

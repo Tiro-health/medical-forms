@@ -43,7 +43,7 @@ export function mapToRecordValueField(o: unknown) {
 export function convertRecordToQRItems(o: Record<string, unknown>, initQrItems: IQuestionnaireResponseItem[] = []): IQuestionnaireResponseItem[] {
     const items: IQuestionnaireResponseItem[] = []
     Object.entries(o).forEach(([key, value], index) => {
-        let item = { linkId: key, answer: [] as IAnswerValue[] }
+        let item = { linkId: key, answer: [] as IAnswerValue[], multiple: is(value, array()) }
         try {
             if (is(value, array(any()))) {
                 value.forEach((v, i) => {
@@ -72,12 +72,12 @@ export function convertQRItemsToRecord(items: IQuestionnaireResponseItem[]) {
         if (item.answer.length === 0) {
             record = { ...record, [item.linkId]: "" }
         }
-        if ((item.answer.length === 1)) {
+        if ((item.answer.length === 1 && !item.multiple)) {
             for (const value of Object.values(item.answer[0])) {
                 record = { ...record, [item.linkId]: mapToRecordValueField(value) }
             }
         }
-        if ((item.answer.length > 1)) {
+        if ((item.answer.length > 1 || item.multiple)) {
             let valueArray: any[] = []
             record = { ...record, [item.linkId]: valueArray }
             for (const answer of item.answer) {

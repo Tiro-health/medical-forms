@@ -426,3 +426,62 @@ CustomFilledOut.args = {
     }
 }
 
+// Single primary treatment isn't recorded
+export const ValidateBugFix20221215: Story<IQuestionnaireProps<ITreatmentVariablesQuestionnaireResponse>> = (args) => <Q {...args} />
+ValidateBugFix20221215.args = {
+    initQuestionnaireResponse: {
+        "resourceType": "QuestionnaireResponse",
+        "questionnaire": "http://tiro.health/fhir/Questionnaire/ichom-lpc-treatment-variables|0.1",
+        "item": convertRecordToQRItems(create({
+            "PRIMARYTX": ["1"],
+            "PRWATCHDATE": "2022-12-14",
+            "PRACTIVEDATE": "",
+            "PRRADPROTXDATE": "",
+            "PRNERVESPARE": "",
+            "PREBRTTOTDOSE": "",
+            "PREBRTDOSEPERFRACT": "",
+            "PREBRTTXSTARTDATE": "",
+            "PREBRTTXSTOPDATE": "",
+            "PREBRTTXONGOING": "",
+            "PRBRACHYTXSTARTDATE": "",
+            "PRBRACHYTXSTOPDATE": "",
+            "PRBRACHYTXONGOING": "",
+            "PRBRACHYDOSERATE": "",
+            "PRADTTXSTARTDATE": "",
+            "PRADTTXSTOPDATE": "",
+            "PRADTTXONGOING": "",
+            "PRIMARYTXFT": "",
+            "PRFOCTXSTARTDATE": "",
+            "PRFOCTXSTOPDATE": "",
+            "PRFOCTXONGOING": "",
+            "PRIMARYTXOTHER": "",
+            "PROTHERTXSTARTDATE": "",
+            "PROTHERTXSTOPDATE": "",
+            "PROTHERTXONGOING": "",
+            "SALVAGETXINI": "",
+            "SALVAGETX": "",
+            "SALVAGETXOTHER": "",
+            "SVRADPROTXDATE": "",
+            "SVNERVESPARE": "",
+            "SVEBRTTOTDOSE": "",
+            "SVEBRTDOSEPERFRACT": "",
+            "SVEBRTTXSTARTDATE": "",
+            "SVEBRTTXSTOPDATE": "",
+            "SVEBRTTXONGOING": "",
+            "SVBRACHYTXSTARTDATE": "",
+            "SVBRACHYTXSTOPDATE": "",
+            "SVBRACHYTXONGOING": "",
+            "SVBRACHYDOSERATE": "",
+            "SVADTTXSTARTDATE": "",
+            "SVADTTXSTOPDATE": "",
+            "SVADTTXONGOING": "",
+            "SVFOCTXSTARTDATE": "",
+            "SVFOCTXSTOPDATE": "",
+            "SVFOCTXONGOING": "",
+            "SVOTHERTXSTARTDATE": "",
+            "SVOTHERTXSTOPDATE": "",
+            "SVOTHERTXONGOING": "",
+
+        }, object(modelRecord))) as ITreatmentVariablesQuestionnaireResponse["item"]
+    }
+}

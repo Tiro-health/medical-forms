@@ -2,7 +2,7 @@ import { booleanFromString, optionalBooleanFromString, optionalDateFromString, o
 import { array, coerce, string } from "superstruct"
 
 export const modelRecord = {
-    "PRIMARYTX": coerce(array(optionalIntegerFromString), string(), s => []),
+    "PRIMARYTX": coerce(array(optionalIntegerFromString), string(), s => [s]),
     "PRWATCHDATE": optionalDateFromString,
     "PRACTIVEDATE": optionalDateFromString,
     "PRRADPROTXDATE": optionalDateFromString,
